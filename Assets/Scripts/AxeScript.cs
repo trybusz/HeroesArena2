@@ -18,7 +18,7 @@ public class AxeScript : MonoBehaviour
     {
         if (timeOfInst - airTime + 0.0125f < Time.timeSinceLevelLoad)//Stupid to avoid self collision
         {
-            TestDamage td = other.GetComponent<TestDamage>();
+            CharacterParent td = other.GetComponent<CharacterParent>();
             if (td != null)
             {
                 td.TakeDamage(axeDamage);
