@@ -189,7 +189,7 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 5949173988350697407, guid: 2c038b0c4f3642f4b92caf5c3624c86d, type: 3}
+  m_PlayerPrefab: {fileID: 3043311118770049483, guid: d3958f6e2d07011418bc32c94029ea5d, type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
@@ -210,7 +210,6 @@ GameObject:
   - component: {fileID: 1544558713}
   - component: {fileID: 1544558712}
   - component: {fileID: 1544558711}
-  - component: {fileID: 1544558714}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
@@ -311,27 +310,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1544558714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1544558709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e10cb766a2ab8d468de196b4e1074c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 250
-  weapon: {fileID: 0}
-  weaponHitbox: {fileID: 0}
-  rotatePoint: {fileID: 0}
-  charSpeed: 4
-  maxCharHealth: 150
-  currentCharHealth: 150
-  projectileSpeed: 10
-  firePoint: {fileID: 0}
 --- !u!1 &2114723978
 GameObject:
   m_ObjectHideFlags: 0

@@ -462,6 +462,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c9fabb09-5895-4898-8942-a2327a26508b
     m_ActionName: Player/Y Button
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e59c891e-5d8f-4129-bec5-53db84c5dbe3
+    m_ActionName: Player/DpadDown[/XInputControllerWindows/dpad/down,/XInputControllerWindows1/dpad/down]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 544f7641-0ed3-4a85-8a83-040842cb515c
+    m_ActionName: Player/DpadUp[/XInputControllerWindows/dpad/up,/XInputControllerWindows1/dpad/up]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Xbox Controller
   m_DefaultActionMap: Player
@@ -481,6 +489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 4850657529292065140}
   dashHitbox: {fileID: 4236134155616706276}
+  dashing: 0
   rotatePoint: {fileID: 7458163805570161142}
   charSpeed: 4
   charSpeedMod: 1
