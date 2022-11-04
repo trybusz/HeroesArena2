@@ -31,9 +31,9 @@ public class PlayerMaster : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        charPrefab1 = Instantiate(charPrefab1, new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0), this.transform);
-        charPrefab2 = Instantiate(charPrefab2, new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0), this.transform);
-        charPrefab3 = Instantiate(charPrefab3, new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0), this.transform);
+        charPrefab1 = Instantiate(charPrefab1, new Vector3(10, 0, 0), new Quaternion(0, 0, 0, 0), this.transform);
+        charPrefab2 = Instantiate(charPrefab2, new Vector3(10, 0, 0), new Quaternion(0, 0, 0, 0), this.transform);
+        charPrefab3 = Instantiate(charPrefab3, new Vector3(10, 0, 0), new Quaternion(0, 0, 0, 0), this.transform);
         
         //default character #1
         activePrefab = charPrefab1;
