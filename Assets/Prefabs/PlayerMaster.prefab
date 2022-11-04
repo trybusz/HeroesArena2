@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1008954810249525548}
   - component: {fileID: 5839613535102133406}
-  - component: {fileID: 3677194670889057782}
+  - component: {fileID: -4231450839511228816}
   m_Layer: 0
   m_Name: PlayerMaster
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5839613535102133406
 MonoBehaviour:
@@ -48,8 +48,12 @@ MonoBehaviour:
   cursor: {fileID: 0}
   charPrefab1: {fileID: 2661587610736863802, guid: 467e752b05bda914595c97172e6d5c40, type: 3}
   charPrefab2: {fileID: 5949173988350697407, guid: 2c038b0c4f3642f4b92caf5c3624c86d, type: 3}
-  charPrefab3: {fileID: 2661587610736863802, guid: 467e752b05bda914595c97172e6d5c40, type: 3}
---- !u!114 &3677194670889057782
+  charPrefab3: {fileID: 5949173988350697407, guid: 2c038b0c4f3642f4b92caf5c3624c86d, type: 3}
+  movementInput: {x: 0, y: 0}
+  aimInput: {x: 0, y: 0}
+  normalAttackInput: 0
+  specialAttackInput: 0
+--- !u!114 &-4231450839511228816
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -75,21 +79,69 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5839613535102133406}
+        m_TargetAssemblyTypeName: PlayerMaster, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 68d45594-f284-4208-b4a6-fc6b8f267a53
-    m_ActionName: Player/Movement[/XInputControllerWindows/leftStick]
+    m_ActionName: Player/Movement[/XInputControllerWindows1/leftStick,/XInputControllerWindows/leftStick]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5839613535102133406}
+        m_TargetAssemblyTypeName: PlayerMaster, Assembly-CSharp
+        m_MethodName: OnAim
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 6258e6de-600d-4364-a44b-3d59f60eb80f
-    m_ActionName: Player/Aiming[/XInputControllerWindows/rightStick]
+    m_ActionName: Player/Aiming[/XInputControllerWindows1/rightStick,/XInputControllerWindows/rightStick]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5839613535102133406}
+        m_TargetAssemblyTypeName: PlayerMaster, Assembly-CSharp
+        m_MethodName: OnNormalAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 29811add-dc9f-4d76-884a-d3b3df231e24
-    m_ActionName: Player/Normal Attack[/XInputControllerWindows/rightShoulder]
+    m_ActionName: Player/Normal Attack[/XInputControllerWindows1/rightShoulder,/XInputControllerWindows/rightShoulder]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5839613535102133406}
+        m_TargetAssemblyTypeName: PlayerMaster, Assembly-CSharp
+        m_MethodName: OnSpecialAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: f4791885-e6ff-4867-8a20-2a3e6833ba0c
-    m_ActionName: Player/Special Attack[/XInputControllerWindows/leftShoulder]
+    m_ActionName: Player/Special Attack[/XInputControllerWindows1/leftShoulder,/XInputControllerWindows/leftShoulder]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5839613535102133406}
@@ -105,7 +157,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: ccb22d1d-6940-436d-a5f3-99fe183589b3
-    m_ActionName: Player/A Button[/XInputControllerWindows/buttonSouth]
+    m_ActionName: Player/A Button[/XInputControllerWindows1/buttonSouth,/XInputControllerWindows/buttonSouth]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5839613535102133406}
@@ -121,7 +173,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: fc077f01-37d7-464f-b904-e6f757337774
-    m_ActionName: Player/B Button[/XInputControllerWindows/buttonEast]
+    m_ActionName: Player/B Button[/XInputControllerWindows1/buttonEast,/XInputControllerWindows/buttonEast]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5839613535102133406}
@@ -137,21 +189,21 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 3c0f5dfc-0ecb-4cdb-8715-05967e93b446
-    m_ActionName: Player/X Button[/XInputControllerWindows/buttonWest]
+    m_ActionName: Player/X Button[/XInputControllerWindows1/buttonWest,/XInputControllerWindows/buttonWest]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: c9fabb09-5895-4898-8942-a2327a26508b
-    m_ActionName: Player/Y Button[/XInputControllerWindows/buttonNorth]
+    m_ActionName: Player/Y Button[/XInputControllerWindows1/buttonNorth,/XInputControllerWindows/buttonNorth]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: e59c891e-5d8f-4129-bec5-53db84c5dbe3
-    m_ActionName: Player/DpadDown[/XInputControllerWindows/dpad/down]
+    m_ActionName: Player/DpadDown[/XInputControllerWindows1/dpad/down,/XInputControllerWindows/dpad/down]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 544f7641-0ed3-4a85-8a83-040842cb515c
-    m_ActionName: Player/DpadUp[/XInputControllerWindows/dpad/up]
+    m_ActionName: Player/DpadUp[/XInputControllerWindows1/dpad/up,/XInputControllerWindows/dpad/up]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Gamepad
+  m_DefaultControlScheme: Xbox Controller
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

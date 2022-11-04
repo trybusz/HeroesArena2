@@ -18,10 +18,10 @@ public class AxeScript : MonoBehaviour
     {
         if (timeOfInst - airTime + 0.0125f < Time.timeSinceLevelLoad)//Stupid to avoid self collision
         {
-            CharacterParent td = other.GetComponent<CharacterParent>();
-            if (td != null)
+            CharacterParent cp = other.GetComponent<CharacterParent>();
+            if (cp != null)
             {
-                td.TakeDamage(axeDamage);
+                cp.TakeDamage(axeDamage);
             }
             Destroy(gameObject);
         }

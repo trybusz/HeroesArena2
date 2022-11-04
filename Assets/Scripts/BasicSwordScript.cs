@@ -19,10 +19,10 @@ public class BasicSwordScript : MonoBehaviour
         //Debug.Log(other != this.transform.root);
         //if (other != this.transform.root)//Check so self can't take damage
         //{
-            TestDamage td = other.GetComponent<TestDamage>();
-            if (td != null)
+            CharacterParent cp = other.GetComponent<CharacterParent>();
+            if (cp != null)
             {
-                td.TakeDamage(damage);
+                cp.TakeDamage(damage);
             }
         //}
     }

@@ -233,7 +233,6 @@ GameObject:
   - component: {fileID: 5267320929023566140}
   - component: {fileID: 951401563572829341}
   - component: {fileID: 1004273314750696255}
-  - component: {fileID: 3265946700891706399}
   - component: {fileID: 3008457809395865658}
   m_Layer: 0
   m_Name: NinjaPrefab
@@ -357,124 +356,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3265946700891706399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5949173988350697407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: a797df63bbb0ee34d95d37e7464aaefa, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3008457809395865658}
-        m_TargetAssemblyTypeName: NinjaController, Assembly-CSharp
-        m_MethodName: OnMove
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 68d45594-f284-4208-b4a6-fc6b8f267a53
-    m_ActionName: Player/Movement
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3008457809395865658}
-        m_TargetAssemblyTypeName: NinjaController, Assembly-CSharp
-        m_MethodName: OnAim
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 6258e6de-600d-4364-a44b-3d59f60eb80f
-    m_ActionName: Player/Aiming
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3008457809395865658}
-        m_TargetAssemblyTypeName: NinjaController, Assembly-CSharp
-        m_MethodName: OnNormalAttack
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 29811add-dc9f-4d76-884a-d3b3df231e24
-    m_ActionName: Player/Normal Attack
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3008457809395865658}
-        m_TargetAssemblyTypeName: NinjaController, Assembly-CSharp
-        m_MethodName: OnSpecialAttack
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: f4791885-e6ff-4867-8a20-2a3e6833ba0c
-    m_ActionName: Player/Special Attack
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: ccb22d1d-6940-436d-a5f3-99fe183589b3
-    m_ActionName: Player/A Button
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: fc077f01-37d7-464f-b904-e6f757337774
-    m_ActionName: Player/B Button
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 3c0f5dfc-0ecb-4cdb-8715-05967e93b446
-    m_ActionName: Player/X Button
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: c9fabb09-5895-4898-8942-a2327a26508b
-    m_ActionName: Player/Y Button
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e59c891e-5d8f-4129-bec5-53db84c5dbe3
-    m_ActionName: Player/DpadDown[/XInputControllerWindows/dpad/down,/XInputControllerWindows1/dpad/down]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 544f7641-0ed3-4a85-8a83-040842cb515c
-    m_ActionName: Player/DpadUp[/XInputControllerWindows/dpad/up,/XInputControllerWindows1/dpad/up]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Xbox Controller
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!114 &3008457809395865658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,6 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53102eed8870c54bac8e3bda4fec38e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 250
   weapon: {fileID: 4850657529292065140}
   dashHitbox: {fileID: 4236134155616706276}
   dashing: 0
@@ -500,6 +382,7 @@ MonoBehaviour:
   firePoint2: {fileID: 8014414706280186675}
   firePoint3: {fileID: 8940730659555634710}
   starPrefab: {fileID: 1936333709747849255, guid: c72fbe26856e1994f81518cabbe71327, type: 3}
+  activePrefab: 0
 --- !u!1 &7458163805570161142
 GameObject:
   m_ObjectHideFlags: 0
