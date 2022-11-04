@@ -2,25 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class MenuControl : MonoBehaviour
 {
     //Declare Variables
     public GameObject SelPlay, SelOptions, SelCredits, SelQuit;
     public int MenuSelection = 1; //Used to rotate selection
-    // Start is called before the first frame update
-    void Start()
+    //A Button
+    private bool SelPress = false;
+    //B Button
+    private bool BackPress = false;
+    private bool upPress = false;
+    private bool downPress = false;
+
+
+    public void OnDpadDown(InputAction.CallbackContext context)
     {
-        
+        if (context.performed) { downPress = true; }
+            
+        else if (context.canceled) { downPress = false; }
+            /* released */
+    }
+    public void OnDpadUp(InputAction.CallbackContext context)
+    {
+        upPress = context.performed;
+    }
+    public void OnAButton(InputAction.CallbackContext context)
+    {
+        SelPress = context.performed;
+    }
+    public void OnBButton(InputAction.CallbackContext context)
+    {
+        BackPress = context.performed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        bool upPress = Input.GetKeyDown("w");
-        bool downPress = Input.GetKeyDown("s");
-        bool SelPress = Input.GetKeyDown("j");//like an a button
-        bool BackPress = Input.GetKeyDown("k");//like a b button
+        
         //Use new input system here
         //Cycles through the possible numbers
         if (upPress && MenuSelection != 1)

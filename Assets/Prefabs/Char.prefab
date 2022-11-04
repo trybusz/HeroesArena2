@@ -298,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02598049f4c38304cbe2ac2ce3be6d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 250
   weapon: {fileID: 1616915985588843724}
   weaponHitbox: {fileID: 5524131678815054689}
   rotatePoint: {fileID: 1288264356022283379}
@@ -310,6 +311,11 @@ MonoBehaviour:
   firePoint: {fileID: 1130543830276879165}
   axePrefab: {fileID: 7593699978800155979, guid: 0ebdb2e98b06832498f15838e65edbcc, type: 3}
   axePlaceholder: {fileID: 3832724631235149041}
+  AButtonInput: 0
+  BButtonInput: 0
+  XButtonInput: 0
+  YButtonInput: 0
+  activePrefab: 0
 --- !u!114 &6571478448369066394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,6 +421,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c9fabb09-5895-4898-8942-a2327a26508b
     m_ActionName: Player/Y Button
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e59c891e-5d8f-4129-bec5-53db84c5dbe3
+    m_ActionName: Player/DpadDown[/XInputControllerWindows1/dpad/down]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 544f7641-0ed3-4a85-8a83-040842cb515c
+    m_ActionName: Player/DpadUp[/XInputControllerWindows1/dpad/up]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Xbox Controller
   m_DefaultActionMap: Player

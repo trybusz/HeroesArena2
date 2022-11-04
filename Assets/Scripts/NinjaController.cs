@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class NinjaController : MonoBehaviour
+public class NinjaController : CharacterParent
 {
     //Rotating Weapon
     public GameObject weapon;
@@ -62,43 +62,14 @@ public class NinjaController : MonoBehaviour
     //Y Button
     private bool YButtonInput = false;
 
+    public int activePrefab;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
     //Get Inputs
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        movementInput = context.ReadValue<Vector2>();
-    }
-    public void OnAim(InputAction.CallbackContext context)
-    {
-        aimInput = context.ReadValue<Vector2>();
-    }
-    public void OnNormalAttack(InputAction.CallbackContext context)
-    {
-        normalAttackInput = context.performed;
-    }
-    public void OnSpecialAttack(InputAction.CallbackContext context)
-    {
-        specialAttackInput = context.performed;
-    }
-    public void OnAButton(InputAction.CallbackContext context)
-    {
-        AButtonInput = context.performed;
-    }
-    public void OnBButton(InputAction.CallbackContext context)
-    {
-        BButtonInput = context.performed;
-    }
-    public void OnXButton(InputAction.CallbackContext context)
-    {
-        XButtonInput = context.performed;
-    }
-    public void OnYButton(InputAction.CallbackContext context)
-    {
-        YButtonInput = context.performed;
-    }
+    
     void ShootProjectile()
     {
         weapon.SetActive(false);
@@ -114,8 +85,30 @@ public class NinjaController : MonoBehaviour
         Rigidbody2D rb3 = star3.GetComponent<Rigidbody2D>();
         rb3.AddForce(firePoint3.transform.up * projectileSpeed, ForceMode2D.Impulse);
     }
+
+    public void TakeDamage(int damage)
+    {
+        currentCharHealth -= damage;
+
+        if (currentCharHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Update()
     {
+        movementInput = GetComponentInParent<PlayerMaster>().movementInput;
+
+        aimInput = GetComponentInParent<PlayerMaster>().aimInput;
+
+        normalAttackInput = GetComponentInParent<PlayerMaster>().normalAttackInput; ;
+
+        specialAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
+
+        //update health
+
+
         //Move Character
         if (dashing)
         {

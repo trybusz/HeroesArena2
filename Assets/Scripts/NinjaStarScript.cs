@@ -18,10 +18,10 @@ public class NinjaStarScript : MonoBehaviour
     {
         if (timeOfInst - airTime + 0.025f < Time.timeSinceLevelLoad)//Stupid to avoid self collision
         {
-            TestDamage td = other.GetComponent<TestDamage>();
-            if (td != null)
+            CharacterParent cp = other.GetComponent<CharacterParent>();
+            if (cp != null)
             {
-                td.TakeDamage(damage);
+                cp.TakeDamage(damage);
             }
             Destroy(gameObject);
         }
