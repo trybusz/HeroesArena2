@@ -1,17 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class charControl : CharacterParent
-{
+public class TankController : CharacterParent
+{/*
     //Rotating Weapon
     public GameObject weapon;
-    public GameObject weaponHitbox;
-    //Point to Rotate stuff around
-    public GameObject rotatePoint;
-    //Swing Anim
-    public GameObject swingAnim;
+    public GameObject dashHitbox;
+    public GameObject weaponDashHitbox;
+    public GameObject dashIndicator;
+    public bool dashing;
     //Player RigidBody
     private Rigidbody2D rb;
     //Base character speed
@@ -27,8 +25,6 @@ public class charControl : CharacterParent
     //Aim Imput
     private Vector2 aimInput;
     //NORMAL ATTACK
-    //For swinging weapons
-    private bool weaponPos;
     //Normal Attack Button
     private bool normalAttackInput;
     //How long of a cooldown on normal attack
@@ -36,40 +32,27 @@ public class charControl : CharacterParent
     //Variable to measure cooldown
     private float normalAttackPauseTime;
     //SPECIAL ATTACK
-    //Special Attack Speed;
-    public float projectileSpeed;
-    //Transform for fire point
-    public GameObject firePoint;
-    //Axe Prefab
-    public GameObject axePrefab;
     //Special Attack Button
     private bool specialAttackInput;
     //How long of a cooldown on normal attack
     private static float specialAttackPause;
     //Variable to measure cooldown on special attack
     private float specialAttackPauseTime;
-    //Axe On Character Object
-    public GameObject axePlaceholder;
     //Angle to hold weapon, set by joystick
     float angle = 0.0f;
-    //Forward Angle, set by joystick
-    float swordAngle = 0.0f;
-    float lastSwordAngle = 0.0f;
     //Previous angle, to be used as a temp on angle
     float lastAngle = 0.0f;
     //A Button
-    public bool AButtonInput = false;
+    private bool AButtonInput = false;
     //B Button
-    public bool BButtonInput = false;
+    private bool BButtonInput = false;
     //X Button
-    public bool XButtonInput = false;
+    private bool XButtonInput = false;
     //Y Button
-    public bool YButtonInput = false;
+    private bool YButtonInput = false;
 
-    public int activePrefab;
-
-    //Animation Stuff
     public Animator animator;
+
     public bool isDead = false;
 
     public float KBtime = 0.0f;
@@ -77,31 +60,27 @@ public class charControl : CharacterParent
     Vector3 otherPos = Vector3.zero;
     private void Start()
     {
+
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
-        charSpeedMod = 0.75f;
-        maxCharHealth = 175;
-        currentCharHealth = 175;
+        dashing = false;
+        charSpeed = 5.0f;
+        charSpeedMod = 1.0f;
+        maxCharHealth = 100;
+        currentCharHealth = 100;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
-        weaponPos = false;
         normalAttackInput = false;
-        normalAttackPause = 0.7f;
+        normalAttackPause = 7.0f;
         normalAttackPauseTime = 0.0f;
-        projectileSpeed = 10.0f;
         specialAttackInput = false;
-        specialAttackPause = 4.0f;
+        specialAttackInput = false;
+        specialAttackPause = 0.4f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
-}
-    
-    void ShootProjectile()
-    {
-        axePlaceholder.SetActive(false);
-        GameObject axe = Instantiate(axePrefab, firePoint.transform.position, firePoint.transform.rotation);
-        Rigidbody2D rb = axe.GetComponent<Rigidbody2D>();
-        rb.AddForce(firePoint.transform.up * projectileSpeed, ForceMode2D.Impulse);
     }
+    //Get Inputs
+
 
     public void TakeDamage(int damage)
     {
@@ -125,75 +104,71 @@ public class charControl : CharacterParent
         otherPos = KBPosition;
     }
 
-    public void TakeKnockback(float knockback, Vector3 KBPosition)
-    {
-        rb.AddForce((rb.transform.position - KBPosition).normalized * -1 * knockback);
-    }
     void Update()
     {
         movementInput = GetComponentInParent<PlayerMaster>().movementInput;
 
         aimInput = GetComponentInParent<PlayerMaster>().aimInput;
 
-        normalAttackInput = GetComponentInParent<PlayerMaster>().normalAttackInput; ;
+        //I flipped normal and special input on this character
+        specialAttackInput = GetComponentInParent<PlayerMaster>().normalAttackInput; ;
 
-        specialAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
+        normalAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
+
+        //update health
 
 
-
-        //Move Character
-        if (KBtime > Time.timeSinceLevelLoad)
-        {
-            rb.velocity = new Vector2(rb.transform.position.x - otherPos.x, rb.transform.position.y - otherPos.y).normalized * charKnockback;
-        }
-        else
-        {
-            rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod;
-        }
-        
 
         //Animate Character
         animator.SetFloat("MoveX", Mathf.Abs(movementInput.x));
         animator.SetFloat("MoveY", Mathf.Abs(movementInput.y));
 
+        //Move Character
+        if (dashing)
+        {
+            dashHitbox.SetActive(true);
+            rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod * 10;
+        }
+        else if(KBtime > Time.timeSinceLevelLoad){
+            rb.velocity = new Vector2(rb.transform.position.x - otherPos.x, rb.transform.position.y - otherPos.y).normalized * charKnockback;
+        }
+        else
+        {
+            dashHitbox.SetActive(false);
+            rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod;
+        }
         //Rotate Weapon
-        weapon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, swordAngle + 45.0f));
+        weapon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Rotate Self
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        //Rotate Pivot Point
-        //Rotate Pivot Point
-        rotatePoint.transform.rotation = Quaternion.Euler(new Vector3(0, 0, swordAngle));
         //Rotate True Aim Point
-        firePoint.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        //If you click attack and you can attack, then attack
-        if(normalAttackPauseTime + 0.05 < Time.timeSinceLevelLoad + normalAttackPause)
+        firePoint1.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        firePoint2.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 10));
+        firePoint3.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 10));
+        //Make character dash
+        if (normalAttackPauseTime + 0.15f > Time.timeSinceLevelLoad + normalAttackPause)
         {
-            weaponHitbox.SetActive(false);
-            swingAnim.SetActive(false);
-            
+            dashing = true;
         }
-        if (normalAttackPauseTime - 0.05f < Time.timeSinceLevelLoad)
+        else
         {
-            weaponPos = false;
+            dashing = false;
         }
+
         if (normalAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            
+            dashIndicator.SetActive(true);
             if (normalAttackInput)
             {
-                weaponHitbox.SetActive(true);
-                swingAnim.SetActive(true);
+                dashIndicator.SetActive(false);
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
-                //This is for switching position of swinging weapons
-                weaponPos = true;
             }
 
         }
-
         if (specialAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            axePlaceholder.SetActive(true);
+            weapon.SetActive(true);
             if (specialAttackInput)
             {
                 //Set time till next attack
@@ -202,33 +177,21 @@ public class charControl : CharacterParent
                 ShootProjectile();
             }
         }
-        
 
 
         //Set angle of aim
         if (aimInput.x != 0 && aimInput.y != 0)
         {
             angle = Mathf.Atan2(-aimInput.x, aimInput.y) * Mathf.Rad2Deg;
-            swordAngle = angle;
-        }
-        else 
-        {
-            angle = lastAngle;
-            swordAngle = lastSwordAngle;
-        }
-        //Set last angle to be angle
-        lastAngle = angle;
-        lastSwordAngle = swordAngle;
-        //For the swing of a weapon
-        if (weaponPos)//save weapon position and esit that
-        {
-            swordAngle += 45;
         }
         else
         {
-            swordAngle -= 45;
+            angle = lastAngle;
         }
-        
+        //Set last angle to be angle
+        lastAngle = angle;
+        //For the swing of a weapon
 
-    }
+
+    }*/
 }

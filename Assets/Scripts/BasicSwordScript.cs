@@ -16,15 +16,12 @@ public class BasicSwordScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Debug.Log(other != this.transform.root);
-        //if (other != this.transform.root)//Check so self can't take damage
-        //{
             CharacterParent cp = other.GetComponent<CharacterParent>();
-            if (cp != null && cp != this.transform.root)
+            if (cp != null && !this.transform.IsChildOf(cp.transform))
             {
                 cp.TakeDamage(damage);
+                cp.TakeKnockback(20.0f, transform.parent.position, 0.1f);
             }
-        //}
     }
 
     // Update is called once per frame

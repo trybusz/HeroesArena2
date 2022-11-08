@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 public class CharacterParent : MonoBehaviour
 {
 
+    //THIS IS ACTUALLY A PARENT FOR ANYTHING THAT TAKES DAMAGE OR KNOCKBACK
+
     public int health = 150;
     // Start is called before the first frame update
    
@@ -68,7 +70,7 @@ public class CharacterParent : MonoBehaviour
         //rb = GetComponent<Rigidbody2D>();
     }
     
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         health -= damage;
 
@@ -76,6 +78,11 @@ public class CharacterParent : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public virtual void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
+    {
+        //Good base value to send are cp.TakeKnockback(20.0f, transform.parent.position, 0.1f);
     }
 }
 
