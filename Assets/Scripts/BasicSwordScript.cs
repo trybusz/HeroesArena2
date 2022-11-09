@@ -20,7 +20,7 @@ public class BasicSwordScript : MonoBehaviour
             if (cp != null && !this.transform.IsChildOf(cp.transform))
             {
                 cp.TakeDamage(damage);
-                cp.TakeKnockback(20.0f, transform.parent.position, 0.1f);
+                cp.TakeKnockback(10.0f, transform.parent.position, 0.05f);
             }
     }
 

@@ -109,7 +109,7 @@ public class ArcherController : CharacterParent
         rb.AddForce(firePoint.transform.up * projectileSpeed, ForceMode2D.Impulse);
     }
 
-    public void TakeDamage(int damage)
+    public override void TakeDamage(int damage)
     {
         currentCharHealth -= damage;
 

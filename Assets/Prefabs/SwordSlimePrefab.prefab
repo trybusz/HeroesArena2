@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4760662420497174635
 Transform:
   m_ObjectHideFlags: 0
@@ -261,6 +261,8 @@ MonoBehaviour:
   YButtonInput: 0
   activePrefab: 0
   animator: {fileID: 2081172438075490340}
+  isDead: 0
+  KBtime: 0
 --- !u!114 &6571478448369066394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -434,7 +436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3325358388760846499
 Transform:
   m_ObjectHideFlags: 0
