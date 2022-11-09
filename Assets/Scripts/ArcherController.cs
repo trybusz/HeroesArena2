@@ -131,13 +131,16 @@ public class ArcherController : CharacterParent
         otherPos = KBPosition;
     }
 
-    public void TakeKnockback(float knockback, Vector3 KBPosition)
-    {
-        rb.AddForce((rb.transform.position - KBPosition).normalized * -1 * knockback);
-    }
 
     void Update()
     {
+        //ForScoring
+        if (onCtrlPoint && scoreTime < Time.timeSinceLevelLoad)
+        {
+            scoreTime = Time.timeSinceLevelLoad + 1.0f;
+            thisCharScore++;
+        }
+
         movementInput = GetComponentInParent<PlayerMaster>().movementInput;
 
         aimInput = GetComponentInParent<PlayerMaster>().aimInput;

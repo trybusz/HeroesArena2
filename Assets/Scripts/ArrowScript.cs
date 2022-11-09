@@ -13,18 +13,21 @@ public class ArrowScript : MonoBehaviour
         airTime = 3.0f;
         damage = 75;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
-        //this.transform.Rotate(0.0f, 0.0f, 45.0f, Space.Self);
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        CharacterParent cp = other.GetComponent<CharacterParent>();
-        if (cp != null)
+        if (other.tag != "ControlPoint")
         {
-            cp.TakeDamage(damage);
+            CharacterParent cp = other.GetComponent<CharacterParent>();
+            if (cp != null)
+            {
+                cp.TakeDamage(damage);
+            }
+            Destroy(gameObject);
+            
         }
-        Destroy(gameObject);
-        //object1.transform.parent = object2.transform
     }
 
     // Update is called once per frame

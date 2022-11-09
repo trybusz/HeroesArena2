@@ -8,6 +8,7 @@ public class BombArrowScript : MonoBehaviour
     public float timeOfInst;
     public float airTime;
     public Rigidbody2D rb;
+    public GameObject explosionPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,26 +20,22 @@ public class BombArrowScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
-        
-        
-        CharacterParent cp = other.GetComponent<CharacterParent>();
-        if (cp != null && !this.transform.IsChildOf(cp.transform))
+        if (other.tag != "ControlPoint")
         {
-            cp.TakeDamage(damage);
-            //Destroy(this.gameObject);
-        }
-        if (this.transform.parent == null)
-        {
-            this.transform.parent = other.transform;
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = 0.0f;
-            rb.isKinematic = true;
-            //rb.Sleep();
-        }
-        else
-        {
-            //rb.position = this.transform.parent.position;
+            CharacterParent cp = other.GetComponent<CharacterParent>();
+            if (cp != null && !this.transform.IsChildOf(cp.transform))
+            {
+                cp.TakeDamage(damage);
+                //Destroy(this.gameObject);
+            }
+            if (this.transform.parent == null)
+            {
+                this.transform.parent = other.transform;
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = 0.0f;
+                rb.isKinematic = true;
+                //rb.Sleep();
+            }
         }
     }
 
@@ -47,7 +44,7 @@ public class BombArrowScript : MonoBehaviour
     {
         if (timeOfInst < Time.timeSinceLevelLoad)
         {
-            //Instantiate Explosion
+            Instantiate(explosionPrefab, this.transform.position, this.transform.rotation);
             Destroy(gameObject);
         }
     }

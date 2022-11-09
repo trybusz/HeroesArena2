@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &983564458309560264
+--- !u!1 &8181384668623505621
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2486615930593210885}
-  - component: {fileID: 830987078682874459}
-  - component: {fileID: 1101074770226511607}
-  - component: {fileID: 7354612047504772866}
-  - component: {fileID: 843581379383636011}
+  - component: {fileID: 6232628769168472167}
+  - component: {fileID: 6517222195926306741}
+  - component: {fileID: 6523405218632659560}
+  - component: {fileID: 2257629717236454566}
+  - component: {fileID: 3780621549798694968}
   m_Layer: 0
-  m_Name: BombArrow_Prefab
+  m_Name: CannonBallPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2486615930593210885
+--- !u!4 &6232628769168472167
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983564458309560264}
+  m_GameObject: {fileID: 8181384668623505621}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.752715, y: -0.55, z: 0}
+  m_LocalPosition: {x: -16.758305, y: -5.5365276, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &830987078682874459
+--- !u!212 &6517222195926306741
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983564458309560264}
+  m_GameObject: {fileID: 8181384668623505621}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -75,26 +75,26 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 15
-  m_Sprite: {fileID: -100474290, guid: 0b2ecb8ddb8c47c499c6769a0aedbde8, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 1764696526, guid: 43efdfa75e206ec49bb33e6184d7c231, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.296875, y: 0.296875}
+  m_Size: {x: 0.109375, y: 0.109375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &1101074770226511607
+--- !u!50 &6523405218632659560
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983564458309560264}
+  m_GameObject: {fileID: 8181384668623505621}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -106,48 +106,46 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
---- !u!61 &7354612047504772866
+--- !u!61 &2257629717236454566
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983564458309560264}
+  m_GameObject: {fileID: 8181384668623505621}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.115, y: 0.115}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.328125, y: 0.328125}
-    newSize: {x: 0.296875, y: 0.296875}
+    oldSize: {x: 0.109375, y: 0.109375}
+    newSize: {x: 0.109375, y: 0.109375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.06, y: 0.06}
+  m_Size: {x: 0.109375, y: 0.109375}
   m_EdgeRadius: 0
---- !u!114 &843581379383636011
+--- !u!114 &3780621549798694968
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983564458309560264}
+  m_GameObject: {fileID: 8181384668623505621}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8bdbbdc20d77d7439460ae7224fc759, type: 3}
+  m_Script: {fileID: 11500000, guid: 2363016fa300c3c4fb613da78369aa25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
   timeOfInst: 0
   airTime: 0
-  rb: {fileID: 1101074770226511607}
-  explosionPrefab: {fileID: 4613310846165665436, guid: 40f10dc1df68ba04e942d5d094fea23c, type: 3}

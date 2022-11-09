@@ -2,41 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AxeScript : MonoBehaviour
+public class CannonShot : MonoBehaviour
 {
-    public int axeDamage;
+    public int damage;
     public float timeOfInst;
     public float airTime;
-
     // Start is called before the first frame update
     void Start()
     {
-        airTime = 0.75f;
-        axeDamage = 35;
+        airTime = 3.0f;
+        damage = 250;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
+        //this.transform.Rotate(0.0f, 0.0f, 45.0f, Space.Self);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag != "ControlPoint")
         {
-            if (timeOfInst - airTime < Time.timeSinceLevelLoad)//Stupid to avoid self collision
+            CharacterParent cp = other.GetComponent<CharacterParent>();
+            if (cp != null)
             {
-                CharacterParent cp = other.GetComponent<CharacterParent>();
-                if (cp != null)
-                {
-                    cp.TakeDamage(axeDamage);
-                }
-                Destroy(gameObject);
+                cp.TakeDamage(damage);
             }
+            Destroy(gameObject);
         }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(0.0f, 0.0f, -1.0f, Space.Self);
-        if(timeOfInst < Time.timeSinceLevelLoad)
+        if (timeOfInst < Time.timeSinceLevelLoad)
         {
             Destroy(gameObject);
         }

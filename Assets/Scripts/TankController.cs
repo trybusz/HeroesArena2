@@ -69,7 +69,7 @@ public class TankController : CharacterParent
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
         dashing = false;
-        charSpeedMod = 0.6f;
+        charSpeedMod = 0.5f;
         maxCharHealth = 250;
         currentCharHealth = 250;
         maxShieldHealth = 250;
@@ -124,6 +124,14 @@ public class TankController : CharacterParent
 
     void Update()
     {
+        //ForScoring
+        if (onCtrlPoint && scoreTime < Time.timeSinceLevelLoad)
+        {
+            scoreTime = Time.timeSinceLevelLoad + 1.0f;
+            thisCharScore++;
+        }
+
+
         movementInput = GetComponentInParent<PlayerMaster>().movementInput;
 
         aimInput = GetComponentInParent<PlayerMaster>().aimInput;
@@ -155,7 +163,7 @@ public class TankController : CharacterParent
         //Move Character
         if (dashing)
         {
-            rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod * 3;
+            rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod * 4;
         }
         else if(KBtime > Time.timeSinceLevelLoad){//For knockback
             rb.velocity = new Vector2(rb.transform.position.x - otherPos.x, rb.transform.position.y - otherPos.y).normalized * charKnockback;

@@ -19,14 +19,17 @@ public class NinjaStarScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.tag != "ControlPoint")
+        {
             CharacterParent cp = other.GetComponent<CharacterParent>();
             if (cp != null)
             {
                 cp.TakeDamage(damage);
             }
-        if (!other.CompareTag("NinjaStar") && other != null)
-        {
-            Destroy(gameObject);
+            if (!other.CompareTag("NinjaStar") && other != null)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class charControl : CharacterParent
+public class PirateControl : CharacterParent
 {
     //Rotating Weapon
     public GameObject weapon;
+    public GameObject weapon2;
+    public GameObject weapon3;
     public GameObject weaponHitbox;
+    public GameObject weaponHitbox3;
     //Point to Rotate stuff around
     public GameObject rotatePoint;
     //Swing Anim
@@ -29,6 +32,8 @@ public class charControl : CharacterParent
     //NORMAL ATTACK
     //For swinging weapons
     private bool weaponPos;
+    //For swinging weapons
+    private int weaponPos2;
     //Normal Attack Button
     private bool normalAttackInput;
     //How long of a cooldown on normal attack
@@ -36,12 +41,10 @@ public class charControl : CharacterParent
     //Variable to measure cooldown
     private float normalAttackPauseTime;
     //SPECIAL ATTACK
-    //Special Attack Speed;
-    public float projectileSpeed;
     //Transform for fire point
     public GameObject firePoint;
     //Axe Prefab
-    public GameObject axePrefab;
+    public GameObject canonPrefab;
     //Special Attack Button
     private bool specialAttackInput;
     //How long of a cooldown on normal attack
@@ -49,7 +52,7 @@ public class charControl : CharacterParent
     //Variable to measure cooldown on special attack
     private float specialAttackPauseTime;
     //Axe On Character Object
-    public GameObject axePlaceholder;
+    public GameObject cannonPlaceholder;
     //Angle to hold weapon, set by joystick
     float angle = 0.0f;
     //Forward Angle, set by joystick
@@ -67,6 +70,7 @@ public class charControl : CharacterParent
     public bool YButtonInput = false;
 
     public int activePrefab;
+    public float swordCountTime = 0.0f;
 
     //Animation Stuff
     public Animator animator;
@@ -75,32 +79,33 @@ public class charControl : CharacterParent
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
+    Vector3 scaleChange = new Vector3(-2.0f, 2.0f, 1.0f);
+    Vector3 scaleChange2 = new Vector3(2.0f, 2.0f, 1.0f);
+    Vector3 scaleChange3 = new Vector3(1.75f, 1.75f, 1.75f);
+    Vector3 scaleChange4 = new Vector3(-1.75f, 1.75f, 1.75f);
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
-        charSpeedMod = 0.75f;
-        maxCharHealth = 175;
-        currentCharHealth = 175;
+        charSpeedMod = 0.65f;
+        maxCharHealth = 125;
+        currentCharHealth = 125;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         weaponPos = false;
         normalAttackInput = false;
-        normalAttackPause = 0.7f;
+        normalAttackPause = 1.0f;
         normalAttackPauseTime = 0.0f;
-        projectileSpeed = 10.0f;
         specialAttackInput = false;
-        specialAttackPause = 4.0f;
+        specialAttackPause = 14.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
-}
-    
+    }
+
     void ShootProjectile()
     {
-        axePlaceholder.SetActive(false);
-        GameObject axe = Instantiate(axePrefab, firePoint.transform.position, firePoint.transform.rotation);
-        Rigidbody2D rb = axe.GetComponent<Rigidbody2D>();
-        rb.AddForce(firePoint.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        cannonPlaceholder.SetActive(false);
+        Instantiate(canonPrefab, firePoint.transform.position, firePoint.transform.rotation);
     }
 
     public override void TakeDamage(int damage)
@@ -146,7 +151,7 @@ public class charControl : CharacterParent
 
 
         //Move Character
-        if (KBtime > Time.timeSinceLevelLoad)
+        if (KBtime > Time.timeSinceLevelLoad)//Knockback
         {
             rb.velocity = new Vector2(rb.transform.position.x - otherPos.x, rb.transform.position.y - otherPos.y).normalized * charKnockback;
         }
@@ -154,14 +159,14 @@ public class charControl : CharacterParent
         {
             rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod;
         }
-        
+
 
         //Animate Character
         animator.SetFloat("MoveX", Mathf.Abs(movementInput.x));
         animator.SetFloat("MoveY", Mathf.Abs(movementInput.y));
 
         //Rotate Weapon
-        weapon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, swordAngle + 45.0f));
+        weapon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, swordAngle));
         //Rotate Self
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Rotate Pivot Point
@@ -170,43 +175,77 @@ public class charControl : CharacterParent
         //Rotate True Aim Point
         firePoint.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //If you click attack and you can attack, then attack
-        if(normalAttackPauseTime + 0.05 < Time.timeSinceLevelLoad + normalAttackPause)
+        if (normalAttackPauseTime + 0.6 < Time.timeSinceLevelLoad + normalAttackPause)
+        {
+            weapon.SetActive(true);
+            weapon3.SetActive(false);
+            weaponHitbox3.SetActive(false);
+        }
+        else if(normalAttackPauseTime + 0.5 < Time.timeSinceLevelLoad + normalAttackPause)
+        {
+            weapon2.SetActive(false);
+            weapon3.SetActive(true);
+            weaponHitbox3.SetActive(true);
+        }
+        else if (normalAttackPauseTime + 0.4 < Time.timeSinceLevelLoad + normalAttackPause)
+        {
+            weapon.SetActive(false);
+            weapon2.SetActive(true);
+            weaponPos2 = 2;
+            weapon.transform.localScale = scaleChange2;//Flip Sword
+        }
+        else if (normalAttackPauseTime + 0.3 < Time.timeSinceLevelLoad + normalAttackPause)
         {
             weaponHitbox.SetActive(false);
             swingAnim.SetActive(false);
-            
+        }
+        else if (normalAttackPauseTime + 0.20 < Time.timeSinceLevelLoad + normalAttackPause)
+        {
+            swingAnim.transform.localScale = scaleChange3;//Flip Sword
+            weaponHitbox.SetActive(true);
+            swingAnim.SetActive(true);
+            weapon.transform.localScale = scaleChange;//Flip Sword
+            weaponPos2 = 0;
+        }
+        else if (normalAttackPauseTime + 0.10 < Time.timeSinceLevelLoad + normalAttackPause)
+        {
+            weaponHitbox.SetActive(false);
+            swingAnim.SetActive(false);
+
         }
         if (normalAttackPauseTime - 0.05f < Time.timeSinceLevelLoad)
         {
-            weaponPos = false;
+            weaponPos2 = 0;
         }
         if (normalAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            
+
             if (normalAttackInput)
             {
+                swingAnim.transform.localScale = scaleChange4;//Flip Sword
                 weaponHitbox.SetActive(true);
                 swingAnim.SetActive(true);
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
                 //This is for switching position of swinging weapons
-                weaponPos = true;
+                weaponPos2 = 1;
             }
 
         }
 
         if (specialAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            axePlaceholder.SetActive(true);
+            cannonPlaceholder.SetActive(true);
             if (specialAttackInput)
             {
+                cannonPlaceholder.SetActive(false);
                 //Set time till next attack
                 specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
                 //Shoot Axe here
                 ShootProjectile();
             }
         }
-        
+
 
 
         //Set angle of aim
@@ -215,7 +254,7 @@ public class charControl : CharacterParent
             angle = Mathf.Atan2(-aimInput.x, aimInput.y) * Mathf.Rad2Deg;
             swordAngle = angle;
         }
-        else 
+        else
         {
             angle = lastAngle;
             swordAngle = lastSwordAngle;
@@ -224,15 +263,19 @@ public class charControl : CharacterParent
         lastAngle = angle;
         lastSwordAngle = swordAngle;
         //For the swing of a weapon
-        if (weaponPos)//save weapon position and esit that
+        if (weaponPos2 == 0)//save weapon position and esit that
         {
             swordAngle += 45;
         }
-        else
+        else if(weaponPos2 == 1)
         {
             swordAngle -= 45;
         }
-        
+        else
+        {
+            swordAngle -= 0;
+        }
+
 
     }
 }

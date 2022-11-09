@@ -114,6 +114,14 @@ public class AssassinScript : CharacterParent
 
     void Update()
     {
+        //ForScoring
+        if (onCtrlPoint && scoreTime < Time.timeSinceLevelLoad)
+        {
+            scoreTime = Time.timeSinceLevelLoad + 1.0f;
+            thisCharScore++;
+        }
+
+
         movementInput = GetComponentInParent<PlayerMaster>().movementInput;
 
         aimInput = GetComponentInParent<PlayerMaster>().aimInput;
