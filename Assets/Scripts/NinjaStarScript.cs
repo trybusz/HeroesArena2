@@ -19,7 +19,7 @@ public class NinjaStarScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag != "ControlPoint")
+        if (other.tag != "ControlPoint" && other.tag != "WaterTag")
         {
             CharacterParent cp = other.GetComponent<CharacterParent>();
             if (cp != null)

@@ -20,7 +20,7 @@ public class BombArrowScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag != "ControlPoint")
+        if (other.tag != "ControlPoint" && other.tag != "WaterTag")
         {
             CharacterParent cp = other.GetComponent<CharacterParent>();
             if (cp != null && !this.transform.IsChildOf(cp.transform))

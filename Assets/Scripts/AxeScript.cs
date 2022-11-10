@@ -18,7 +18,7 @@ public class AxeScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag != "ControlPoint")
+        if (other.tag != "ControlPoint" && other.tag != "WaterTag")
         {
             if (timeOfInst - airTime < Time.timeSinceLevelLoad)//Stupid to avoid self collision
             {

@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursor: {fileID: 0}
-  charPrefab1: {fileID: 2661587610736863802, guid: 29f81d4b7f867244d82b4d14c75e937e, type: 3}
-  charPrefab2: {fileID: 4373622234520393807, guid: efdb15ed6f0529e4790e9e5dfdca28a1, type: 3}
-  charPrefab3: {fileID: 2348697349590635516, guid: f91f947d835f2c749950fe099ae967e9, type: 3}
+  charPrefab1: {fileID: 2661587610736863802, guid: c5eeadaba9075364dbf5b4b53937426a, type: 3}
+  charPrefab2: {fileID: 5949173988350697407, guid: 2c038b0c4f3642f4b92caf5c3624c86d, type: 3}
+  charPrefab3: {fileID: 2661587610736863802, guid: 467e752b05bda914595c97172e6d5c40, type: 3}
   movementInput: {x: 0, y: 0}
   aimInput: {x: 0, y: 0}
   normalAttackInput: 0
