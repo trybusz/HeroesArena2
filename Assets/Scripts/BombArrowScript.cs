@@ -20,7 +20,7 @@ public class BombArrowScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag != "ControlPoint" && other.tag != "WaterTag")
+        if (other.tag != "ControlPoint" && other.tag != "WaterTag" && other.tag != "BuffZone")
         {
             CharacterParent cp = other.GetComponent<CharacterParent>();
             if (cp != null && !this.transform.IsChildOf(cp.transform))
@@ -28,13 +28,17 @@ public class BombArrowScript : MonoBehaviour
                 cp.TakeDamage(damage);
                 //Destroy(this.gameObject);
             }
-            if (this.transform.parent == null)
+            if (!other.CompareTag("Hitbox") && other != null)
             {
-                this.transform.parent = other.transform;
-                rb.velocity = Vector3.zero;
-                rb.angularVelocity = 0.0f;
-                rb.isKinematic = true;
-                //rb.Sleep();
+                if (this.transform.parent == null)
+                {
+                    this.transform.parent = other.transform;
+                    rb.velocity = Vector3.zero;
+                    rb.angularVelocity = 0.0f;
+                    rb.isKinematic = true;
+                    //rb.Sleep();
+                }
+
             }
         }
     }

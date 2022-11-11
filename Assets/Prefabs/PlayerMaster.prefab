@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursor: {fileID: 0}
-  charPrefab1: {fileID: 2661587610736863802, guid: 467e752b05bda914595c97172e6d5c40, type: 3}
+  charPrefab1: {fileID: 6234237211672593098, guid: 5d30859696f23f94f9033c9b993109f9, type: 3}
   charPrefab2: {fileID: 5949173988350697407, guid: 2c038b0c4f3642f4b92caf5c3624c86d, type: 3}
   charPrefab3: {fileID: 2661587610736863802, guid: 467e752b05bda914595c97172e6d5c40, type: 3}
   movementInput: {x: 0, y: 0}

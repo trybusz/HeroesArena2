@@ -268,6 +268,9 @@ public class NinjaController : CharacterParent
         lastAngle = angle;
         //For the swing of a weapon
 
-
+        if (currentCharHealth > maxCharHealth)
+        {
+            currentCharHealth = maxCharHealth;
+        }
     }
 }

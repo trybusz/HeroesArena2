@@ -11,6 +11,7 @@ public class CharacterParent : MonoBehaviour
     public float scoreTime = 0.0f;
     public bool onCtrlPoint = false;
 
+
     
     public virtual void TakeDamage(int damage)
     {
@@ -31,6 +32,7 @@ public class CharacterParent : MonoBehaviour
             scoreTime = Time.timeSinceLevelLoad + 1.0f;
             onCtrlPoint = true;
         }
+
     }
     public void OnTriggerExit2D(UnityEngine.Collider2D collision)
     {

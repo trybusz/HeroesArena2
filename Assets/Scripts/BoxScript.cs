@@ -26,13 +26,20 @@ public class BoxScript : CharacterParent
 
     public override void TakeDamage(int damage)
     {
-        currentCrateHealth -= damage;
+        if(damage > 0)
+        {
+            currentCrateHealth -= damage;
+        }
+
 
         if (currentCrateHealth <= 0)
         {
             //Destroy is temporary
             Destroy(gameObject);
         }
+    }
+    public override void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
+    {
     }
 
 

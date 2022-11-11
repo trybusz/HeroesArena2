@@ -1,23 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class PirateControl : CharacterParent
+public class WaterSlimeController : CharacterParent
 {
     //For character switching
     public GameObject switchingIndicator;
     private float switchingTime;
     //Rotating Weapon
     public GameObject weapon;
-    public GameObject weapon2;
-    public GameObject weapon3;
-    public GameObject weaponHitbox;
-    public GameObject weaponHitbox3;
-    //Point to Rotate stuff around
-    public GameObject rotatePoint;
-    //Swing Anim
-    public GameObject swingAnim;
+    public GameObject healIndicator;
     //Player RigidBody
     private Rigidbody2D rb;
     //Base character speed
@@ -33,10 +25,6 @@ public class PirateControl : CharacterParent
     //Aim Imput
     private Vector2 aimInput;
     //NORMAL ATTACK
-    //For swinging weapons
-    private bool weaponPos;
-    //For swinging weapons
-    private int weaponPos2;
     //Normal Attack Button
     private bool normalAttackInput;
     //How long of a cooldown on normal attack
@@ -44,75 +32,80 @@ public class PirateControl : CharacterParent
     //Variable to measure cooldown
     private float normalAttackPauseTime;
     //SPECIAL ATTACK
+    //Special Attack Speed;
+    public float projectileSpeed;
     //Transform for fire point
-    public GameObject firePoint;
+    public GameObject firePoint1;
     //Axe Prefab
-    public GameObject canonPrefab;
+    public GameObject waterBlastPrefab;
+    //Axe Prefab
+    public GameObject waterHealingRing;
     //Special Attack Button
     private bool specialAttackInput;
     //How long of a cooldown on normal attack
     private static float specialAttackPause;
     //Variable to measure cooldown on special attack
     private float specialAttackPauseTime;
-    //Axe On Character Object
-    public GameObject cannonPlaceholder;
     //Angle to hold weapon, set by joystick
     float angle = 0.0f;
-    //Forward Angle, set by joystick
-    float swordAngle = 0.0f;
-    float lastSwordAngle = 0.0f;
     //Previous angle, to be used as a temp on angle
     float lastAngle = 0.0f;
     //A Button
-    public bool AButtonInput = false;
+    private bool AButtonInput = false;
     //B Button
-    public bool BButtonInput = false;
+    private bool BButtonInput = false;
     //X Button
-    public bool XButtonInput = false;
+    private bool XButtonInput = false;
     //Y Button
-    public bool YButtonInput = false;
+    private bool YButtonInput = false;
+
+    public int projectileCounter = 0;
 
     public int activePrefab;
-    public float swordCountTime = 0.0f;
 
-    //Animation Stuff
     public Animator animator;
+
+    public bool isDead = false;
 
     public bool isStunned = false;
     public float stunTime = 0.0f;
 
-    public bool isDead = false;
-
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
-    Vector3 scaleChange = new Vector3(-2.0f, 2.0f, 1.0f);
-    Vector3 scaleChange2 = new Vector3(2.0f, 2.0f, 1.0f);
-    Vector3 scaleChange3 = new Vector3(1.75f, 1.75f, 1.75f);
-    Vector3 scaleChange4 = new Vector3(-1.75f, 1.75f, 1.75f);
     private void Start()
     {
+
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
         charSpeedMod = 0.65f;
-        maxCharHealth = 150;
-        currentCharHealth = 150;
+        maxCharHealth = 200;
+        currentCharHealth = 200;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
-        weaponPos = false;
         normalAttackInput = false;
-        normalAttackPause = 1.0f;
+        normalAttackPause = 1.2f;
         normalAttackPauseTime = 0.0f;
+        projectileSpeed = 10.0f;
         specialAttackInput = false;
-        specialAttackPause = 14.0f;
+        specialAttackInput = false;
+        specialAttackPause = 15.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
     }
+    //Get Inputs
 
     void ShootProjectile()
     {
-        cannonPlaceholder.SetActive(false);
-        Instantiate(canonPrefab, firePoint.transform.position, firePoint.transform.rotation);
+        weapon.SetActive(false);
+        GameObject water = Instantiate(waterBlastPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        Rigidbody2D rb = water.GetComponent<Rigidbody2D>();
+        rb.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
+    }
+    void ShootProjectile2()//Drops Heal
+    {
+        healIndicator.SetActive(false);
+        Instantiate(waterHealingRing, this.transform.position, this.transform.rotation);
     }
 
     public override void TakeDamage(int damage)
@@ -134,7 +127,6 @@ public class PirateControl : CharacterParent
         isStunned = true;
         stunTime = duration + Time.timeSinceLevelLoad;
     }
-
     public override void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
     {
         KBtime = Time.timeSinceLevelLoad + duration;
@@ -156,12 +148,12 @@ public class PirateControl : CharacterParent
             scoreTime = Time.timeSinceLevelLoad + 1.0f;
             thisCharScore++;
         }
+
         //For Switching
         if (switchingTime < Time.timeSinceLevelLoad)
         {
             switchingIndicator.SetActive(false);
         }
-
 
         if (!isStunned)
         {
@@ -179,9 +171,9 @@ public class PirateControl : CharacterParent
 
             aimInput = Vector2.zero;
 
-            normalAttackInput = false;
-
             specialAttackInput = false;
+
+            normalAttackInput = false;
         }
 
         if (stunTime < Time.timeSinceLevelLoad)
@@ -189,10 +181,16 @@ public class PirateControl : CharacterParent
             isStunned = false;
         }
 
+        //update health
 
+
+
+        //Animate Character
+        animator.SetFloat("MoveX", Mathf.Abs(movementInput.x));
+        animator.SetFloat("MoveY", Mathf.Abs(movementInput.y));
 
         //Move Character
-        if (KBtime > Time.timeSinceLevelLoad)//Knockback
+        if (KBtime > Time.timeSinceLevelLoad)
         {
             rb.velocity = new Vector2(rb.transform.position.x - otherPos.x, rb.transform.position.y - otherPos.y).normalized * charKnockback;
         }
@@ -200,123 +198,79 @@ public class PirateControl : CharacterParent
         {
             rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod;
         }
-
-
-        //Animate Character
-        animator.SetFloat("MoveX", Mathf.Abs(movementInput.x));
-        animator.SetFloat("MoveY", Mathf.Abs(movementInput.y));
-
         //Rotate Weapon
-        weapon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, swordAngle));
+        weapon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Rotate Self
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        //Rotate Pivot Point
-        //Rotate Pivot Point
-        rotatePoint.transform.rotation = Quaternion.Euler(new Vector3(0, 0, swordAngle));
         //Rotate True Aim Point
-        firePoint.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        //If you click attack and you can attack, then attack
-        if (normalAttackPauseTime + 0.6 < Time.timeSinceLevelLoad + normalAttackPause)
-        {
-            weapon.SetActive(true);
-            weapon3.SetActive(false);
-            weaponHitbox3.SetActive(false);
-        }
-        else if(normalAttackPauseTime + 0.5 < Time.timeSinceLevelLoad + normalAttackPause)
-        {
-            weapon2.SetActive(false);
-            weapon3.SetActive(true);
-            weaponHitbox3.SetActive(true);
-        }
-        else if (normalAttackPauseTime + 0.4 < Time.timeSinceLevelLoad + normalAttackPause)
-        {
-            weapon.SetActive(false);
-            weapon2.SetActive(true);
-            weaponPos2 = 2;
-            weapon.transform.localScale = scaleChange2;//Flip Sword
-        }
-        else if (normalAttackPauseTime + 0.3 < Time.timeSinceLevelLoad + normalAttackPause)
-        {
-            weaponHitbox.SetActive(false);
-            swingAnim.SetActive(false);
-        }
-        else if (normalAttackPauseTime + 0.20 < Time.timeSinceLevelLoad + normalAttackPause)
-        {
-            swingAnim.transform.localScale = scaleChange3;//Flip Sword
-            weaponHitbox.SetActive(true);
-            swingAnim.SetActive(true);
-            weapon.transform.localScale = scaleChange;//Flip Sword
-            weaponPos2 = 0;
-        }
-        else if (normalAttackPauseTime + 0.10 < Time.timeSinceLevelLoad + normalAttackPause)
-        {
-            weaponHitbox.SetActive(false);
-            swingAnim.SetActive(false);
+        firePoint1.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        //Make character dash
 
-        }
-        if (normalAttackPauseTime - 0.05f < Time.timeSinceLevelLoad)
+
+        if (normalAttackPauseTime + 1.0 < Time.timeSinceLevelLoad + normalAttackPause && projectileCounter == 5)
         {
-            weaponPos2 = 0;
+            ShootProjectile();
+            projectileCounter = 0;
         }
+        else if (normalAttackPauseTime + 0.8 < Time.timeSinceLevelLoad + normalAttackPause && projectileCounter == 4)
+        {
+            ShootProjectile();
+            projectileCounter++;
+        }
+        else if (normalAttackPauseTime + 0.6 < Time.timeSinceLevelLoad + normalAttackPause && projectileCounter == 3)
+        {
+            ShootProjectile();
+            projectileCounter++;
+        }
+        else if (normalAttackPauseTime + 0.40 < Time.timeSinceLevelLoad + normalAttackPause && projectileCounter == 2)
+        {
+            ShootProjectile();
+            projectileCounter++;
+        }
+        else if (normalAttackPauseTime + 0.20 < Time.timeSinceLevelLoad + normalAttackPause && projectileCounter == 1)
+        {
+            ShootProjectile();
+            projectileCounter++;
+        }
+
+
+
         if (normalAttackPauseTime < Time.timeSinceLevelLoad)
         {
-
+            weapon.SetActive(true);
             if (normalAttackInput)
             {
-                swingAnim.transform.localScale = scaleChange4;//Flip Sword
-                weaponHitbox.SetActive(true);
-                swingAnim.SetActive(true);
+                projectileCounter = 1;
+                weapon.SetActive(false);
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
-                //This is for switching position of swinging weapons
-                weaponPos2 = 1;
             }
 
         }
-
         if (specialAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            cannonPlaceholder.SetActive(true);
             if (specialAttackInput)
             {
-                cannonPlaceholder.SetActive(false);
                 //Set time till next attack
                 specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
                 //Shoot Axe here
-                ShootProjectile();
+                ShootProjectile2();
             }
         }
-
 
 
         //Set angle of aim
         if (aimInput.x != 0 && aimInput.y != 0)
         {
             angle = Mathf.Atan2(-aimInput.x, aimInput.y) * Mathf.Rad2Deg;
-            swordAngle = angle;
         }
         else
         {
             angle = lastAngle;
-            swordAngle = lastSwordAngle;
         }
         //Set last angle to be angle
         lastAngle = angle;
-        lastSwordAngle = swordAngle;
         //For the swing of a weapon
-        if (weaponPos2 == 0)//save weapon position and esit that
-        {
-            swordAngle += 45;
-        }
-        else if(weaponPos2 == 1)
-        {
-            swordAngle -= 45;
-        }
-        else
-        {
-            swordAngle -= 0;
-        }
-
 
         if (currentCharHealth > maxCharHealth)
         {

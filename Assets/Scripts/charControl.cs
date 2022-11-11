@@ -272,7 +272,10 @@ public class charControl : CharacterParent
         {
             swordAngle -= 45;
         }
-        
 
+        if (currentCharHealth > maxCharHealth)
+        {
+            currentCharHealth = maxCharHealth;
+        }
     }
 }
