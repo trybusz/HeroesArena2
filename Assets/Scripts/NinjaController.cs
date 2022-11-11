@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class NinjaController : CharacterParent
 {
+    //For character switching
+    public GameObject switchingIndicator;
+    private float switchingTime;
     //Rotating Weapon
     public GameObject weapon;
     public GameObject dashHitbox;
@@ -67,7 +70,8 @@ public class NinjaController : CharacterParent
 
     public bool isDead = false;
 
-
+    public bool isStunned = false;
+    public float stunTime = 0.0f;
 
     public float KBtime = 0.0f;
     float charKnockback;
@@ -126,11 +130,22 @@ public class NinjaController : CharacterParent
             //Change to new character
         }
     }
+    public override void TakeStun(float duration)
+    {
+        isStunned = true;
+        stunTime = duration + Time.timeSinceLevelLoad;
+    }
     public override void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
     {
         KBtime = Time.timeSinceLevelLoad + duration;
         charKnockback = knockback;
         otherPos = KBPosition;
+    }
+    public override void CharSwitching()
+    {
+        TakeStun(1.0f);
+        switchingIndicator.SetActive(true);
+        switchingTime = 0.95f + Time.timeSinceLevelLoad;
     }
 
     void Update()
@@ -142,15 +157,39 @@ public class NinjaController : CharacterParent
             thisCharScore++;
         }
 
+        //For Switching
+        if (switchingTime < Time.timeSinceLevelLoad)
+        {
+            switchingIndicator.SetActive(false);
+        }
 
-        movementInput = GetComponentInParent<PlayerMaster>().movementInput;
+        if (!isStunned)
+        {
+            movementInput = GetComponentInParent<PlayerMaster>().movementInput;
 
-        aimInput = GetComponentInParent<PlayerMaster>().aimInput;
+            aimInput = GetComponentInParent<PlayerMaster>().aimInput;
 
-        //I flipped normal and special input on this character
-        specialAttackInput = GetComponentInParent<PlayerMaster>().normalAttackInput; ;
+            //I flipped normal and special input on this character
+            specialAttackInput = GetComponentInParent<PlayerMaster>().normalAttackInput;
 
-        normalAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
+            normalAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
+        }
+        else
+        {
+            movementInput = Vector2.zero;
+
+            aimInput = Vector2.zero;
+
+            //I flipped normal and special input on this character
+            specialAttackInput = false;
+
+            normalAttackInput = false;
+        }
+
+        if(stunTime < Time.timeSinceLevelLoad)
+        {
+            isStunned = false;
+        }
 
         //update health
 

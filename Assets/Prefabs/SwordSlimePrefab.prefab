@@ -154,6 +154,7 @@ Transform:
   - {fileID: 3344249767166608606}
   - {fileID: 3325358388760846499}
   - {fileID: 4760662420497174635}
+  - {fileID: 1502076571319686103}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -242,7 +243,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02598049f4c38304cbe2ac2ce3be6d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 250
+  thisCharScore: 0
+  scoreTime: 0
+  onCtrlPoint: 0
+  switchingIndicator: {fileID: 1865873735741340129}
   weapon: {fileID: 7659650464798563990}
   weaponHitbox: {fileID: 5524131678815054689}
   rotatePoint: {fileID: 6113307474067614999}
@@ -262,6 +266,8 @@ MonoBehaviour:
   activePrefab: 0
   animator: {fileID: 2081172438075490340}
   isDead: 0
+  isStunned: 0
+  stunTime: 0
   KBtime: 0
 --- !u!114 &6571478448369066394
 MonoBehaviour:
@@ -754,3 +760,76 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &3890963728353693832
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 8501276549479297947}
+    m_Modifications:
+    - target: {fileID: 2388887248318874463, guid: 1fad48fc6e9a6234fa0a9b1923b351a5, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2388887248318874463, guid: 1fad48fc6e9a6234fa0a9b1923b351a5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2388887248318874463, guid: 1fad48fc6e9a6234fa0a9b1923b351a5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2388887248318874463, guid: 1fad48fc6e9a6234fa0a9b1923b351a5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2388887248318874463, guid: 1fad48fc6e9a6234fa0a9b1923b351a5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2388887248318874463, guid: 1fad48fc6e9a6234fa0a9b1923b351a5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2388887248318874463, guid: 1fad48fc6e9a6234fa0a9b1923b351a5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2388887248318874463, guid: 1fad48fc6e9a6234fa0a9b1923b351a5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2388887248318874463, guid: 1fad48fc6e9a6234fa0a9b1923b351a5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2388887248318874463, guid: 1fad48fc6e9a6234fa0a9b1923b351a5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2388887248318874463, guid: 1fad48fc6e9a6234fa0a9b1923b351a5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3178292994224974185, guid: 1fad48fc6e9a6234fa0a9b1923b351a5, type: 3}
+      propertyPath: m_Name
+      value: Pixilart Sprite Sheet (6)_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3178292994224974185, guid: 1fad48fc6e9a6234fa0a9b1923b351a5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1fad48fc6e9a6234fa0a9b1923b351a5, type: 3}
+--- !u!4 &1502076571319686103 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2388887248318874463, guid: 1fad48fc6e9a6234fa0a9b1923b351a5, type: 3}
+  m_PrefabInstance: {fileID: 3890963728353693832}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1865873735741340129 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3178292994224974185, guid: 1fad48fc6e9a6234fa0a9b1923b351a5, type: 3}
+  m_PrefabInstance: {fileID: 3890963728353693832}
+  m_PrefabAsset: {fileID: 0}

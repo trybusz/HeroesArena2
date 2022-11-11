@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class AssassinScript : CharacterParent
 {
+    //For character switching
+    public GameObject switchingIndicator;
+    private float switchingTime;
     //Rotating Weapon
     public GameObject weapon;
     public GameObject weapon2;
@@ -56,6 +59,10 @@ public class AssassinScript : CharacterParent
     public Animator animator;
 
     public bool isDead = false;
+
+    public bool isStunned = false;
+    public float stunTime = 0.0f;
+
     private SpriteRenderer spriteR;
     public SpriteRenderer WeaponSprite;
     public SpriteRenderer InvisIndSprite;
@@ -105,11 +112,22 @@ public class AssassinScript : CharacterParent
             //Change to new character
         }
     }
+    public override void TakeStun(float duration)
+    {
+        isStunned = true;
+        stunTime = duration + Time.timeSinceLevelLoad;
+    }
     public override void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
     {
         KBtime = Time.timeSinceLevelLoad + duration;
         charKnockback = knockback;
         otherPos = KBPosition;
+    }
+    public override void CharSwitching()
+    {
+        TakeStun(1.0f);
+        switchingIndicator.SetActive(true);
+        switchingTime = 0.95f + Time.timeSinceLevelLoad;
     }
 
     void Update()
@@ -120,17 +138,38 @@ public class AssassinScript : CharacterParent
             scoreTime = Time.timeSinceLevelLoad + 1.0f;
             thisCharScore++;
         }
+        //For Switching
+        if (switchingTime < Time.timeSinceLevelLoad)
+        {
+            switchingIndicator.SetActive(false);
+        }
 
 
-        movementInput = GetComponentInParent<PlayerMaster>().movementInput;
+        if (!isStunned)
+        {
+            movementInput = GetComponentInParent<PlayerMaster>().movementInput;
 
-        aimInput = GetComponentInParent<PlayerMaster>().aimInput;
+            aimInput = GetComponentInParent<PlayerMaster>().aimInput;
 
-        //I flipped normal and special input on this character
-        normalAttackInput = GetComponentInParent<PlayerMaster>().normalAttackInput; ;
+            normalAttackInput = GetComponentInParent<PlayerMaster>().normalAttackInput;
 
-        specialAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
+            specialAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
+        }
+        else
+        {
+            movementInput = Vector2.zero;
 
+            aimInput = Vector2.zero;
+
+            normalAttackInput = false;
+
+            specialAttackInput = false;
+        }
+
+        if (stunTime < Time.timeSinceLevelLoad)
+        {
+            isStunned = false;
+        }
         //update health
 
 

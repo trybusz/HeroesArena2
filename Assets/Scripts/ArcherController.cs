@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class ArcherController : CharacterParent
 {
+    //For character switching
+    public GameObject switchingIndicator;
+    private float switchingTime;
     //Rotating Weapon
     public GameObject weapon;
     public GameObject weapon2;
@@ -69,6 +72,9 @@ public class ArcherController : CharacterParent
     public int FSM = 0;
     public bool isDead = false;
 
+    public bool isStunned = false;
+    public float stunTime = 0.0f;
+
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
@@ -123,6 +129,17 @@ public class ArcherController : CharacterParent
             //Change to new character
         }
     }
+    public override void CharSwitching()
+    {
+        TakeStun(1.0f);
+        switchingIndicator.SetActive(true);
+        switchingTime = 0.95f + Time.timeSinceLevelLoad;
+    }
+    public override void TakeStun(float duration)
+    {
+        isStunned = true;
+        stunTime = duration + Time.timeSinceLevelLoad;
+    }
 
     public override void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
     {
@@ -140,14 +157,37 @@ public class ArcherController : CharacterParent
             scoreTime = Time.timeSinceLevelLoad + 1.0f;
             thisCharScore++;
         }
+        //For Switching
+        if (switchingTime < Time.timeSinceLevelLoad)
+        {
+            switchingIndicator.SetActive(false);
+        }
 
-        movementInput = GetComponentInParent<PlayerMaster>().movementInput;
+        if (!isStunned)
+        {
+            movementInput = GetComponentInParent<PlayerMaster>().movementInput;
 
-        aimInput = GetComponentInParent<PlayerMaster>().aimInput;
+            aimInput = GetComponentInParent<PlayerMaster>().aimInput;
 
-        normalAttackInput = GetComponentInParent<PlayerMaster>().normalAttackInput;
+            normalAttackInput = GetComponentInParent<PlayerMaster>().normalAttackInput;
 
-        specialAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
+            specialAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
+        }
+        else
+        {
+            movementInput = Vector2.zero;
+
+            aimInput = Vector2.zero;
+
+            normalAttackInput = false;
+
+            specialAttackInput = false;
+        }
+
+        if (stunTime < Time.timeSinceLevelLoad)
+        {
+            isStunned = false;
+        }
 
         //Animate Character
         animator.SetFloat("MoveX", Mathf.Abs(movementInput.x));

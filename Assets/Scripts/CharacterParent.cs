@@ -16,6 +16,14 @@ public class CharacterParent : MonoBehaviour
     {
 
     }
+    public virtual void TakeStun(float duration)
+    {
+
+    }
+    public virtual void CharSwitching()
+    {
+
+    }
     public void OnTriggerEnter2D(UnityEngine.Collider2D collision)
     {
         if (collision.CompareTag("ControlPoint"))
