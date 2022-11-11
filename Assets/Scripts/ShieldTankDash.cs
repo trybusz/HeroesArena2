@@ -16,7 +16,7 @@ public class ShieldTankDash : MonoBehaviour
         if (cp != null && !this.transform.IsChildOf(cp.transform))
         {
             cp.TakeDamage(damage);
-            cp.TakeKnockback(30.0f, transform.parent.position, 0.25f);
+            cp.TakeKnockback(27.5f, transform.parent.position, 0.20f);
             gameObject.SetActive(false);
         }
     }

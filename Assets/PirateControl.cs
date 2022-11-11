@@ -88,8 +88,8 @@ public class PirateControl : CharacterParent
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
         charSpeedMod = 0.65f;
-        maxCharHealth = 125;
-        currentCharHealth = 125;
+        maxCharHealth = 150;
+        currentCharHealth = 150;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         weaponPos = false;
