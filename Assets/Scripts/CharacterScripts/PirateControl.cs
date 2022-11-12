@@ -147,6 +147,28 @@ public class PirateControl : CharacterParent
         switchingIndicator.SetActive(true);
         switchingTime = 0.95f + Time.timeSinceLevelLoad;
     }
+    public override float GetHealth()
+    {
+        return ((float)currentCharHealth / (float)maxCharHealth);
+    }
+    public override float GetPrimary()
+    {
+        float GPvalue = (normalAttackPauseTime - Time.timeSinceLevelLoad) / normalAttackPause;
+        if (GPvalue < 0)
+        {
+            GPvalue = 0;
+        }
+        return 1 - GPvalue;
+    }
+    public override float GetSpecial()
+    {
+        float GSvalue = (specialAttackPauseTime - Time.timeSinceLevelLoad) / specialAttackPause;
+        if (GSvalue < 0)
+        {
+            GSvalue = 0;
+        }
+        return 1 - GSvalue;
+    }
 
     void Update()
     {

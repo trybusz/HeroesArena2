@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class AssassinScript : CharacterParent
+public class NinjaController : CharacterParent
 {
     //For character switching
     public GameObject switchingIndicator;
     private float switchingTime;
     //Rotating Weapon
     public GameObject weapon;
-    public GameObject weapon2;
-    public GameObject weaponHitbox;
-    public GameObject invsIndicator;
+    public GameObject dashHitbox;
+    public GameObject dashIndicator;
     public bool dashing;
     //Player RigidBody
     private Rigidbody2D rb;
@@ -35,6 +35,16 @@ public class AssassinScript : CharacterParent
     //Variable to measure cooldown
     private float normalAttackPauseTime;
     //SPECIAL ATTACK
+    //Special Attack Speed;
+    public float projectileSpeed;
+    //Transform for fire point
+    public GameObject firePoint1;
+    //Transform for fire point
+    public GameObject firePoint2;
+    //Transform for fire point
+    public GameObject firePoint3;
+    //Axe Prefab
+    public GameObject starPrefab;
     //Special Attack Button
     private bool specialAttackInput;
     //How long of a cooldown on normal attack
@@ -63,40 +73,48 @@ public class AssassinScript : CharacterParent
     public bool isStunned = false;
     public float stunTime = 0.0f;
 
-    private SpriteRenderer spriteR;
-    public SpriteRenderer WeaponSprite;
-    public SpriteRenderer InvisIndSprite;
-
-
-
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
     private void Start()
     {
-
+  
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
         dashing = false;
         charSpeed = 5.0f;
-        charSpeedMod = 0.9f;
+        charSpeedMod = 1.0f;
         maxCharHealth = 100;
         currentCharHealth = 100;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
-        normalAttackPause = 1.0f;
+        normalAttackPause = 7.0f;
         normalAttackPauseTime = 0.0f;
+        projectileSpeed = 17.0f;
         specialAttackInput = false;
         specialAttackInput = false;
-        specialAttackPause = 10.0f;
+        specialAttackPause = 0.4f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
-        spriteR = gameObject.GetComponent<SpriteRenderer>();
-
-    }
+}
     //Get Inputs
-
+    
+    void ShootProjectile()
+    {
+        weapon.SetActive(false);
+        GameObject star = Instantiate(starPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        Rigidbody2D rb = star.GetComponent<Rigidbody2D>();
+        rb.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        //Star 2
+        GameObject star2 = Instantiate(starPrefab, firePoint2.transform.position, firePoint2.transform.rotation);
+        Rigidbody2D rb2 = star2.GetComponent<Rigidbody2D>();
+        rb2.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        //Star 3
+        GameObject star3 = Instantiate(starPrefab, firePoint3.transform.position, firePoint3.transform.rotation);
+        Rigidbody2D rb3 = star3.GetComponent<Rigidbody2D>();
+        rb3.AddForce(firePoint3.transform.up * projectileSpeed, ForceMode2D.Impulse);
+    }
 
     public override void TakeDamage(int damage)
     {
@@ -129,6 +147,28 @@ public class AssassinScript : CharacterParent
         switchingIndicator.SetActive(true);
         switchingTime = 0.95f + Time.timeSinceLevelLoad;
     }
+    public override float GetHealth()
+    {
+        return ((float)currentCharHealth / (float)maxCharHealth);
+    }
+    public override float GetPrimary()
+    {
+        float GPvalue = (normalAttackPauseTime - Time.timeSinceLevelLoad) / normalAttackPause;
+        if (GPvalue < 0)
+        {
+            GPvalue = 0;
+        }
+        return 1 - GPvalue;
+    }
+    public override float GetSpecial()
+    {
+        float GSvalue = (specialAttackPauseTime - Time.timeSinceLevelLoad) / specialAttackPause;
+        if (GSvalue < 0)
+        {
+            GSvalue = 0;
+        }
+        return 1 - GSvalue;
+    }
 
     void Update()
     {
@@ -138,12 +178,12 @@ public class AssassinScript : CharacterParent
             scoreTime = Time.timeSinceLevelLoad + 1.0f;
             thisCharScore++;
         }
+
         //For Switching
         if (switchingTime < Time.timeSinceLevelLoad)
         {
             switchingIndicator.SetActive(false);
         }
-
 
         if (!isStunned)
         {
@@ -151,9 +191,10 @@ public class AssassinScript : CharacterParent
 
             aimInput = GetComponentInParent<PlayerMaster>().aimInput;
 
-            normalAttackInput = GetComponentInParent<PlayerMaster>().normalAttackInput;
+            //I flipped normal and special input on this character
+            specialAttackInput = GetComponentInParent<PlayerMaster>().normalAttackInput;
 
-            specialAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
+            normalAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
         }
         else
         {
@@ -161,15 +202,17 @@ public class AssassinScript : CharacterParent
 
             aimInput = Vector2.zero;
 
-            normalAttackInput = false;
-
+            //I flipped normal and special input on this character
             specialAttackInput = false;
+
+            normalAttackInput = false;
         }
 
-        if (stunTime < Time.timeSinceLevelLoad)
+        if(stunTime < Time.timeSinceLevelLoad)
         {
             isStunned = false;
         }
+
         //update health
 
 
@@ -181,30 +224,27 @@ public class AssassinScript : CharacterParent
         //Move Character
         if (dashing)
         {
-            //Set Invs
-            spriteR.enabled = false;
-            WeaponSprite.enabled = false;
-            InvisIndSprite.enabled = false;
-            rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod * 1.2f;
+            dashHitbox.SetActive(true);
+            rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod * 10;
         }
-        else if (KBtime > Time.timeSinceLevelLoad)
-        {
+        else if(KBtime > Time.timeSinceLevelLoad){
             rb.velocity = new Vector2(rb.transform.position.x - otherPos.x, rb.transform.position.y - otherPos.y).normalized * charKnockback;
         }
         else
         {
-            spriteR.enabled = true;
-            WeaponSprite.enabled = true;
-            InvisIndSprite.enabled = true;
+            dashHitbox.SetActive(false);
             rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod;
         }
         //Rotate Weapon
-        weapon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 45.0f));
+        weapon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Rotate Self
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-       
+        //Rotate True Aim Point
+        firePoint1.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        firePoint2.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 10));
+        firePoint3.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 10));
         //Make character dash
-        if (specialAttackPauseTime + 2.5f > Time.timeSinceLevelLoad + specialAttackPause)
+        if (normalAttackPauseTime + 0.15f > Time.timeSinceLevelLoad + normalAttackPause)
         {
             dashing = true;
         }
@@ -213,36 +253,26 @@ public class AssassinScript : CharacterParent
             dashing = false;
         }
 
-        if (normalAttackPauseTime + 0.05 < Time.timeSinceLevelLoad + normalAttackPause)
-        {
-            weaponHitbox.SetActive(false);
-        }
-        if (normalAttackPauseTime - 0.10f < Time.timeSinceLevelLoad)
-        {
-            weapon2.SetActive(false);
-            weapon.SetActive(true);
-        }
         if (normalAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            
-            if (normalAttackInput && !dashing)
+            dashIndicator.SetActive(true);
+            if (normalAttackInput)
             {
-                weapon2.SetActive(true);
-                weapon.SetActive(false);
-                weaponHitbox.SetActive(true);
+                dashIndicator.SetActive(false);
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
             }
-
+            
         }
         if (specialAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            invsIndicator.SetActive(true);
+            weapon.SetActive(true);
             if (specialAttackInput)
             {
-                invsIndicator.SetActive(false);
                 //Set time till next attack
                 specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
+                //Shoot Axe here
+                ShootProjectile();
             }
         }
 

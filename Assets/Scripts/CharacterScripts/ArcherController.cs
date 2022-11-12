@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class NinjaController : CharacterParent
+public class ArcherController : CharacterParent
 {
     //For character switching
     public GameObject switchingIndicator;
     private float switchingTime;
     //Rotating Weapon
     public GameObject weapon;
-    public GameObject dashHitbox;
-    public GameObject dashIndicator;
-    public bool dashing;
+    public GameObject weapon2;
+    public GameObject weapon3;
+    public GameObject weapon4;
+    public GameObject BombIndicator;
     //Player RigidBody
     private Rigidbody2D rb;
     //Base character speed
@@ -32,19 +33,18 @@ public class NinjaController : CharacterParent
     private bool normalAttackInput;
     //How long of a cooldown on normal attack
     private float normalAttackPause;
+    private float normalAttackPull;
     //Variable to measure cooldown
     private float normalAttackPauseTime;
     //SPECIAL ATTACK
     //Special Attack Speed;
     public float projectileSpeed;
     //Transform for fire point
-    public GameObject firePoint1;
-    //Transform for fire point
-    public GameObject firePoint2;
-    //Transform for fire point
-    public GameObject firePoint3;
-    //Axe Prefab
-    public GameObject starPrefab;
+    public GameObject firePoint;
+    //Arrow
+    public GameObject ArrowPrefab;
+    //Arrow
+    public GameObject BombArrowPrefab;
     //Special Attack Button
     private bool specialAttackInput;
     //How long of a cooldown on normal attack
@@ -66,8 +66,10 @@ public class NinjaController : CharacterParent
 
     public int activePrefab;
 
+    public GameObject RotatePoint;
     public Animator animator;
-
+    public int BowPosition = 0;//Used to determine whether bow is unloaded (0), loaded (1), or Pulled (2), or Pulled with Bomb (3)
+    public int FSM = 0;
     public bool isDead = false;
 
     public bool isStunned = false;
@@ -76,44 +78,41 @@ public class NinjaController : CharacterParent
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
+
     private void Start()
     {
-  
+
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
-        dashing = false;
-        charSpeed = 5.0f;
-        charSpeedMod = 1.0f;
-        maxCharHealth = 100;
-        currentCharHealth = 100;
+        charSpeedMod = 0.85f;
+        maxCharHealth = 125;
+        currentCharHealth = 125;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
-        normalAttackPause = 7.0f;
+        normalAttackPause = 1.0f;
+        normalAttackPull = 0.5f;
         normalAttackPauseTime = 0.0f;
-        projectileSpeed = 17.0f;
+        projectileSpeed = 20.0f;
         specialAttackInput = false;
         specialAttackInput = false;
-        specialAttackPause = 0.4f;
+        specialAttackPause = 12.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
-}
+    }
     //Get Inputs
-    
+
     void ShootProjectile()
     {
-        weapon.SetActive(false);
-        GameObject star = Instantiate(starPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
-        Rigidbody2D rb = star.GetComponent<Rigidbody2D>();
-        rb.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
-        //Star 2
-        GameObject star2 = Instantiate(starPrefab, firePoint2.transform.position, firePoint2.transform.rotation);
-        Rigidbody2D rb2 = star2.GetComponent<Rigidbody2D>();
-        rb2.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
-        //Star 3
-        GameObject star3 = Instantiate(starPrefab, firePoint3.transform.position, firePoint3.transform.rotation);
-        Rigidbody2D rb3 = star3.GetComponent<Rigidbody2D>();
-        rb3.AddForce(firePoint3.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        GameObject arrow = Instantiate(ArrowPrefab, firePoint.transform.position, Quaternion.Euler(new Vector3(0, 0, 45)) * firePoint.transform.rotation);
+        Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
+        rb.AddForce(firePoint.transform.up * projectileSpeed, ForceMode2D.Impulse);
+    }
+    void ShootProjectileBomb()
+    {
+        GameObject bomb = Instantiate(BombArrowPrefab, firePoint.transform.position, Quaternion.Euler(new Vector3(0, 0, 45)) * firePoint.transform.rotation);
+        Rigidbody2D rb = bomb.GetComponent<Rigidbody2D>();
+        rb.AddForce(firePoint.transform.up * projectileSpeed, ForceMode2D.Impulse);
     }
 
     public override void TakeDamage(int damage)
@@ -130,22 +129,45 @@ public class NinjaController : CharacterParent
             //Change to new character
         }
     }
+    public override void CharSwitching()
+    {
+        TakeStun(1.0f);
+        switchingIndicator.SetActive(true);
+        switchingTime = 0.95f + Time.timeSinceLevelLoad;
+    }
     public override void TakeStun(float duration)
     {
         isStunned = true;
         stunTime = duration + Time.timeSinceLevelLoad;
     }
+
     public override void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
     {
         KBtime = Time.timeSinceLevelLoad + duration;
         charKnockback = knockback;
         otherPos = KBPosition;
     }
-    public override void CharSwitching()
+    public override float GetHealth()
     {
-        TakeStun(1.0f);
-        switchingIndicator.SetActive(true);
-        switchingTime = 0.95f + Time.timeSinceLevelLoad;
+        return ((float)currentCharHealth / (float)maxCharHealth);
+    }
+    public override float GetPrimary()
+    {
+        float GPvalue = (normalAttackPauseTime - Time.timeSinceLevelLoad) / normalAttackPause;
+        if (GPvalue < 0)
+        {
+            GPvalue = 0;
+        }
+        return 1 - GPvalue;
+    }
+    public override float GetSpecial()
+    {
+        float GSvalue = (specialAttackPauseTime - Time.timeSinceLevelLoad) / specialAttackPause;
+        if (GSvalue < 0)
+        {
+            GSvalue = 0;
+        }
+        return 1 - GSvalue;
     }
 
     void Update()
@@ -156,7 +178,6 @@ public class NinjaController : CharacterParent
             scoreTime = Time.timeSinceLevelLoad + 1.0f;
             thisCharScore++;
         }
-
         //For Switching
         if (switchingTime < Time.timeSinceLevelLoad)
         {
@@ -169,10 +190,9 @@ public class NinjaController : CharacterParent
 
             aimInput = GetComponentInParent<PlayerMaster>().aimInput;
 
-            //I flipped normal and special input on this character
-            specialAttackInput = GetComponentInParent<PlayerMaster>().normalAttackInput;
+            normalAttackInput = GetComponentInParent<PlayerMaster>().normalAttackInput;
 
-            normalAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
+            specialAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
         }
         else
         {
@@ -180,80 +200,126 @@ public class NinjaController : CharacterParent
 
             aimInput = Vector2.zero;
 
-            //I flipped normal and special input on this character
-            specialAttackInput = false;
-
             normalAttackInput = false;
+
+            specialAttackInput = false;
         }
 
-        if(stunTime < Time.timeSinceLevelLoad)
+        if (stunTime < Time.timeSinceLevelLoad)
         {
             isStunned = false;
         }
-
-        //update health
-
-
 
         //Animate Character
         animator.SetFloat("MoveX", Mathf.Abs(movementInput.x));
         animator.SetFloat("MoveY", Mathf.Abs(movementInput.y));
 
         //Move Character
-        if (dashing)
+        if(FSM == 2 || FSM == 3 || FSM == 4 || FSM == 5)
         {
-            dashHitbox.SetActive(true);
-            rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod * 10;
+            rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod * 0.6f;
         }
-        else if(KBtime > Time.timeSinceLevelLoad){
+        else if (KBtime > Time.timeSinceLevelLoad)
+        {
             rb.velocity = new Vector2(rb.transform.position.x - otherPos.x, rb.transform.position.y - otherPos.y).normalized * charKnockback;
         }
         else
         {
-            dashHitbox.SetActive(false);
             rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod;
         }
+
+
         //Rotate Weapon
-        weapon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        RotatePoint.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Rotate Self
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        //Rotate True Aim Point
-        firePoint1.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        firePoint2.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 10));
-        firePoint3.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 10));
-        //Make character dash
-        if (normalAttackPauseTime + 0.15f > Time.timeSinceLevelLoad + normalAttackPause)
+        
+        if (FSM == 0 && normalAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            dashing = true;
+            FSM = 1;
+            BowPosition = 1;
         }
-        else
+
+        if (normalAttackInput && FSM == 1 )
         {
-            dashing = false;
+            //normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
+            FSM = 2;
+            normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPull;
+        }
+
+        if (specialAttackPauseTime < Time.timeSinceLevelLoad)
+        {
+            BombIndicator.SetActive(true);
+            if (specialAttackInput && FSM == 1)
+            {
+                FSM = 3;
+                BombIndicator.SetActive(false);
+                //Set time till next attack
+                specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
+                normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPull;
+            }
+        }
+        
+        
+
+        if(FSM == 4 && !normalAttackInput)
+        {
+            FSM = 0;
+            BowPosition = 0;
+            ShootProjectile();
+            normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
+        }
+        if (FSM == 5 && !specialAttackInput)
+        {
+            FSM = 0;
+            BowPosition = 0;
+            ShootProjectileBomb();
+            normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
         }
 
         if (normalAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            dashIndicator.SetActive(true);
-            if (normalAttackInput)
+            if(FSM == 2)
             {
-                dashIndicator.SetActive(false);
-                //Set time till next attack
-                normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
+                FSM = 4;
+                BowPosition = 2;
             }
-            
+            else if(FSM == 3)
+            {
+                FSM = 5;
+                BowPosition = 3;
+            }
         }
-        if (specialAttackPauseTime < Time.timeSinceLevelLoad)
+        
+        //Set The Bow Position
+        if(BowPosition == 0)
         {
             weapon.SetActive(true);
-            if (specialAttackInput)
-            {
-                //Set time till next attack
-                specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
-                //Shoot Axe here
-                ShootProjectile();
-            }
+            weapon2.SetActive(false);
+            weapon3.SetActive(false);
+            weapon4.SetActive(false);
         }
-
+        else if (BowPosition == 1)
+        {
+            weapon.SetActive(false);
+            weapon2.SetActive(true);
+            weapon3.SetActive(false);
+            weapon4.SetActive(false);
+        }
+        else if (BowPosition == 2)
+        {
+            weapon.SetActive(false);
+            weapon2.SetActive(false);
+            weapon3.SetActive(true);
+            weapon4.SetActive(false);
+        }
+        else if (BowPosition == 3)
+        {
+            weapon.SetActive(false);
+            weapon2.SetActive(false);
+            weapon3.SetActive(false);
+            weapon4.SetActive(true);
+        }
 
         //Set angle of aim
         if (aimInput.x != 0 && aimInput.y != 0)

@@ -2,18 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankController : CharacterParent
+public class WaterSlimeController : CharacterParent
 {
     //For character switching
     public GameObject switchingIndicator;
     private float switchingTime;
     //Rotating Weapon
     public GameObject weapon;
-    public GameObject dashHitbox;
-    public GameObject weaponDashHitbox;
-    public GameObject dashIndicator;
-    public GameObject shieldReady;
-    public bool dashing;
+    public GameObject healIndicator;
     //Player RigidBody
     private Rigidbody2D rb;
     //Base character speed
@@ -24,10 +20,6 @@ public class TankController : CharacterParent
     public int maxCharHealth;
     //Current Health
     public int currentCharHealth;
-    //Base Shield Health
-    public int maxShieldHealth;
-    //Current SHield Health
-    public int currentShieldHealth;
     //Movement input
     private Vector2 movementInput;
     //Aim Imput
@@ -40,6 +32,14 @@ public class TankController : CharacterParent
     //Variable to measure cooldown
     private float normalAttackPauseTime;
     //SPECIAL ATTACK
+    //Special Attack Speed;
+    public float projectileSpeed;
+    //Transform for fire point
+    public GameObject firePoint1;
+    //Axe Prefab
+    public GameObject waterBlastPrefab;
+    //Axe Prefab
+    public GameObject waterHealingRing;
     //Special Attack Button
     private bool specialAttackInput;
     //How long of a cooldown on normal attack
@@ -59,12 +59,16 @@ public class TankController : CharacterParent
     //Y Button
     private bool YButtonInput = false;
 
+    public int projectileCounter = 0;
+
+    public int activePrefab;
+
     public Animator animator;
+
+    public bool isDead = false;
 
     public bool isStunned = false;
     public float stunTime = 0.0f;
-
-    public bool isDead = false;
 
     public float KBtime = 0.0f;
     float charKnockback;
@@ -74,17 +78,15 @@ public class TankController : CharacterParent
 
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
-        dashing = false;
-        charSpeedMod = 0.5f;
-        maxCharHealth = 250;
-        currentCharHealth = 250;
-        maxShieldHealth = 250;
-        currentShieldHealth = 250;
+        charSpeedMod = 0.65f;
+        maxCharHealth = 200;
+        currentCharHealth = 200;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
-        normalAttackPause = 1.0f;
+        normalAttackPause = 1.2f;
         normalAttackPauseTime = 0.0f;
+        projectileSpeed = 10.0f;
         specialAttackInput = false;
         specialAttackInput = false;
         specialAttackPause = 15.0f;
@@ -93,23 +95,23 @@ public class TankController : CharacterParent
     }
     //Get Inputs
 
+    void ShootProjectile()
+    {
+        weapon.SetActive(false);
+        GameObject water = Instantiate(waterBlastPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        Rigidbody2D rb = water.GetComponent<Rigidbody2D>();
+        rb.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
+    }
+    void ShootProjectile2()//Drops Heal
+    {
+        healIndicator.SetActive(false);
+        Instantiate(waterHealingRing, this.transform.position, this.transform.rotation);
+    }
 
     public override void TakeDamage(int damage)
     {
-        if (weapon.activeSelf)
-        {
-            currentShieldHealth -= damage;
-        }
-        else {
-            currentCharHealth -= damage;
-        }
-        
+        currentCharHealth -= damage;
 
-        if (currentShieldHealth <= 0)
-        {
-            weapon.SetActive(false);
-            currentShieldHealth = maxShieldHealth;
-        }
         if (currentCharHealth <= 0)
         {
             //Destroy is temporary
@@ -125,7 +127,6 @@ public class TankController : CharacterParent
         isStunned = true;
         stunTime = duration + Time.timeSinceLevelLoad;
     }
-
     public override void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
     {
         KBtime = Time.timeSinceLevelLoad + duration;
@@ -139,6 +140,29 @@ public class TankController : CharacterParent
         switchingTime = 0.95f + Time.timeSinceLevelLoad;
     }
 
+    public override float GetHealth()
+    {
+        return ((float)currentCharHealth / (float)maxCharHealth);
+    }
+    public override float GetPrimary()
+    {
+        float GPvalue = (normalAttackPauseTime - Time.timeSinceLevelLoad) / normalAttackPause;
+        if (GPvalue < 0)
+        {
+            GPvalue = 0;
+        }
+        return 1 - GPvalue;
+    }
+    public override float GetSpecial()
+    {
+        float GSvalue = (specialAttackPauseTime - Time.timeSinceLevelLoad) / specialAttackPause;
+        if (GSvalue < 0)
+        {
+            GSvalue = 0;
+        }
+        return 1 - GSvalue;
+    }
+
     void Update()
     {
         //ForScoring
@@ -147,12 +171,12 @@ public class TankController : CharacterParent
             scoreTime = Time.timeSinceLevelLoad + 1.0f;
             thisCharScore++;
         }
+
         //For Switching
         if (switchingTime < Time.timeSinceLevelLoad)
         {
             switchingIndicator.SetActive(false);
         }
-
 
         if (!isStunned)
         {
@@ -170,9 +194,9 @@ public class TankController : CharacterParent
 
             aimInput = Vector2.zero;
 
-            normalAttackInput = false;
-
             specialAttackInput = false;
+
+            normalAttackInput = false;
         }
 
         if (stunTime < Time.timeSinceLevelLoad)
@@ -180,59 +204,67 @@ public class TankController : CharacterParent
             isStunned = false;
         }
 
+        //update health
+
+
+
         //Animate Character
         animator.SetFloat("MoveX", Mathf.Abs(movementInput.x));
         animator.SetFloat("MoveY", Mathf.Abs(movementInput.y));
 
-        if (normalAttackPauseTime + 0.10f > Time.timeSinceLevelLoad + normalAttackPause)
-        {
-            dashing = true;
-        }
-        else if (normalAttackPauseTime + 0.15f > Time.timeSinceLevelLoad + normalAttackPause && weapon.activeSelf)
-        {
-            dashing = true;
-        }
-        else
-        {
-            dashing = false;
-        }
-
-
         //Move Character
-        if (dashing)
+        if (KBtime > Time.timeSinceLevelLoad)
         {
-            rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod * 4;
-        }
-        else if(KBtime > Time.timeSinceLevelLoad){//For knockback
             rb.velocity = new Vector2(rb.transform.position.x - otherPos.x, rb.transform.position.y - otherPos.y).normalized * charKnockback;
         }
         else
         {
-            dashHitbox.SetActive(false);
-            weaponDashHitbox.SetActive(false);
             rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod;
         }
         //Rotate Weapon
         weapon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Rotate Self
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        //Rotate True Aim Point
+        firePoint1.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Make character dash
-        
+
+
+        if (normalAttackPauseTime + 1.0 < Time.timeSinceLevelLoad + normalAttackPause && projectileCounter == 5)
+        {
+            ShootProjectile();
+            projectileCounter = 0;
+        }
+        else if (normalAttackPauseTime + 0.8 < Time.timeSinceLevelLoad + normalAttackPause && projectileCounter == 4)
+        {
+            ShootProjectile();
+            projectileCounter++;
+        }
+        else if (normalAttackPauseTime + 0.6 < Time.timeSinceLevelLoad + normalAttackPause && projectileCounter == 3)
+        {
+            ShootProjectile();
+            projectileCounter++;
+        }
+        else if (normalAttackPauseTime + 0.40 < Time.timeSinceLevelLoad + normalAttackPause && projectileCounter == 2)
+        {
+            ShootProjectile();
+            projectileCounter++;
+        }
+        else if (normalAttackPauseTime + 0.20 < Time.timeSinceLevelLoad + normalAttackPause && projectileCounter == 1)
+        {
+            ShootProjectile();
+            projectileCounter++;
+        }
+
+
 
         if (normalAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            dashIndicator.SetActive(true);
+            weapon.SetActive(true);
             if (normalAttackInput)
             {
-                if (weapon.activeSelf)
-                {
-                    weaponDashHitbox.SetActive(true);
-                }
-                else
-                {
-                    dashHitbox.SetActive(true);
-                }
-                dashIndicator.SetActive(false);
+                projectileCounter = 1;
+                weapon.SetActive(false);
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
             }
@@ -240,15 +272,12 @@ public class TankController : CharacterParent
         }
         if (specialAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            shieldReady.SetActive(true);
-            if (specialAttackInput && !weapon.activeSelf)
+            if (specialAttackInput)
             {
-                shieldReady.SetActive(false);
                 //Set time till next attack
                 specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
                 //Shoot Axe here
-
-                weapon.SetActive(true);
+                ShootProjectile2();
             }
         }
 

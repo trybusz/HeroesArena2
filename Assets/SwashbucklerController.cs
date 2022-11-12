@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterSlimeController : CharacterParent
+public class SwashbucklerController : CharacterParent
 {
     //For character switching
     public GameObject switchingIndicator;
     private float switchingTime;
     //Rotating Weapon
     public GameObject weapon;
-    public GameObject healIndicator;
+    public GameObject anchorIndicator;
     //Player RigidBody
     private Rigidbody2D rb;
     //Base character speed
@@ -33,13 +33,23 @@ public class WaterSlimeController : CharacterParent
     private float normalAttackPauseTime;
     //SPECIAL ATTACK
     //Special Attack Speed;
-    public float projectileSpeed;
+    public float projectileSpeed;//For bullets
+    //Special Attack Speed;
+    public float projectileSpeed2;//For Anchor
     //Transform for fire point
+    public GameObject firePoint0;
     public GameObject firePoint1;
+    public GameObject firePoint2;
+    public GameObject firePoint3;
+    public GameObject firePoint4;
+    public GameObject firePoint5;
+    public GameObject firePoint6;
+    public GameObject firePoint7;
+    public GameObject firePoint8;
     //Axe Prefab
-    public GameObject waterBlastPrefab;
+    public GameObject bulletPrefab;
     //Axe Prefab
-    public GameObject waterHealingRing;
+    public GameObject anchorPrefab;
     //Special Attack Button
     private bool specialAttackInput;
     //How long of a cooldown on normal attack
@@ -59,7 +69,7 @@ public class WaterSlimeController : CharacterParent
     //Y Button
     private bool YButtonInput = false;
 
-    public int projectileCounter = 0;
+    public bool isThrowingAnchor = false;
 
     public int activePrefab;
 
@@ -78,18 +88,19 @@ public class WaterSlimeController : CharacterParent
 
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
-        charSpeedMod = 0.65f;
+        charSpeedMod = 0.55f;
         maxCharHealth = 200;
         currentCharHealth = 200;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
-        normalAttackPause = 1.2f;
+        normalAttackPause = 1.5f;
         normalAttackPauseTime = 0.0f;
-        projectileSpeed = 10.0f;
+        projectileSpeed = 20.0f;
+        projectileSpeed2 = 10.0f;
         specialAttackInput = false;
         specialAttackInput = false;
-        specialAttackPause = 15.0f;
+        specialAttackPause = 8.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
     }
@@ -97,15 +108,63 @@ public class WaterSlimeController : CharacterParent
 
     void ShootProjectile()
     {
-        weapon.SetActive(false);
-        GameObject water = Instantiate(waterBlastPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
-        Rigidbody2D rb = water.GetComponent<Rigidbody2D>();
-        rb.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        
+        if (Random.Range(-1.0f, 1.0f) > 0.0f)
+        {
+            GameObject bullet1 = Instantiate(bulletPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
+            Rigidbody2D rb1 = bullet1.GetComponent<Rigidbody2D>();
+            rb1.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        }
+        if (Random.Range(-1.0f, 1.0f) > 0.0f)
+        {
+            GameObject bullet2 = Instantiate(bulletPrefab, firePoint2.transform.position, firePoint2.transform.rotation);
+            Rigidbody2D rb2 = bullet2.GetComponent<Rigidbody2D>();
+            rb2.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        }
+        if (Random.Range(-1.0f, 1.0f) > 0.0f)
+        {
+            GameObject bullet3 = Instantiate(bulletPrefab, firePoint3.transform.position, firePoint3.transform.rotation);
+            Rigidbody2D rb3 = bullet3.GetComponent<Rigidbody2D>();
+            rb3.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        }
+        if (Random.Range(-1.0f, 1.0f) > 0.0f)
+        {
+            GameObject bullet4 = Instantiate(bulletPrefab, firePoint4.transform.position, firePoint4.transform.rotation);
+            Rigidbody2D rb4 = bullet4.GetComponent<Rigidbody2D>();
+            rb4.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        }
+        if (Random.Range(-1.0f, 1.0f) > 0.0f)
+        {
+            GameObject bullet5 = Instantiate(bulletPrefab, firePoint5.transform.position, firePoint5.transform.rotation);
+            Rigidbody2D rb5 = bullet5.GetComponent<Rigidbody2D>();
+            rb5.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        }
+        if (Random.Range(-1.0f, 1.0f) > 0.0f)
+        {
+            GameObject bullet6 = Instantiate(bulletPrefab, firePoint6.transform.position, firePoint6.transform.rotation);
+            Rigidbody2D rb6 = bullet6.GetComponent<Rigidbody2D>();
+            rb6.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        }
+        if (Random.Range(-1.0f, 1.0f) > 0.0f)
+        {
+            GameObject bullet7 = Instantiate(bulletPrefab, firePoint7.transform.position, firePoint7.transform.rotation);
+            Rigidbody2D rb7 = bullet7.GetComponent<Rigidbody2D>();
+            rb7.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        }
+        if (Random.Range(-1.0f, 1.0f) > 0.0f)
+        {
+            GameObject bullet8 = Instantiate(bulletPrefab, firePoint8.transform.position, firePoint8.transform.rotation);
+            Rigidbody2D rb8 = bullet8.GetComponent<Rigidbody2D>();
+            rb8.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        }
+
     }
     void ShootProjectile2()//Drops Heal
     {
-        healIndicator.SetActive(false);
-        Instantiate(waterHealingRing, this.transform.position, this.transform.rotation);
+        anchorIndicator.SetActive(false);
+        GameObject anch = Instantiate(anchorPrefab, firePoint0.transform.position, Quaternion.Euler(new Vector3(0, 0, 180)) * firePoint0.transform.rotation, this.transform);
+        Rigidbody2D rb = anch.GetComponent<Rigidbody2D>();
+        rb.AddForce(firePoint0.transform.up * projectileSpeed2, ForceMode2D.Impulse);
     }
 
     public override void TakeDamage(int damage)
@@ -140,6 +199,29 @@ public class WaterSlimeController : CharacterParent
         switchingTime = 0.95f + Time.timeSinceLevelLoad;
     }
 
+    public override float GetHealth()
+    {
+        return ((float)currentCharHealth / (float)maxCharHealth);
+    }
+    public override float GetPrimary()
+    {
+        float GPvalue = (normalAttackPauseTime - Time.timeSinceLevelLoad) / normalAttackPause;
+        if (GPvalue < 0)
+        {
+            GPvalue = 0;
+        }
+        return 1 - GPvalue;
+    }
+    public override float GetSpecial()
+    {
+        float GSvalue = (specialAttackPauseTime - Time.timeSinceLevelLoad) / specialAttackPause;
+        if (GSvalue < 0)
+        {
+            GSvalue = 0;
+        }
+        return 1 - GSvalue;
+    }
+
     void Update()
     {
         //ForScoring
@@ -154,8 +236,18 @@ public class WaterSlimeController : CharacterParent
         {
             switchingIndicator.SetActive(false);
         }
+        if (isThrowingAnchor)
+        {
+            movementInput = Vector2.zero;
 
-        if (!isStunned)
+            aimInput = Vector2.zero;
+
+            specialAttackInput = false;
+
+            normalAttackInput = GetComponentInParent<PlayerMaster>().normalAttackInput;
+
+        }
+        else if (!isStunned)
         {
             movementInput = GetComponentInParent<PlayerMaster>().movementInput;
 
@@ -203,35 +295,16 @@ public class WaterSlimeController : CharacterParent
         //Rotate Self
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Rotate True Aim Point
-        firePoint1.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        firePoint0.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        firePoint1.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 6.5f));
+        firePoint2.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 6.5f));
+        firePoint3.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 19.5f));
+        firePoint4.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 19.5f));
+        firePoint5.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 32.5f));
+        firePoint6.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 32.5f));
+        firePoint7.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 45.5f));
+        firePoint8.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 45.5f));
         //Make character dash
-
-
-        if (normalAttackPauseTime + 1.0 < Time.timeSinceLevelLoad + normalAttackPause && projectileCounter == 5)
-        {
-            ShootProjectile();
-            projectileCounter = 0;
-        }
-        else if (normalAttackPauseTime + 0.8 < Time.timeSinceLevelLoad + normalAttackPause && projectileCounter == 4)
-        {
-            ShootProjectile();
-            projectileCounter++;
-        }
-        else if (normalAttackPauseTime + 0.6 < Time.timeSinceLevelLoad + normalAttackPause && projectileCounter == 3)
-        {
-            ShootProjectile();
-            projectileCounter++;
-        }
-        else if (normalAttackPauseTime + 0.40 < Time.timeSinceLevelLoad + normalAttackPause && projectileCounter == 2)
-        {
-            ShootProjectile();
-            projectileCounter++;
-        }
-        else if (normalAttackPauseTime + 0.20 < Time.timeSinceLevelLoad + normalAttackPause && projectileCounter == 1)
-        {
-            ShootProjectile();
-            projectileCounter++;
-        }
 
 
 
@@ -240,15 +313,24 @@ public class WaterSlimeController : CharacterParent
             weapon.SetActive(true);
             if (normalAttackInput)
             {
-                projectileCounter = 1;
                 weapon.SetActive(false);
+                ShootProjectile();
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
             }
 
         }
-        if (specialAttackPauseTime < Time.timeSinceLevelLoad)
+        if (specialAttackPauseTime - specialAttackPause + 0.7f > Time.timeSinceLevelLoad)
         {
+            isThrowingAnchor = true;
+        }
+        else
+        {
+            isThrowingAnchor = false;
+        }
+            if (specialAttackPauseTime < Time.timeSinceLevelLoad)
+        {
+            anchorIndicator.SetActive(true);
             if (specialAttackInput)
             {
                 //Set time till next attack

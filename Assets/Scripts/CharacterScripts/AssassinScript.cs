@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class ArcherController : CharacterParent
+public class AssassinScript : CharacterParent
 {
     //For character switching
     public GameObject switchingIndicator;
@@ -11,9 +10,9 @@ public class ArcherController : CharacterParent
     //Rotating Weapon
     public GameObject weapon;
     public GameObject weapon2;
-    public GameObject weapon3;
-    public GameObject weapon4;
-    public GameObject BombIndicator;
+    public GameObject weaponHitbox;
+    public GameObject invsIndicator;
+    public bool dashing;
     //Player RigidBody
     private Rigidbody2D rb;
     //Base character speed
@@ -33,18 +32,9 @@ public class ArcherController : CharacterParent
     private bool normalAttackInput;
     //How long of a cooldown on normal attack
     private float normalAttackPause;
-    private float normalAttackPull;
     //Variable to measure cooldown
     private float normalAttackPauseTime;
     //SPECIAL ATTACK
-    //Special Attack Speed;
-    public float projectileSpeed;
-    //Transform for fire point
-    public GameObject firePoint;
-    //Arrow
-    public GameObject ArrowPrefab;
-    //Arrow
-    public GameObject BombArrowPrefab;
     //Special Attack Button
     private bool specialAttackInput;
     //How long of a cooldown on normal attack
@@ -66,54 +56,47 @@ public class ArcherController : CharacterParent
 
     public int activePrefab;
 
-    public GameObject RotatePoint;
     public Animator animator;
-    public int BowPosition = 0;//Used to determine whether bow is unloaded (0), loaded (1), or Pulled (2), or Pulled with Bomb (3)
-    public int FSM = 0;
+
     public bool isDead = false;
 
     public bool isStunned = false;
     public float stunTime = 0.0f;
 
+    private SpriteRenderer spriteR;
+    public SpriteRenderer WeaponSprite;
+    public SpriteRenderer InvisIndSprite;
+
+
+
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
-
     private void Start()
     {
 
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
-        charSpeedMod = 0.85f;
-        maxCharHealth = 125;
-        currentCharHealth = 125;
+        dashing = false;
+        charSpeed = 5.0f;
+        charSpeedMod = 0.9f;
+        maxCharHealth = 100;
+        currentCharHealth = 100;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
         normalAttackPause = 1.0f;
-        normalAttackPull = 0.5f;
         normalAttackPauseTime = 0.0f;
-        projectileSpeed = 20.0f;
         specialAttackInput = false;
         specialAttackInput = false;
-        specialAttackPause = 12.0f;
+        specialAttackPause = 10.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
+        spriteR = gameObject.GetComponent<SpriteRenderer>();
+
     }
     //Get Inputs
 
-    void ShootProjectile()
-    {
-        GameObject arrow = Instantiate(ArrowPrefab, firePoint.transform.position, Quaternion.Euler(new Vector3(0, 0, 45)) * firePoint.transform.rotation);
-        Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
-        rb.AddForce(firePoint.transform.up * projectileSpeed, ForceMode2D.Impulse);
-    }
-    void ShootProjectileBomb()
-    {
-        GameObject bomb = Instantiate(BombArrowPrefab, firePoint.transform.position, Quaternion.Euler(new Vector3(0, 0, 45)) * firePoint.transform.rotation);
-        Rigidbody2D rb = bomb.GetComponent<Rigidbody2D>();
-        rb.AddForce(firePoint.transform.up * projectileSpeed, ForceMode2D.Impulse);
-    }
 
     public override void TakeDamage(int damage)
     {
@@ -129,26 +112,45 @@ public class ArcherController : CharacterParent
             //Change to new character
         }
     }
-    public override void CharSwitching()
-    {
-        TakeStun(1.0f);
-        switchingIndicator.SetActive(true);
-        switchingTime = 0.95f + Time.timeSinceLevelLoad;
-    }
     public override void TakeStun(float duration)
     {
         isStunned = true;
         stunTime = duration + Time.timeSinceLevelLoad;
     }
-
     public override void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
     {
         KBtime = Time.timeSinceLevelLoad + duration;
         charKnockback = knockback;
         otherPos = KBPosition;
     }
-
-
+    public override void CharSwitching()
+    {
+        TakeStun(1.0f);
+        switchingIndicator.SetActive(true);
+        switchingTime = 0.95f + Time.timeSinceLevelLoad;
+    }
+    public override float GetHealth()
+    {
+        return ((float)currentCharHealth / (float)maxCharHealth);
+    }
+    public override float GetPrimary()
+    {
+        float GPvalue = (normalAttackPauseTime - Time.timeSinceLevelLoad) / normalAttackPause;
+        if (GPvalue < 0)
+        {
+            GPvalue = 0;
+        }
+        return (1 - GPvalue);
+    }
+    public override float GetSpecial()
+    {
+        float GSvalue = (specialAttackPauseTime - Time.timeSinceLevelLoad) / specialAttackPause;
+        if (GSvalue < 0)
+        {
+            GSvalue = 0;
+        }
+        return (1 - GSvalue);
+    }
     void Update()
     {
         //ForScoring
@@ -162,6 +164,7 @@ public class ArcherController : CharacterParent
         {
             switchingIndicator.SetActive(false);
         }
+
 
         if (!isStunned)
         {
@@ -188,15 +191,22 @@ public class ArcherController : CharacterParent
         {
             isStunned = false;
         }
+        //update health
+
+
 
         //Animate Character
         animator.SetFloat("MoveX", Mathf.Abs(movementInput.x));
         animator.SetFloat("MoveY", Mathf.Abs(movementInput.y));
 
         //Move Character
-        if(FSM == 2 || FSM == 3 || FSM == 4 || FSM == 5)
+        if (dashing)
         {
-            rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod * 0.6f;
+            //Set Invs
+            spriteR.enabled = false;
+            WeaponSprite.enabled = false;
+            InvisIndSprite.enabled = false;
+            rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod * 1.2f;
         }
         else if (KBtime > Time.timeSinceLevelLoad)
         {
@@ -204,101 +214,59 @@ public class ArcherController : CharacterParent
         }
         else
         {
+            spriteR.enabled = true;
+            WeaponSprite.enabled = true;
+            InvisIndSprite.enabled = true;
             rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod;
         }
-
-
         //Rotate Weapon
-        RotatePoint.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        weapon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 45.0f));
         //Rotate Self
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        
-        if (FSM == 0 && normalAttackPauseTime < Time.timeSinceLevelLoad)
+       
+        //Make character dash
+        if (specialAttackPauseTime + 2.5f > Time.timeSinceLevelLoad + specialAttackPause)
         {
-            FSM = 1;
-            BowPosition = 1;
+            dashing = true;
+        }
+        else
+        {
+            dashing = false;
         }
 
-        if (normalAttackInput && FSM == 1 )
+        if (normalAttackPauseTime + 0.05 < Time.timeSinceLevelLoad + normalAttackPause)
         {
-            //normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
-            FSM = 2;
-            normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPull;
+            weaponHitbox.SetActive(false);
         }
-
-        if (specialAttackPauseTime < Time.timeSinceLevelLoad)
+        if (normalAttackPauseTime - 0.10f < Time.timeSinceLevelLoad)
         {
-            BombIndicator.SetActive(true);
-            if (specialAttackInput && FSM == 1)
-            {
-                FSM = 3;
-                BombIndicator.SetActive(false);
-                //Set time till next attack
-                specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
-                normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPull;
-            }
+            weapon2.SetActive(false);
+            weapon.SetActive(true);
         }
-        
-        
-
-        if(FSM == 4 && !normalAttackInput)
-        {
-            FSM = 0;
-            BowPosition = 0;
-            ShootProjectile();
-            normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
-        }
-        if (FSM == 5 && !specialAttackInput)
-        {
-            FSM = 0;
-            BowPosition = 0;
-            ShootProjectileBomb();
-            normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
-        }
-
         if (normalAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            if(FSM == 2)
+            
+            if (normalAttackInput && !dashing)
             {
-                FSM = 4;
-                BowPosition = 2;
+                weapon2.SetActive(true);
+                weapon.SetActive(false);
+                weaponHitbox.SetActive(true);
+                //Set time till next attack
+                normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
             }
-            else if(FSM == 3)
+
+        }
+        if (specialAttackPauseTime < Time.timeSinceLevelLoad)
+        {
+            invsIndicator.SetActive(true);
+            if (specialAttackInput)
             {
-                FSM = 5;
-                BowPosition = 3;
+                invsIndicator.SetActive(false);
+                //Set time till next attack
+                specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
             }
         }
-        
-        //Set The Bow Position
-        if(BowPosition == 0)
-        {
-            weapon.SetActive(true);
-            weapon2.SetActive(false);
-            weapon3.SetActive(false);
-            weapon4.SetActive(false);
-        }
-        else if (BowPosition == 1)
-        {
-            weapon.SetActive(false);
-            weapon2.SetActive(true);
-            weapon3.SetActive(false);
-            weapon4.SetActive(false);
-        }
-        else if (BowPosition == 2)
-        {
-            weapon.SetActive(false);
-            weapon2.SetActive(false);
-            weapon3.SetActive(true);
-            weapon4.SetActive(false);
-        }
-        else if (BowPosition == 3)
-        {
-            weapon.SetActive(false);
-            weapon2.SetActive(false);
-            weapon3.SetActive(false);
-            weapon4.SetActive(true);
-        }
+
 
         //Set angle of aim
         if (aimInput.x != 0 && aimInput.y != 0)

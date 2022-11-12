@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+//using TMPro;
 
 public class LevelInitializer : MonoBehaviour
 {
     [SerializeField]
     public Transform[] PlayerSpawns;
+
+    [SerializeField]
+    public GameObject[] HealthBars;
 
     [SerializeField]
     public GameObject playerPrefab;
@@ -19,6 +23,7 @@ public class LevelInitializer : MonoBehaviour
             var player = Instantiate(playerPrefab, PlayerSpawns[i].position, PlayerSpawns[i].rotation, this.transform);
             player.GetComponent<PlayerMaster>().InitializePlayer(playerConfigs[i]);
             player.GetComponent<PlayerMaster>().playerStart = PlayerSpawns[i];
+            player.GetComponent<PlayerMaster>().healthBar = HealthBars[i];
         }
 
 

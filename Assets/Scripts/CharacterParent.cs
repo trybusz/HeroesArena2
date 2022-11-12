@@ -11,8 +11,19 @@ public class CharacterParent : MonoBehaviour
     public float scoreTime = 0.0f;
     public bool onCtrlPoint = false;
 
+    public virtual float GetHealth()
+    {
+        return 0.1f;
+    }
+    public virtual float GetPrimary()
+    {
+        return 0.1f;
+    }
+    public virtual float GetSpecial()
+    {
+        return 0.1f;
+    }
 
-    
     public virtual void TakeDamage(int damage)
     {
 

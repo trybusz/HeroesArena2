@@ -22539,6 +22539,11 @@ MonoBehaviour:
   - {fileID: 1023656092}
   - {fileID: 943154377}
   - {fileID: 239493092}
+  HealthBars:
+  - {fileID: 306165147}
+  - {fileID: 1044899058}
+  - {fileID: 268853027}
+  - {fileID: 1202925369}
   playerPrefab: {fileID: 3043311118770049483, guid: d3958f6e2d07011418bc32c94029ea5d, type: 3}
 --- !u!4 &1514793274
 Transform:
@@ -23481,7 +23486,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 140:120
+  m_text: 0:0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -5,7 +5,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerMaster : MonoBehaviour
 {
-    
+
+    public GameObject healthBar;
+    CharacterParent cp;
+
+
     public GameObject charPrefab1;
     //bool char1selected = true;
     public GameObject charPrefab2;
@@ -88,22 +92,32 @@ public class PlayerMaster : MonoBehaviour
     void Update()
     {
 
-        if (charPrefab1 != activePrefab)
-        {
-            charPrefab1.SetActive(false);
-        }
-        if (charPrefab2 != activePrefab)
-        {
-            charPrefab2.SetActive(false);
-        }
-        if (charPrefab3 != activePrefab)
+        if (charPrefab1 == activePrefab)
         {
             charPrefab3.SetActive(false);
+            charPrefab2.SetActive(false);
+            cp = charPrefab1.GetComponent<CharacterParent>();
+        }
+        else if (charPrefab2 == activePrefab)
+        {
+            charPrefab1.SetActive(false);
+            charPrefab3.SetActive(false);
+            cp = charPrefab2.GetComponent<CharacterParent>();
+        }
+        else if (charPrefab3 == activePrefab)
+        {
+            charPrefab1.SetActive(false);
+            charPrefab2.SetActive(false);
+            cp = charPrefab3.GetComponent<CharacterParent>();
         }
         activePrefab.SetActive(true);
         charPrefab1.transform.position = activePrefab.transform.position;
         charPrefab2.transform.position = activePrefab.transform.position;
         charPrefab3.transform.position = activePrefab.transform.position;
+        
+        healthBar.GetComponent<HealthBarScript1>().SetHealth(cp.GetHealth());
+        healthBar.GetComponent<HealthBarScript1>().SetPrimary(cp.GetPrimary());
+        healthBar.GetComponent<HealthBarScript1>().SetSpecial(cp.GetSpecial());
 
         //charPrefab1.GetComponent<PlayerInput>().;
     }

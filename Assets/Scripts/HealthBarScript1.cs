@@ -13,10 +13,19 @@ public class HealthBarScript1 : MonoBehaviour
     public Slider primarySlider;
     public Slider specialSlider;
     // Start is called before the first frame update
-    public void SetHealth(int maxHealth, int currentHealth)
+    public void SetHealth(float healthRatio)
     {
-        healthSlider.value = (float)currentHealth / (float)maxHealth;
+        healthSlider.value = healthRatio;
     }
+    public void SetPrimary(float primaryRatio)
+    {
+        primarySlider.value = primaryRatio;
+    }
+    public void SetSpecial(float specialRatio)
+    {
+        specialSlider.value = specialRatio;
+    }
+    /*
     public void SetAbilities(float primaryAttackPauseTime, float primaryAttackPause, float specialAttackPauseTime, float specialAttackPause)
     {
         primaryValue = primaryAttackPauseTime;
@@ -25,8 +34,10 @@ public class HealthBarScript1 : MonoBehaviour
         specialValue2 = specialAttackPause;
         
     }
+    */
     private void Update()
     {
+        /*
         if (primaryValue - Time.timeSinceLevelLoad > 0)
         {
             primarySlider.value = (primaryValue - Time.timeSinceLevelLoad) / primaryValue2;
@@ -35,6 +46,6 @@ public class HealthBarScript1 : MonoBehaviour
         {
             specialSlider.value = (specialValue - Time.timeSinceLevelLoad) / specialValue2;
         }
-
+        */
     }
 }
