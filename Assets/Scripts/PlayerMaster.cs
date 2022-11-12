@@ -5,13 +5,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerMaster : MonoBehaviour
 {
-    public GameObject cursor;
+    
     public GameObject charPrefab1;
-    bool char1selected = true;
+    
     public GameObject charPrefab2;
-    bool char2selected = false;
+
     public GameObject charPrefab3;
-    bool char3selected = false;
+    
 
     public bool AButtonInput { get; private set; }
     public bool BButtonInput { get; private set; }
@@ -27,6 +27,18 @@ public class PlayerMaster : MonoBehaviour
     public Vector2 aimInput;
     public bool normalAttackInput;
     public bool specialAttackInput;
+    private PlayerInput input;
+    public bool isReady { get; set; }
+    public int PlayerIndex { get; private set; }
+    public PlayerMaster(PlayerInput pi)
+    {
+        PlayerIndex = pi.playerIndex;
+        input = pi;
+
+    }
+
+    
+
 
     // Start is called before the first frame update
     private void Start()
