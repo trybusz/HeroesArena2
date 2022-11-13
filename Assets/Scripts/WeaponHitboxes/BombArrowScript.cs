@@ -48,7 +48,8 @@ public class BombArrowScript : MonoBehaviour
     {
         if (timeOfInst < Time.timeSinceLevelLoad)
         {
-            Instantiate(explosionPrefab, this.transform.position, this.transform.rotation);
+            Instantiate(explosionPrefab, this.transform.position, this.transform.rotation);    
+            SoundManagerScript.PlaySound("Bomb");
             Destroy(gameObject);
         }
     }
