@@ -36,6 +36,7 @@ public class BoxScript : CharacterParent
         {
             //Destroy is temporary
             Destroy(gameObject);
+            SoundManagerScript.PlaySound("boxBreak");
         }
     }
     public override void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
