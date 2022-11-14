@@ -29,7 +29,7 @@ public class CanonFire : MonoBehaviour
             Rigidbody2D rb = cannonBall.GetComponent<Rigidbody2D>();
             rb.AddForce(firePoint.transform.up * projectileSpeed, ForceMode2D.Impulse);
             shot = true;
-            SoundManagerScript.PlaySound("Cannon");
+            //SoundManagerScript.PlaySound("Cannon");
         }
             
 

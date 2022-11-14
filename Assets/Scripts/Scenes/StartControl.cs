@@ -17,7 +17,7 @@ public class StartControl : MonoBehaviour
         if (Input.anyKeyDown)//Any Button Press
         {
             SceneManager.LoadScene(1);// load Start Screen
-            SoundManagerScript.PlayLoop("mainMenuMusic");
+            //SoundManagerScript.PlayLoop("mainMenuMusic");
         }
     }
 }

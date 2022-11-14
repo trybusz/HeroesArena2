@@ -63,14 +63,6 @@ public class PirateControl : CharacterParent
     float lastSwordAngle = 0.0f;
     //Previous angle, to be used as a temp on angle
     float lastAngle = 0.0f;
-    //A Button
-    public bool AButtonInput = false;
-    //B Button
-    public bool BButtonInput = false;
-    //X Button
-    public bool XButtonInput = false;
-    //Y Button
-    public bool YButtonInput = false;
 
     public int activePrefab;
     public float swordCountTime = 0.0f;

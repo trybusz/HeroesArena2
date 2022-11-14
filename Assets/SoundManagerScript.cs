@@ -8,7 +8,8 @@ public class SoundManagerScript : MonoBehaviour
     public static AudioClip bombSound, cannonSound, swordSound, doubleSwordSound, invisibleSound, arrowSound, 
     boxBreakSound;
     static AudioSource audioSrc;
- 
+    
+ /*
     void Start()
     {
         bombSound = GameSounds.Load<AudioClip>("BombSound");
@@ -71,4 +72,7 @@ public class SoundManagerScript : MonoBehaviour
                 audioSrc.PlayLoop(mainMenuMusic);
                 }
         }   
+ 
+    */
+
     }

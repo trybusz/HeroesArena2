@@ -50,14 +50,6 @@ public class WaterSlimeController : CharacterParent
     float angle = 0.0f;
     //Previous angle, to be used as a temp on angle
     float lastAngle = 0.0f;
-    //A Button
-    private bool AButtonInput = false;
-    //B Button
-    private bool BButtonInput = false;
-    //X Button
-    private bool XButtonInput = false;
-    //Y Button
-    private bool YButtonInput = false;
 
     public int projectileCounter = 0;
 
