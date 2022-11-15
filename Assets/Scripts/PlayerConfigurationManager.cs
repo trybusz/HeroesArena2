@@ -26,7 +26,7 @@ public class PlayerConfigurationManager : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(Instance);
+            //DontDestroyOnLoad(Instance);
             playerConfigs = new List<PlayerConfiguration>();
         }
 
@@ -40,7 +40,8 @@ public class PlayerConfigurationManager : MonoBehaviour
         if (!playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex))
         {
             playerConfigs.Add(new PlayerConfiguration(pi));
-            Debug.Log("Player Config added for player " + pi.playerIndex + 1);
+            Debug.Log("Player Config added for index " + pi.playerIndex);
+           
         }
     }
 
@@ -82,6 +83,7 @@ public class PlayerConfiguration
     {
         PlayerIndex = pi.playerIndex;
         Input = pi;
+        Debug.Log("PlayerConfig" + pi.user);
     }
 
     public PlayerInput Input { get; private set; }

@@ -18,7 +18,7 @@ public class LevelInitializer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var playerConfigs = PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray();
+        //var playerConfigs = PlayerConfigurationManager.Instance;
         /*for (int i = 0; i < playerConfigs.Length; i++)
         {
             var player = Instantiate(playerPrefab, PlayerSpawns[i].position, PlayerSpawns[i].rotation, this.transform);
@@ -26,7 +26,7 @@ public class LevelInitializer : MonoBehaviour
             player.GetComponent<PlayerMaster>().playerStart = PlayerSpawns[i];
             player.GetComponent<PlayerMaster>().healthBar = HealthBars[i];
         }
-        */
+       
 
         var player0 = Instantiate(playerPrefab, PlayerSpawns[0].position, PlayerSpawns[0].rotation, this.transform);
         int p0index = player0.GetComponent<PlayerInput>().playerIndex;
@@ -55,6 +55,6 @@ public class LevelInitializer : MonoBehaviour
         player3.GetComponent<PlayerMaster>().InitializePlayer(playerConfigs[p0index]);
         player3.GetComponent<PlayerMaster>().playerStart = PlayerSpawns[p0index];
         player3.GetComponent<PlayerMaster>().healthBar = HealthBars[p0index];
-
+         */
     }
 }

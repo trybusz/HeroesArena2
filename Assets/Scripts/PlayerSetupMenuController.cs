@@ -22,13 +22,21 @@ public class PlayerSetupMenuController : MonoBehaviour
 	private float ignoreInputTime = 1.5f;
 	private bool inputEnabled;
 	public bool charPrefab1picked = false;
+	public GameObject charPrefab1;
+	public GameObject charPrefab2;
+	public GameObject charPrefab3;
 	public bool charPrefab2picked = false;
 	public bool charPrefab3picked = false;
+	public GameObject playerPrefab;
+	//public GameObject charPrefab;
 	bool flag = true;
 	
 	
 	public Transform charLocation;
-	
+    public void Awake()
+    {
+		DontDestroyOnLoad(this.gameObject);
+    }
 
     public void Start()
     {
@@ -99,6 +107,7 @@ public class PlayerSetupMenuController : MonoBehaviour
 		{
 			PlayerConfigurationManager.Instance.SetPlayerPrefab2(PlayerIndex, characters[selectedCharacter]);
 			charPrefab2picked = true;
+			charPrefab2 = characters[selectedCharacter];
 		}
 	}
 	public void OnBButton(InputAction.CallbackContext context)
@@ -107,6 +116,7 @@ public class PlayerSetupMenuController : MonoBehaviour
 		{
 			PlayerConfigurationManager.Instance.SetPlayerPrefab3(PlayerIndex, characters[selectedCharacter]);
 			charPrefab3picked = true;
+			charPrefab3 = characters[selectedCharacter];
 		}
 	}
 	public void OnXButton(InputAction.CallbackContext context)
@@ -115,6 +125,7 @@ public class PlayerSetupMenuController : MonoBehaviour
 		{
 			PlayerConfigurationManager.Instance.SetPlayerPrefab1(PlayerIndex, characters[selectedCharacter]);
 			charPrefab1picked = true;
+			charPrefab1 = characters[selectedCharacter];
 		}
 	}
 
@@ -126,24 +137,16 @@ public class PlayerSetupMenuController : MonoBehaviour
 			readyPanel.SetActive(true);
 			menuPanel.SetActive(false);
 			flag = false;
+			Destroy(this.gameObject.GetComponent<PlayerInput>());
+
+			playerPrefab = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+			//charPrefab1.
+			playerPrefab.GetComponent<PlayerMaster>().charPrefab1 = charPrefab1;
+			playerPrefab.GetComponent<PlayerMaster>().charPrefab2 = charPrefab2;
+			playerPrefab.GetComponent<PlayerMaster>().charPrefab3 = charPrefab3;
+			playerPrefab.GetComponent<PlayerMaster>().playerStart = this.transform;
 			PlayerConfigurationManager.Instance.ReadyPlayer(PlayerIndex);
 		}
-		/*
-		switch (selectedCharacter)
-		{
-			case 0:
-				
-				break;
-			case 1:
-				
-
-			break;
-			default:
-				
-
-		break;
-		}
-		*/
 
 	}
 }

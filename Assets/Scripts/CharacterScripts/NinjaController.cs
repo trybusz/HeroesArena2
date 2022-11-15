@@ -60,7 +60,7 @@ public class NinjaController : CharacterParent
 
     public Animator animator;
 
-    public bool isDead = false;
+    //public bool isDead = false;
 
     public bool isStunned = false;
     public float stunTime = 0.0f;
@@ -115,7 +115,7 @@ public class NinjaController : CharacterParent
         if (currentCharHealth <= 0)
         {
             //Destroy is temporary
-            Destroy(gameObject);
+            //Destroy(gameObject);
             isDead = true;
             //This vvv Stuff happens in char master
             //Set Position to Spawn
@@ -145,7 +145,7 @@ public class NinjaController : CharacterParent
     }
     public override float GetPrimary()
     {
-        float GPvalue = (normalAttackPauseTime - Time.timeSinceLevelLoad) / normalAttackPause;
+        float GPvalue = (specialAttackPauseTime - Time.timeSinceLevelLoad) / specialAttackPause;
         if (GPvalue < 0)
         {
             GPvalue = 0;
@@ -154,7 +154,7 @@ public class NinjaController : CharacterParent
     }
     public override float GetSpecial()
     {
-        float GSvalue = (specialAttackPauseTime - Time.timeSinceLevelLoad) / specialAttackPause;
+        float GSvalue =  (normalAttackPauseTime - Time.timeSinceLevelLoad) / normalAttackPause;
         if (GSvalue < 0)
         {
             GSvalue = 0;

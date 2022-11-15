@@ -1245,8 +1245,12 @@ MonoBehaviour:
   selectedCharacter: 0
   selectedText: 0
   charPrefab1picked: 0
+  charPrefab1: {fileID: 0}
+  charPrefab2: {fileID: 0}
+  charPrefab3: {fileID: 0}
   charPrefab2picked: 0
   charPrefab3picked: 0
+  playerPrefab: {fileID: 3043311118770049483, guid: d3958f6e2d07011418bc32c94029ea5d, type: 3}
   charLocation: {fileID: 0}
 --- !u!114 &8048768885225353522
 MonoBehaviour:

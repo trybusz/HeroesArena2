@@ -56,7 +56,7 @@ public class TankController : CharacterParent
     public bool isStunned = false;
     public float stunTime = 0.0f;
 
-    public bool isDead = false;
+    //public bool isDead = false;
 
     public float KBtime = 0.0f;
     float charKnockback;
@@ -105,7 +105,7 @@ public class TankController : CharacterParent
         if (currentCharHealth <= 0)
         {
             //Destroy is temporary
-            Destroy(gameObject);
+            //Destroy(gameObject);
             isDead = true;
             //This vvv Stuff happens in char master
             //Set Position to Spawn

@@ -50,7 +50,7 @@ public class AssassinScript : CharacterParent
 
     public Animator animator;
 
-    public bool isDead = false;
+    //public bool isDead = false;
 
     public bool isStunned = false;
     public float stunTime = 0.0f;
@@ -97,7 +97,7 @@ public class AssassinScript : CharacterParent
         if (currentCharHealth <= 0)
         {
             //Destroy is temporary
-            Destroy(gameObject);
+            //Destroy(gameObject);
             isDead = true;
             //This vvv Stuff happens in char master
             //Set Position to Spawn

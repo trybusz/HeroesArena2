@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1279251918}
   - component: {fileID: 1279251917}
+  - component: {fileID: 1279251919}
   m_Layer: 0
   m_Name: MainLayout
   m_TagString: Untagged
@@ -183,6 +184,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1279251919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279251916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b425a41e474f5884d88b551665c048b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1883404316
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,7 +358,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3029216995516059714, guid: d2321f847816f564c94f616aee64acbd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000030518
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3029216995516059714, guid: d2321f847816f564c94f616aee64acbd, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -364,9 +377,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7649680981901533397, guid: d2321f847816f564c94f616aee64acbd, type: 3}
+      propertyPath: m_AllowJoining
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7649680981901533397, guid: d2321f847816f564c94f616aee64acbd, type: 3}
       propertyPath: m_JoinBehavior
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7649680981901533397, guid: d2321f847816f564c94f616aee64acbd, type: 3}
+      propertyPath: m_PlayerPrefab
+      value: 
+      objectReference: {fileID: 4615315079619333982, guid: a872dd9b4f8ede747832bb9be696b6bb, type: 3}
     - target: {fileID: 7649680981901533397, guid: d2321f847816f564c94f616aee64acbd, type: 3}
       propertyPath: m_JoinAction.m_Action.m_Id
       value: 9dec8707-0f15-45f7-9e58-c309e9b3ea1f

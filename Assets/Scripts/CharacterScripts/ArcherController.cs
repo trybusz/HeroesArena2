@@ -62,7 +62,7 @@ public class ArcherController : CharacterParent
     public Animator animator;
     public int BowPosition = 0;//Used to determine whether bow is unloaded (0), loaded (1), or Pulled (2), or Pulled with Bomb (3)
     public int FSM = 0;
-    public bool isDead = false;
+    //public bool isDead = false;
 
     public bool isStunned = false;
     public float stunTime = 0.0f;
@@ -114,7 +114,7 @@ public class ArcherController : CharacterParent
         if (currentCharHealth <= 0)
         {
             //Destroy is temporary
-            Destroy(gameObject);
+            //Destroy(gameObject);
             isDead = true;
             //This vvv Stuff happens in char master
             //Set Position to Spawn
