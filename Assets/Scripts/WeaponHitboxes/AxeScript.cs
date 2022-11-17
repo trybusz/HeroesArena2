@@ -11,7 +11,7 @@ public class AxeScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        airTime = 0.75f;
+        airTime = 0.8f;
         axeDamage = 35;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
     }

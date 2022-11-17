@@ -2,18 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankController : CharacterParent
+public class EarthSlimeController : CharacterParent
 {
     //For character switching
     public GameObject switchingIndicator;
     private float switchingTime;
     //Rotating Weapon
     public GameObject weapon;
-    public GameObject dashHitbox;
-    public GameObject weaponDashHitbox;
-    public GameObject dashIndicator;
-    public GameObject shieldReady;
-    public bool dashing;
+    //Rotating Weapon
+    public GameObject weaponFromFirePoint;
     //Player RigidBody
     private Rigidbody2D rb;
     //Base character speed
@@ -24,10 +21,6 @@ public class TankController : CharacterParent
     public int maxCharHealth;
     //Current Health
     public int currentCharHealth;
-    //Base Shield Health
-    public int maxShieldHealth;
-    //Current SHield Health
-    public int currentShieldHealth;
     //Movement input
     private Vector2 movementInput;
     //Aim Imput
@@ -40,6 +33,16 @@ public class TankController : CharacterParent
     //Variable to measure cooldown
     private float normalAttackPauseTime;
     //SPECIAL ATTACK
+    //Transform for fire point
+    public GameObject firePoint;
+    //Transform for fire point
+    public GameObject firePoint2;
+    //Axe Prefab
+    public GameObject rockShot;
+    //Axe Prefab
+    public GameObject rockWallPrefab;
+    //Special Attack Speed;
+    public float projectileSpeed;//For rock
     //Special Attack Button
     private bool specialAttackInput;
     //How long of a cooldown on normal attack
@@ -51,6 +54,11 @@ public class TankController : CharacterParent
     //Previous angle, to be used as a temp on angle
     float lastAngle = 0.0f;
 
+    public bool isAiming = false;
+
+    public int activePrefab;
+
+    //Animation Stuff
     public Animator animator;
 
     //public bool isStunned = false;
@@ -63,45 +71,39 @@ public class TankController : CharacterParent
     Vector3 otherPos = Vector3.zero;
     private void Start()
     {
-
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
-        dashing = false;
-        charSpeedMod = 0.5f;
-        maxCharHealth = 250;
-        currentCharHealth = 250;
-        maxShieldHealth = 250;
-        currentShieldHealth = 250;
+        charSpeedMod = 0.65f;
+        maxCharHealth = 225;
+        currentCharHealth = 225;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
-        normalAttackPause = 1.0f;
+        normalAttackPause = 0.8f;
         normalAttackPauseTime = 0.0f;
+        projectileSpeed = 15.0f;
         specialAttackInput = false;
-        specialAttackInput = false;
-        specialAttackPause = 15.0f;
+        specialAttackPause = 16.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
     }
-    //Get Inputs
 
+    void ShootProjectile()
+    {
+        weaponFromFirePoint.SetActive(false);
+        GameObject rock = Instantiate(rockShot, firePoint.transform.position, firePoint.transform.rotation);
+        Rigidbody2D rb = rock.GetComponent<Rigidbody2D>();
+        rb.AddForce(firePoint.transform.up * projectileSpeed, ForceMode2D.Impulse);
+    }
+    void ShootProjectile2()
+    {
+        Instantiate(rockWallPrefab, firePoint2.transform.position, firePoint2.transform.rotation);
+    }
 
     public override void TakeDamage(int damage)
     {
-        if (weapon.activeSelf)
-        {
-            currentShieldHealth -= damage;
-        }
-        else {
-            currentCharHealth -= damage;
-        }
-        
+        currentCharHealth -= damage;
 
-        if (currentShieldHealth <= 0)
-        {
-            weapon.SetActive(false);
-            currentShieldHealth = maxShieldHealth;
-        }
         if (currentCharHealth <= 0)
         {
             //Destroy is temporary
@@ -124,6 +126,7 @@ public class TankController : CharacterParent
         charKnockback = knockback;
         otherPos = KBPosition;
     }
+    //Currently not used
     public override void CharSwitching()
     {
         TakeStun(1.0f);
@@ -173,7 +176,6 @@ public class TankController : CharacterParent
         }
 
 
-
         if (!isStunned)
         {
             movementInput = GetComponentInParent<PlayerMaster>().movementInput;
@@ -200,77 +202,71 @@ public class TankController : CharacterParent
             isStunned = false;
         }
 
-        //Animate Character
-        animator.SetFloat("MoveX", Mathf.Abs(movementInput.x));
-        animator.SetFloat("MoveY", Mathf.Abs(movementInput.y));
-
-        if (normalAttackPauseTime + 0.10f > Time.timeSinceLevelLoad + normalAttackPause)
-        {
-            dashing = true;
-        }
-        else if (normalAttackPauseTime + 0.15f > Time.timeSinceLevelLoad + normalAttackPause && weapon.activeSelf)
-        {
-            dashing = true;
-        }
-        else
-        {
-            dashing = false;
-        }
 
 
         //Move Character
-        if (dashing)
+        if (KBtime > Time.timeSinceLevelLoad)//Knockback
         {
-            rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod * 4;
-        }
-        else if(KBtime > Time.timeSinceLevelLoad){//For knockback
             rb.velocity = new Vector2(rb.transform.position.x - otherPos.x, rb.transform.position.y - otherPos.y).normalized * charKnockback;
         }
         else
         {
-            dashHitbox.SetActive(false);
-            weaponDashHitbox.SetActive(false);
             rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod;
         }
+
+
+        //Animate Character
+        animator.SetFloat("MoveX", Mathf.Abs(movementInput.x));
+        animator.SetFloat("MoveY", Mathf.Abs(movementInput.y));
+
         //Rotate Weapon
         weapon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Rotate Self
-        this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        //Make character dash
-        
 
+        if (!isAiming)
+        {
+            this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        }
+        //Rotate Piv
+        //Rotate True Aim Point
+        firePoint.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        //If you click attack and you can attack, then attack
+        if (normalAttackPauseTime + 0.4f < Time.timeSinceLevelLoad + normalAttackPause && isAiming)
+        {
+            
+            ShootProjectile();
+            isAiming = false;
+            weaponFromFirePoint.SetActive(false);
+
+        }
         if (normalAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            dashIndicator.SetActive(true);
+            weapon.SetActive(true);
             if (normalAttackInput)
             {
-                if (weapon.activeSelf)
-                {
-                    weaponDashHitbox.SetActive(true);
-                }
-                else
-                {
-                    dashHitbox.SetActive(true);
-                }
-                dashIndicator.SetActive(false);
+                weapon.SetActive(false);
+                weaponFromFirePoint.SetActive(true);
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
+                //This is for switching position of swinging weapons
+                isAiming = true;
             }
 
         }
+
         if (specialAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            shieldReady.SetActive(true);
-            if (specialAttackInput && !weapon.activeSelf)
+            //cannonPlaceholder.SetActive(true);
+            if (specialAttackInput)
             {
-                shieldReady.SetActive(false);
+                //cannonPlaceholder.SetActive(false);
                 //Set time till next attack
                 specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
                 //Shoot Axe here
-
-                weapon.SetActive(true);
+                ShootProjectile2();//Place Wall
             }
         }
+
 
 
         //Set angle of aim
@@ -285,6 +281,7 @@ public class TankController : CharacterParent
         //Set last angle to be angle
         lastAngle = angle;
         //For the swing of a weapon
+
 
         if (currentCharHealth > maxCharHealth)
         {

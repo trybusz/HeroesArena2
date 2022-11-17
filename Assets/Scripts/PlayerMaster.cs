@@ -34,6 +34,10 @@ public class PlayerMaster : MonoBehaviour
     public Vector2 aimInput;
     public bool normalAttackInput;
     public bool specialAttackInput;
+    public bool switching = false;
+    private float switchTime = 2.0f;
+    public int switchCharNum = 0;
+    public float switchCountTime = 0.0f;
 
     public void InitializePlayer(PlayerConfiguration config)
     {
@@ -72,12 +76,22 @@ public class PlayerMaster : MonoBehaviour
         AButtonInput = context.performed;
         if (!charPrefab2.GetComponent<CharacterParent>().isDead)
         {
-            activePrefab = charPrefab2;
-            if(SceneManager.GetActiveScene().buildIndex == 5)
+            if (!switching && activePrefab == charPrefab1)
             {
-                charPrefab2.GetComponent<CharacterParent>().TakeStun(1.0f);
+                charPrefab1.GetComponent<CharacterParent>().isSwitching = true;
+                charPrefab1.GetComponent<CharacterParent>().TakeStun(switchTime);
+                switching = true;
+                switchCountTime = Time.timeSinceLevelLoad + switchTime;
+                switchCharNum = 2;
             }
-            
+            else if(!switching && activePrefab == charPrefab3)
+            {
+                charPrefab3.GetComponent<CharacterParent>().isSwitching = true;
+                charPrefab3.GetComponent<CharacterParent>().TakeStun(switchTime);
+                switching = true;
+                switchCountTime = Time.timeSinceLevelLoad + switchTime;
+                switchCharNum = 2;
+            }
         }
     }
     public void OnBButton(InputAction.CallbackContext context)
@@ -85,10 +99,21 @@ public class PlayerMaster : MonoBehaviour
         BButtonInput = context.performed;
         if (!charPrefab3.GetComponent<CharacterParent>().isDead)
         {
-            activePrefab = charPrefab3;
-            if (SceneManager.GetActiveScene().buildIndex == 5)
+            if (!switching && activePrefab == charPrefab1)
             {
-                charPrefab3.GetComponent<CharacterParent>().TakeStun(1.0f);
+                charPrefab1.GetComponent<CharacterParent>().isSwitching = true;
+                charPrefab1.GetComponent<CharacterParent>().TakeStun(switchTime);
+                switching = true;
+                switchCountTime = Time.timeSinceLevelLoad + switchTime;
+                switchCharNum = 3;
+            }
+            else if (!switching && activePrefab == charPrefab2)
+            {
+                charPrefab2.GetComponent<CharacterParent>().isSwitching = true;
+                charPrefab2.GetComponent<CharacterParent>().TakeStun(switchTime);
+                switching = true;
+                switchCountTime = Time.timeSinceLevelLoad + switchTime;
+                switchCharNum = 3;
             }
         }
     }
@@ -97,10 +122,21 @@ public class PlayerMaster : MonoBehaviour
         XButtonInput = context.performed;
         if (!charPrefab1.GetComponent<CharacterParent>().isDead)
         {
-            activePrefab = charPrefab1;
-            if (SceneManager.GetActiveScene().buildIndex == 5)
+            if (!switching && activePrefab == charPrefab2)
             {
-                charPrefab1.GetComponent<CharacterParent>().TakeStun(1.0f);
+                charPrefab2.GetComponent<CharacterParent>().isSwitching = true;
+                charPrefab2.GetComponent<CharacterParent>().TakeStun(switchTime);
+                switching = true;
+                switchCountTime = Time.timeSinceLevelLoad + switchTime;
+                switchCharNum = 1;
+            }
+            else if (!switching && activePrefab == charPrefab3)
+            {
+                charPrefab3.GetComponent<CharacterParent>().isSwitching = true;
+                charPrefab3.GetComponent<CharacterParent>().TakeStun(switchTime);
+                switching = true;
+                switchCountTime = Time.timeSinceLevelLoad + switchTime;
+                switchCharNum = 1;
             }
         }
     }
@@ -131,6 +167,10 @@ public class PlayerMaster : MonoBehaviour
             else if (GetComponent<PlayerInput>().playerIndex == 2) { healthBar = GameObject.Find("Canvas/HealthBar3"); }
             else if (GetComponent<PlayerInput>().playerIndex == 3) { healthBar = GameObject.Find("Canvas/HealthBar4"); }
 
+            //Pause all characters at start of game
+            charPrefab1.GetComponent<CharacterParent>().TakeStun(5.0f);
+            charPrefab2.GetComponent<CharacterParent>().TakeStun(5.0f);
+            charPrefab3.GetComponent<CharacterParent>().TakeStun(5.0f);
 
             activePrefab = charPrefab1;
             activePrefab.SetActive(true);
@@ -141,6 +181,29 @@ public class PlayerMaster : MonoBehaviour
 
         if (ready)
         {
+            if (switching && switchCountTime < Time.timeSinceLevelLoad)
+            {
+                switching = false;
+                switchCountTime = 0.0f;
+                if(switchCharNum == 1)
+                {
+                    activePrefab = charPrefab1;
+                    charPrefab1.GetComponent<CharacterParent>().isSwitching = false;
+                }
+                else if (switchCharNum == 2)
+                {
+                    activePrefab = charPrefab2;
+                    charPrefab2.GetComponent<CharacterParent>().isSwitching = false;
+                }
+                else if (switchCharNum == 3)
+                {
+                    activePrefab = charPrefab3;
+                    charPrefab3.GetComponent<CharacterParent>().isSwitching = false;
+                }
+                switchCharNum = 0;
+            }
+            
+
             if (charPrefab1.GetComponent<CharacterParent>().isDead && char1isDeadFlag == false)
             {
                 char1isDeadFlag = true;

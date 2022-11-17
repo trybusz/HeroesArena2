@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletScript : MonoBehaviour
+public class AnchorFly : MonoBehaviour
 {
     public int damage;
     public float timeOfInst;
     public float airTime;
+    public GameObject anchorImage;
     // Start is called before the first frame update
     void Start()
     {
-        airTime = 0.15f;
-        damage = 20;
+        airTime = 1.0f;
+        damage = 25;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
 
     }
@@ -24,6 +25,8 @@ public class BulletScript : MonoBehaviour
             if (cp != null)
             {
                 cp.TakeDamage(damage);
+                cp.TakeKnockback(-10.0f, transform.parent.position, 1.1f + Time.timeSinceLevelLoad - timeOfInst);
+                Instantiate(anchorImage, this.transform.position, this.transform.rotation, other.transform);
             }
             if (!other.CompareTag("Hitbox") && other != null)
             {

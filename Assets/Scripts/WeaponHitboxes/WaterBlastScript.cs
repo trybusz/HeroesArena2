@@ -15,7 +15,7 @@ public class WaterBlastScript : MonoBehaviour
             if (cp != null)
             {
                 cp.TakeDamage(damage);
-                cp.TakeKnockback(10.0f, this.transform.position, 0.15f);
+                cp.TakeKnockback(7.0f, this.transform.position, 0.15f);
             }
             if (!other.CompareTag("Hitbox") && other != null)
             {
@@ -30,7 +30,7 @@ public class WaterBlastScript : MonoBehaviour
     void Start()
     {
         airTime = 1.0f;
-        damage = 10;
+        damage = 5;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
     }
 

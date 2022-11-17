@@ -59,7 +59,7 @@ public class WaterSlimeController : CharacterParent
 
     //public bool isDead = false;
 
-    public bool isStunned = false;
+    //public bool isStunned = false;
     public float stunTime = 0.0f;
 
     public float KBtime = 0.0f;
@@ -157,6 +157,16 @@ public class WaterSlimeController : CharacterParent
 
     void Update()
     {
+        //For Switch Indicator
+        if (isSwitching)
+        {
+            switchingIndicator.SetActive(true);
+        }
+        else
+        {
+            switchingIndicator.SetActive(false);
+        }
+
         //ForScoring
         if (onCtrlPoint && scoreTime < Time.timeSinceLevelLoad)
         {
@@ -164,11 +174,6 @@ public class WaterSlimeController : CharacterParent
             thisCharScore++;
         }
 
-        //For Switching
-        if (switchingTime < Time.timeSinceLevelLoad)
-        {
-            switchingIndicator.SetActive(false);
-        }
 
         if (!isStunned)
         {

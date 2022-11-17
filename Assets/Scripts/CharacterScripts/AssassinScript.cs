@@ -52,7 +52,7 @@ public class AssassinScript : CharacterParent
 
     //public bool isDead = false;
 
-    public bool isStunned = false;
+    //public bool isStunned = false;
     public float stunTime = 0.0f;
 
     private SpriteRenderer spriteR;
@@ -72,8 +72,8 @@ public class AssassinScript : CharacterParent
         dashing = false;
         charSpeed = 5.0f;
         charSpeedMod = 0.9f;
-        maxCharHealth = 100;
-        currentCharHealth = 100;
+        maxCharHealth = 150;
+        currentCharHealth = 150;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
@@ -145,16 +145,21 @@ public class AssassinScript : CharacterParent
     }
     void Update()
     {
+        //For Switch Indicator
+        if (isSwitching)
+        {
+            switchingIndicator.SetActive(true);
+        }
+        else
+        {
+            switchingIndicator.SetActive(false);
+        }
+
         //ForScoring
         if (onCtrlPoint && scoreTime < Time.timeSinceLevelLoad)
         {
             scoreTime = Time.timeSinceLevelLoad + 1.0f;
             thisCharScore++;
-        }
-        //For Switching
-        if (switchingTime < Time.timeSinceLevelLoad)
-        {
-            switchingIndicator.SetActive(false);
         }
 
 

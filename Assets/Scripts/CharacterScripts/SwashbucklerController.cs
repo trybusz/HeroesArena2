@@ -77,7 +77,7 @@ public class SwashbucklerController : CharacterParent
 
     //public bool isDead = false;
 
-    public bool isStunned = false;
+    //public bool isStunned = false;
     public float stunTime = 0.0f;
 
     public float KBtime = 0.0f;
@@ -224,6 +224,16 @@ public class SwashbucklerController : CharacterParent
 
     void Update()
     {
+        //For Switch Indicator
+        if (isSwitching)
+        {
+            switchingIndicator.SetActive(true);
+        }
+        else
+        {
+            switchingIndicator.SetActive(false);
+        }
+
         //ForScoring
         if (onCtrlPoint && scoreTime < Time.timeSinceLevelLoad)
         {
@@ -231,11 +241,7 @@ public class SwashbucklerController : CharacterParent
             thisCharScore++;
         }
 
-        //For Switching
-        if (switchingTime < Time.timeSinceLevelLoad)
-        {
-            switchingIndicator.SetActive(false);
-        }
+
         if (isThrowingAnchor)
         {
             movementInput = Vector2.zero;
@@ -307,10 +313,13 @@ public class SwashbucklerController : CharacterParent
         //Make character dash
 
 
-
-        if (normalAttackPauseTime < Time.timeSinceLevelLoad)
+        if (normalAttackPauseTime - 0.05f < Time.timeSinceLevelLoad)
         {
             weapon.SetActive(true);
+        }
+        if (normalAttackPauseTime < Time.timeSinceLevelLoad)
+        {
+            
             if (normalAttackInput)
             {
                 weapon.SetActive(false);

@@ -11,6 +11,9 @@ public class CharacterParent : MonoBehaviour
     public float scoreTime = 0.0f;
     public bool onCtrlPoint = false;
     public bool isDead = false;
+    public bool isStunned = false;
+    public bool isSwitching = false;
+    public bool isSwitching2 = false;
 
     public virtual float GetHealth()
     {

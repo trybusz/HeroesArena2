@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NinjaStarScript : MonoBehaviour
+public class BulletScript : MonoBehaviour
 {
     public int damage;
     public float timeOfInst;
     public float airTime;
-
     // Start is called before the first frame update
     void Start()
     {
-        airTime = 0.4f;
-        damage = 12;
+        airTime = 0.15f;
+        damage = 25;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
 
     }
@@ -30,13 +29,13 @@ public class NinjaStarScript : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(0.0f, 0.0f, 1.5f, Space.Self);
         if (timeOfInst < Time.timeSinceLevelLoad)
         {
             Destroy(gameObject);

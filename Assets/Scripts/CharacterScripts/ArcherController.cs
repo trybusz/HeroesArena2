@@ -64,7 +64,7 @@ public class ArcherController : CharacterParent
     public int FSM = 0;
     //public bool isDead = false;
 
-    public bool isStunned = false;
+    //public bool isStunned = false;
     public float stunTime = 0.0f;
 
     public float KBtime = 0.0f;
@@ -164,16 +164,21 @@ public class ArcherController : CharacterParent
 
     void Update()
     {
+        //For Switch Indicator
+        if (isSwitching)
+        {
+            switchingIndicator.SetActive(true);
+        }
+        else
+        {
+            switchingIndicator.SetActive(false);
+        }
+
         //ForScoring
         if (onCtrlPoint && scoreTime < Time.timeSinceLevelLoad)
         {
             scoreTime = Time.timeSinceLevelLoad + 1.0f;
             thisCharScore++;
-        }
-        //For Switching
-        if (switchingTime < Time.timeSinceLevelLoad)
-        {
-            switchingIndicator.SetActive(false);
         }
 
         if (!isStunned)
@@ -330,5 +335,7 @@ public class ArcherController : CharacterParent
         {
             currentCharHealth = maxCharHealth;
         }
+
+        
     }
 }

@@ -70,7 +70,7 @@ public class PirateControl : CharacterParent
     //Animation Stuff
     public Animator animator;
 
-    public bool isStunned = false;
+    //public bool isStunned = false;
     public float stunTime = 0.0f;
 
     //public bool isDead = false;
@@ -96,7 +96,7 @@ public class PirateControl : CharacterParent
         normalAttackPause = 1.0f;
         normalAttackPauseTime = 0.0f;
         specialAttackInput = false;
-        specialAttackPause = 14.0f;
+        specialAttackPause = 10.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
     }
@@ -164,16 +164,21 @@ public class PirateControl : CharacterParent
 
     void Update()
     {
+        //For Switch Indicator
+        if (isSwitching)
+        {
+            switchingIndicator.SetActive(true);
+        }
+        else
+        {
+            switchingIndicator.SetActive(false);
+        }
+
         //ForScoring
         if (onCtrlPoint && scoreTime < Time.timeSinceLevelLoad)
         {
             scoreTime = Time.timeSinceLevelLoad + 1.0f;
             thisCharScore++;
-        }
-        //For Switching
-        if (switchingTime < Time.timeSinceLevelLoad)
-        {
-            switchingIndicator.SetActive(false);
         }
 
 

@@ -68,7 +68,7 @@ public class charControl : CharacterParent
     public Animator animator;
     //public bool isDead = false;
 
-    public bool isStunned = false;
+    //public bool isStunned = false;
     public float stunTime = 0.0f;
 
     public float KBtime = 0.0f;
@@ -89,7 +89,7 @@ public class charControl : CharacterParent
         normalAttackPauseTime = 0.0f;
         projectileSpeed = 10.0f;
         specialAttackInput = false;
-        specialAttackPause = 4.0f;
+        specialAttackPause = 3.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
 }
@@ -159,18 +159,22 @@ public class charControl : CharacterParent
 
     void Update()
     {
+        //For Switch Indicator
+        if (isSwitching)
+        {
+            switchingIndicator.SetActive(true);
+        }
+        else
+        {
+            switchingIndicator.SetActive(false);
+        }
+
         //ForScoring
         if (onCtrlPoint && scoreTime < Time.timeSinceLevelLoad)
         {
             scoreTime = Time.timeSinceLevelLoad + 1.0f;
             thisCharScore++;
         }
-        //For Switching
-        if (switchingTime < Time.timeSinceLevelLoad)
-        {
-            switchingIndicator.SetActive(false);
-        }
-
 
         if (!isStunned)
         {

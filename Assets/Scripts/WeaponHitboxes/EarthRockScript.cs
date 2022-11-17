@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnchorFly : MonoBehaviour
+public class EarthRockScript : MonoBehaviour
 {
     public int damage;
     public float timeOfInst;
     public float airTime;
-    public GameObject anchorImage;
     // Start is called before the first frame update
     void Start()
     {
         airTime = 1.0f;
-        damage = 25;
+        damage = 50;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
+        
 
     }
 
@@ -25,8 +25,7 @@ public class AnchorFly : MonoBehaviour
             if (cp != null)
             {
                 cp.TakeDamage(damage);
-                cp.TakeKnockback(-10.0f, transform.parent.position, 1.0f);
-                Instantiate(anchorImage, this.transform.position, this.transform.rotation, other.transform);
+                cp.TakeKnockback(7.0f, this.transform.position, 0.1f);
             }
             if (!other.CompareTag("Hitbox") && other != null)
             {
