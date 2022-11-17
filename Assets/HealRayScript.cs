@@ -2,11 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterBlastScript : MonoBehaviour
+public class HealRayScript : MonoBehaviour
 {
     public int damage;
     public float timeOfInst;
     public float airTime;
+    // Start is called before the first frame update
+    void Start()
+    {
+        airTime = 1.0f;
+        damage = -5;
+        timeOfInst = Time.timeSinceLevelLoad + airTime;
+
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag != "ControlPoint" && other.tag != "WaterTag" && other.tag != "BuffZone")
@@ -15,7 +24,6 @@ public class WaterBlastScript : MonoBehaviour
             if (cp != null)
             {
                 cp.TakeDamage(damage);
-                cp.TakeKnockback(7.0f, this.transform.position, 0.15f);
             }
             if (!other.CompareTag("Hitbox") && other != null)
             {
@@ -23,15 +31,6 @@ public class WaterBlastScript : MonoBehaviour
             }
 
         }
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        airTime = 0.85f;
-        damage = 5;
-        timeOfInst = Time.timeSinceLevelLoad + airTime;
     }
 
     // Update is called once per frame
