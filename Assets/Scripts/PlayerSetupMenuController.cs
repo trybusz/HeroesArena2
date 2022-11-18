@@ -9,6 +9,7 @@ public class PlayerSetupMenuController : MonoBehaviour
 	public PlayerInput PlayerInput;
 	public GameObject[] characters;
 	public TextMeshProUGUI[] descriptions;
+	public Sprite[] images;
 	
 	public TextMeshProUGUI description;
 	[SerializeField]
@@ -57,7 +58,6 @@ public class PlayerSetupMenuController : MonoBehaviour
 	public void PreviousCharacter()
 	{
 		
-		Debug.Log("Previous Character");
 		selectedCharacter--;
 		if (selectedCharacter < 0)
 		{
@@ -70,7 +70,6 @@ public class PlayerSetupMenuController : MonoBehaviour
 	{
 		if (!inputEnabled) { return; }
 
-		
 	}
 	public void SetCharPrefab2(GameObject prefab)
 	{
@@ -87,7 +86,7 @@ public class PlayerSetupMenuController : MonoBehaviour
 
 	public void OnNormalAttack(InputAction.CallbackContext context)
 	{
-		if (context.started)
+		if (context.started && PlayerConfigurationManager.Instance.GetPlayerConfigs().Count == PlayerConfigurationManager.Instance.MaxPlayers)
 		{
 			NextCharacter();
 		}
@@ -95,7 +94,7 @@ public class PlayerSetupMenuController : MonoBehaviour
 	}
 	public void OnSpecialAttack(InputAction.CallbackContext context)
 	{
-        if (context.started)
+        if (context.started && PlayerConfigurationManager.Instance.GetPlayerConfigs().Count == PlayerConfigurationManager.Instance.MaxPlayers)
         {
 			PreviousCharacter();
 		}
@@ -103,7 +102,7 @@ public class PlayerSetupMenuController : MonoBehaviour
 	}
 	public void OnAButton(InputAction.CallbackContext context)
 	{
-		if (context.started)
+		if (context.started && PlayerConfigurationManager.Instance.GetPlayerConfigs().Count == PlayerConfigurationManager.Instance.MaxPlayers)
 		{
 			PlayerConfigurationManager.Instance.SetPlayerPrefab2(PlayerIndex, characters[selectedCharacter]);
 			charPrefab2picked = true;
@@ -112,7 +111,7 @@ public class PlayerSetupMenuController : MonoBehaviour
 	}
 	public void OnBButton(InputAction.CallbackContext context)
 	{
-		if (context.started)
+		if (context.started && PlayerConfigurationManager.Instance.GetPlayerConfigs().Count == PlayerConfigurationManager.Instance.MaxPlayers)
 		{
 			PlayerConfigurationManager.Instance.SetPlayerPrefab3(PlayerIndex, characters[selectedCharacter]);
 			charPrefab3picked = true;
@@ -121,7 +120,7 @@ public class PlayerSetupMenuController : MonoBehaviour
 	}
 	public void OnXButton(InputAction.CallbackContext context)
 	{
-		if (context.started) 
+		if (context.started && PlayerConfigurationManager.Instance.GetPlayerConfigs().Count == PlayerConfigurationManager.Instance.MaxPlayers) 
 		{
 			PlayerConfigurationManager.Instance.SetPlayerPrefab1(PlayerIndex, characters[selectedCharacter]);
 			charPrefab1picked = true;

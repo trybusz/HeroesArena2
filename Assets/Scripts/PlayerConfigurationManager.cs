@@ -13,7 +13,7 @@ public class PlayerConfigurationManager : MonoBehaviour
     private List<PlayerConfiguration> playerConfigs;
     
     [SerializeField]
-    private int MaxPlayers = 4;
+    public int MaxPlayers = 4;
 
     public static PlayerConfigurationManager Instance { get; private set; }
 
@@ -37,11 +37,15 @@ public class PlayerConfigurationManager : MonoBehaviour
         Debug.Log("player joined " + pi.playerIndex);
         pi.transform.SetParent(transform);
 
-        if (!playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex))
+        if (!playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex) && playerConfigs.Count != MaxPlayers)
         {
             playerConfigs.Add(new PlayerConfiguration(pi));
             Debug.Log("Player Config added for index " + pi.playerIndex);
            
+        }
+        else
+        {
+            Debug.Log("Player already in scene, or max amount of players alowed are in the scene");
         }
     }
 
