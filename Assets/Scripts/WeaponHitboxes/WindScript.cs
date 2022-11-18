@@ -20,7 +20,7 @@ public class WindScript : MonoBehaviour
         if (cp != null && !this.transform.IsChildOf(cp.transform))
         {
             cp.TakeDamage(damage);
-            cp.TakeKnockback(20.0f, transform.parent.position, 0.25f);
+            cp.TakeKnockback(30.0f, transform.parent.position, 0.3f);
         }
     }
 
