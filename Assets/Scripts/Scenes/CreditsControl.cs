@@ -14,7 +14,7 @@ public class CreditsControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool BackPress = Input.GetKeyDown("k");//like a b button
+        bool BackPress = Input.GetButtonDown("Cancel");//like a b button
         if (BackPress)
         {
             SceneManager.LoadScene(1); //Load Menu Scene

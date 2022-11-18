@@ -17,7 +17,7 @@ public class OptionsController : MonoBehaviour
         //Control Point?
         //Sound Effects Volume
         //Music Volume
-        bool BackPress = Input.GetKeyDown("k");//like a b button
+        bool BackPress = Input.GetButtonDown("Cancel");//like a b button
         if (BackPress)
         {
             SceneManager.LoadScene(1); //Load Menu Scene

@@ -71,7 +71,7 @@ public class PlayerConfigurationManager : MonoBehaviour
         if (playerConfigs.Count == MaxPlayers && playerConfigs[0].isReady && playerConfigs[1].isReady && playerConfigs[2].isReady && playerConfigs[3].isReady)
         {
             Debug.Log("Scene Load");
-            SceneManager.LoadScene(5);
+            SceneManager.LoadScene(SceneSelectScript.selectedStage);
         }
     }
 }

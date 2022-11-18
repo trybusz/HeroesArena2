@@ -15,14 +15,14 @@ public class MenuControl : MonoBehaviour
     private bool BackPress = false;
     private bool upPress = false;
     private bool downPress = false;
-
-
+    bool dpadVerticalBlocked = false;
+    /*
     public void OnDpadDown(InputAction.CallbackContext context)
     {
         if (context.performed) { downPress = true; }
             
         else if (context.canceled) { downPress = false; }
-            /* released */
+            // released
     }
     public void OnDpadUp(InputAction.CallbackContext context)
     {
@@ -36,22 +36,58 @@ public class MenuControl : MonoBehaviour
     {
         BackPress = context.performed;
     }
-
+    */
     // Update is called once per frame
     void Update()
     {
-        
+        //A button
+        SelPress = Input.GetButtonDown("Submit");
+        //B Button
+        BackPress = Input.GetButtonDown("Cancel");
+
+
+        //If they hit full dpad and its allowed, do stuff
+        if ((Input.GetAxis("Vertical") > 0.75f) && (dpadVerticalBlocked == false))
+        {
+
+            //Do your button down stuff here
+            MenuSelection += 1;
+            dpadVerticalBlocked = true; //Disable it
+
+        }
+        else
+        {
+            //if they release, allow them to hit it again.
+            if (Input.GetAxis("Vertical") == 0) { dpadVerticalBlocked = false; }
+        }
+
+        if ((Input.GetAxis("Vertical") < -0.75f ) && (dpadVerticalBlocked == false))
+        {
+
+            //Do your button down stuff here
+            MenuSelection -= 1;
+            dpadVerticalBlocked = true; //Disable it
+
+        }
+        else
+        {
+            //if they release, allow them to hit it again.
+            if (Input.GetAxis("Vertical") == 0) { dpadVerticalBlocked = false; }
+        }
+        /*
+        upPress = false;
+        downPress = false;
         //Use new input system here
         //Cycles through the possible numbers
         if (upPress && MenuSelection != 1)
         {
-            MenuSelection -= 1;
+            
         }
         if (downPress && MenuSelection != 4)
         {
-            MenuSelection += 1;
+            
         }
-
+        */
         //Display Selection based on number
         if(MenuSelection == 1)
         {
@@ -102,7 +138,7 @@ public class MenuControl : MonoBehaviour
         }
         if (SelPress && MenuSelection == 4)
         {
-            Application.Quit();//Exit Game
+            Application.Quit(); //Exit Game
         }
     }
 }
