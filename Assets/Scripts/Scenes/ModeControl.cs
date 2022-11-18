@@ -8,6 +8,7 @@ public class ModeControl : MonoBehaviour
     public GameObject Sel2v2, Sel1v1, SelFFA, SelBack;
     public int MenuSelection = 1; //Used to rotate selection
     // Start is called before the first frame update
+    bool dpadVerticalBlocked = false;
     void Start()
     {
 
@@ -16,20 +17,39 @@ public class ModeControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool upPress = Input.GetKeyDown("w");
-        bool downPress = Input.GetKeyDown("s");
-        bool SelPress = Input.GetKeyDown("j");//like an a button
-        bool BackPress = Input.GetKeyDown("k");//like a b button
-        //Use new input system here
-        //Cycles through the possible numbers
-        if (upPress && MenuSelection != 1)
+        
+        bool SelPress = Input.GetButtonDown("Submit");//like an a button
+        bool BackPress = Input.GetButtonDown("Cancel");//like a b button
+                                                      
+        //If they hit full dpad and its allowed, do stuff
+        if ((Input.GetAxis("Vertical") > 0.75f) && (dpadVerticalBlocked == false))
         {
-            MenuSelection -= 1;
-        }
-        if (downPress && MenuSelection != 4)
-        {
+
+            //Do your button down stuff here
             MenuSelection += 1;
+            dpadVerticalBlocked = true; //Disable it
+
         }
+        else
+        {
+            //if they release, allow them to hit it again.
+            if (Input.GetAxis("Vertical") == 0) { dpadVerticalBlocked = false; }
+        }
+
+        if ((Input.GetAxis("Vertical") < -0.75f) && (dpadVerticalBlocked == false))
+        {
+
+            //Do your button down stuff here
+            MenuSelection -= 1;
+            dpadVerticalBlocked = true; //Disable it
+
+        }
+        else
+        {
+            //if they release, allow them to hit it again.
+            if (Input.GetAxis("Vertical") == 0) { dpadVerticalBlocked = false; }
+        }
+        
 
         //Display Selection based on number
         if (MenuSelection == 1)
@@ -69,7 +89,7 @@ public class ModeControl : MonoBehaviour
         //Go to new screens
         if (SelPress && MenuSelection == 1)
         {
-            //SceneManager.LoadScene(x); //Load 2v2
+            SceneManager.LoadScene(7); //Load 2v2
         }
         if (SelPress && MenuSelection == 2)
         {
