@@ -77,7 +77,7 @@ public class AssassinScript : CharacterParent
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
-        normalAttackPause = 1.0f;
+        normalAttackPause = 0.8f;
         normalAttackPauseTime = 0.0f;
         specialAttackInput = false;
         specialAttackInput = false;

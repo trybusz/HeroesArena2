@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClericSlimeControl : CharacterParent
+public class WizardScript : CharacterParent
 {
     //For character switching
     public GameObject switchingIndicator;
     private float switchingTime;
     //Rotating Weapon
-    public GameObject weaponHeal;
-    public GameObject weaponDamage;
+    public GameObject charge1;
+    public GameObject charge2;
+    public GameObject charge3;
+    public GameObject charge4;
+    public GameObject charge5;
+    private int chargeValue;
     //Player RigidBody
     private Rigidbody2D rb;
     //Base character speed
@@ -37,9 +41,17 @@ public class ClericSlimeControl : CharacterParent
     //Transform for fire point
     public GameObject firePoint1;
     //Axe Prefab
-    public GameObject healRayPrefab;
+    public GameObject charge1Prefab;
     //Axe Prefab
-    public GameObject damageRayPrefab;
+    public GameObject charge2Prefab;
+    //Axe Prefab
+    public GameObject charge3Prefab;
+    //Axe Prefab
+    public GameObject charge4Prefab;
+    //Axe Prefab
+    public GameObject charge5Prefab;
+    //Axe Prefab
+    public GameObject ChargingAnim;
     //Special Attack Button
     private bool specialAttackInput;
     //How long of a cooldown on normal attack
@@ -70,38 +82,57 @@ public class ClericSlimeControl : CharacterParent
 
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
-        charSpeedMod = 0.80f;
-        maxCharHealth = 175;
-        currentCharHealth = 175;
+        charSpeedMod = 0.75f;
+        maxCharHealth = 150;
+        currentCharHealth = 150;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
-        normalAttackPause = 0.1f;
+        normalAttackPause = 0.5f;
         normalAttackPauseTime = 0.0f;
-        projectileSpeed = 7.0f;
+        projectileSpeed = 12.0f;
         specialAttackInput = false;
         specialAttackInput = false;
-        specialAttackPause = 0.1f;
+        specialAttackPause = 0.5f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
     }
     //Get Inputs
 
-    void ShootProjectile()
+    void ShootProjectile1()
     {
-        weaponDamage.SetActive(false);
-        weaponHeal.SetActive(true);
-        GameObject water = Instantiate(damageRayPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
-        Rigidbody2D rb = water.GetComponent<Rigidbody2D>();
-        rb.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        charge1.SetActive(false);
+        GameObject light = Instantiate(charge1Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
+        rb1.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
     }
     void ShootProjectile2()
     {
-        weaponHeal.SetActive(false);
-        weaponDamage.SetActive(true);
-        GameObject water = Instantiate(healRayPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
-        Rigidbody2D rb = water.GetComponent<Rigidbody2D>();
-        rb.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        charge2.SetActive(false);
+        GameObject light = Instantiate(charge2Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
+        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 2.0f), ForceMode2D.Impulse);
+    }
+    void ShootProjectile3()
+    {
+        charge3.SetActive(false);
+        GameObject light = Instantiate(charge3Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
+        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 4.0f), ForceMode2D.Impulse);
+    }
+    void ShootProjectile4()
+    {
+        charge4.SetActive(false);
+        GameObject light = Instantiate(charge4Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
+        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 6.0f), ForceMode2D.Impulse);
+    }
+    void ShootProjectile5()
+    {
+        charge5.SetActive(false);
+        GameObject light = Instantiate(charge5Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
+        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 10.0f), ForceMode2D.Impulse);
     }
 
     public override void TakeDamage(int damage)
@@ -232,9 +263,70 @@ public class ClericSlimeControl : CharacterParent
 
         if (normalAttackPauseTime < Time.timeSinceLevelLoad)
         {
+            if (chargeValue == 1)
+            {
+                charge1.SetActive(true);
+                charge2.SetActive(false);
+                charge3.SetActive(false);
+                charge4.SetActive(false);
+                charge5.SetActive(false);
+            }
+            else if (chargeValue == 2)
+            {
+                charge1.SetActive(false);
+                charge2.SetActive(true);
+                charge3.SetActive(false);
+                charge4.SetActive(false);
+                charge5.SetActive(false);
+            }
+            else if (chargeValue == 3)
+            {
+                charge1.SetActive(false);
+                charge2.SetActive(false);
+                charge3.SetActive(true);
+                charge4.SetActive(false);
+                charge5.SetActive(false);
+            }
+            else if (chargeValue == 4)
+            {
+                charge1.SetActive(false);
+                charge2.SetActive(false);
+                charge3.SetActive(false);
+                charge4.SetActive(true);
+                charge5.SetActive(false);
+            }
+            else if (chargeValue == 5)
+            {
+                charge1.SetActive(false);
+                charge2.SetActive(false); ;
+                charge3.SetActive(false);
+                charge4.SetActive(false);
+                charge5.SetActive(true);
+            }
+
             if (normalAttackInput)
             {
-                ShootProjectile();
+                if (chargeValue == 1)
+                {
+                    ShootProjectile1();
+                }
+                else if (chargeValue == 2)
+                {
+                    ShootProjectile2();
+                }
+                else if (chargeValue == 3)
+                {
+                    ShootProjectile3();
+                }
+                else if (chargeValue == 4)
+                {
+                    ShootProjectile4();
+                }
+                else if (chargeValue == 5)
+                {
+                    ShootProjectile5();
+                }
+                chargeValue = 1;
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
             }
@@ -244,10 +336,14 @@ public class ClericSlimeControl : CharacterParent
         {
             if (specialAttackInput)
             {
-                ShootProjectile2();
+                currentCharHealth += 5;
+                if (chargeValue < 5)
+                {
+                    chargeValue += 1;
+                }
                 //Set time till next attack
                 specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
-                
+
             }
         }
 

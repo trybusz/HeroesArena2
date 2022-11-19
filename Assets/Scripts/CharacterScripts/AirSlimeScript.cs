@@ -9,7 +9,12 @@ public class AirSlimeScript : CharacterParent
     private float switchingTime;
     //Rotating Weapon
     public GameObject weapon;
+    public GameObject weapon2;
     public GameObject dashIndicator;
+    public GameObject tornadoPrefab;
+    public GameObject firepoint1;
+    public GameObject firepoint2;
+    public float projectileSpeed;
     public bool dashing;
     //Player RigidBody
     private Rigidbody2D rb;
@@ -56,7 +61,7 @@ public class AirSlimeScript : CharacterParent
     Vector3 otherPos = Vector3.zero;
     private void Start()
     {
-
+        projectileSpeed = 7.0f;
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
         dashing = false;
@@ -76,6 +81,15 @@ public class AirSlimeScript : CharacterParent
     }
     //Get Inputs
 
+    void ShootProjectile()
+    {
+        GameObject tornado1 = Instantiate(tornadoPrefab, firepoint1.transform.position, firepoint1.transform.rotation);
+        Rigidbody2D rb1 = tornado1.GetComponent<Rigidbody2D>();
+        rb1.AddForce(firepoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        GameObject tornado2 = Instantiate(tornadoPrefab, firepoint2.transform.position, firepoint2.transform.rotation);
+        Rigidbody2D rb2 = tornado2.GetComponent<Rigidbody2D>();
+        rb2.AddForce(firepoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+    }
 
     public override void TakeDamage(int damage)
     {
@@ -212,17 +226,15 @@ public class AirSlimeScript : CharacterParent
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Make character dash
 
-        if (normalAttackPauseTime + 0.20f > Time.timeSinceLevelLoad + normalAttackPause)
-        {
-            weapon.SetActive(false);
-        }
         if (normalAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            dashIndicator.SetActive(true);
+            weapon.SetActive(true);
+            weapon2.SetActive(true);
             if (normalAttackInput)
             {
-                weapon.SetActive(true);
-                dashIndicator.SetActive(false);
+                ShootProjectile();
+                weapon.SetActive(false);
+                weapon2.SetActive(false);
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
             }
