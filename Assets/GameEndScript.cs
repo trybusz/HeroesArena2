@@ -1,0 +1,68 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class GameEndScript : MonoBehaviour
+{
+    private PlayerMaster pm0;
+    private PlayerMaster pm1;
+    private PlayerMaster pm2;
+    private PlayerMaster pm3;
+    public PlayerMaster[] playerMasters;
+    public List<PlayerMaster> blueTeam;
+    public List<PlayerMaster> redTeam;
+    public static int winCase;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        playerMasters = GameObject.FindObjectsOfType<PlayerMaster>();
+       
+        for(int i = 0; i < playerMasters.Length; i++)
+        {
+            if (playerMasters[i].team == 0)
+            {
+                blueTeam.Add(playerMasters[i]);
+            }
+            else
+            {
+                redTeam.Add(playerMasters[i]);
+            }
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // all of blue team is dead
+        if(blueTeam[0].char1isDeadFlag && blueTeam[0].char2isDeadFlag && blueTeam[0].char3isDeadFlag 
+            && blueTeam[1].char1isDeadFlag && blueTeam[1].char2isDeadFlag && blueTeam[1].char3isDeadFlag)
+        {
+            //red survived
+            winCase = 1;
+            SceneManager.LoadScene("EndScreen");
+        }
+        // all of red team is dead
+        else if (redTeam[0].char1isDeadFlag && redTeam[0].char2isDeadFlag && redTeam[0].char3isDeadFlag
+            && redTeam[1].char1isDeadFlag && redTeam[1].char2isDeadFlag && redTeam[1].char3isDeadFlag)
+        {
+            //blue team survived
+            winCase = 0;
+            SceneManager.LoadScene("EndScreen");
+        }
+        else if(blueTeam[0].charPrefab1.GetComponent<CharacterParent>().thisCharScore + blueTeam[1].charPrefab1.GetComponent<CharacterParent>().thisCharScore > 100)
+        {
+            //blue team captured the point
+            winCase = 2;
+            SceneManager.LoadScene("EndScreen");
+        }
+        else if(redTeam[0].charPrefab1.GetComponent<CharacterParent>().thisCharScore + redTeam[1].charPrefab1.GetComponent<CharacterParent>().thisCharScore > 100)
+        {
+            //red team captured the point
+            winCase = 3;
+           SceneManager.LoadScene("EndScreen");
+
+        }
+    }
+}
