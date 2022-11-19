@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerSetupMenuController : MonoBehaviour
 {
@@ -10,12 +11,17 @@ public class PlayerSetupMenuController : MonoBehaviour
 	public GameObject[] characters;
 	public TextMeshProUGUI[] descriptions;
 	public Sprite[] images;
-	
+	public Image image;
+	public Image teamColor;
+	public int team;
+
 	public TextMeshProUGUI description;
 	[SerializeField]
 	private TextMeshProUGUI titleText;
 	[SerializeField]
 	private GameObject readyPanel;
+	[SerializeField]
+	private GameObject teamSelectPanel;
 	[SerializeField]
 	private GameObject menuPanel;
 	public int selectedCharacter = 0;
@@ -31,7 +37,7 @@ public class PlayerSetupMenuController : MonoBehaviour
 	public GameObject playerPrefab;
 	//public GameObject charPrefab;
 	bool flag = true;
-	
+	public bool teamPicked = false;
 	
 	public Transform charLocation;
     public void Awake()
@@ -39,9 +45,11 @@ public class PlayerSetupMenuController : MonoBehaviour
 		DontDestroyOnLoad(this.gameObject);
     }
 
+
     public void Start()
     {
 		menuPanel.SetActive(true);
+		teamSelectPanel.SetActive(false);
 		readyPanel.SetActive(false);
 		PlayerInput = GetComponent<PlayerInput>();
 		PlayerIndex = PlayerInput.playerIndex;
@@ -53,6 +61,8 @@ public class PlayerSetupMenuController : MonoBehaviour
 	{
 		selectedCharacter = (selectedCharacter + 1) % characters.Length;
 		description.SetText(descriptions[selectedCharacter].text);
+		image.sprite = images[selectedCharacter];
+		
 	}
 
 	public void PreviousCharacter()
@@ -64,6 +74,7 @@ public class PlayerSetupMenuController : MonoBehaviour
 			selectedCharacter += characters.Length;
 		}
 		description.SetText(descriptions[selectedCharacter].text);
+		image.sprite = images[selectedCharacter];
 
 	}
 	public void SetCharPrefab1(GameObject prefab)
@@ -88,25 +99,82 @@ public class PlayerSetupMenuController : MonoBehaviour
 	{
 		if (context.started && PlayerConfigurationManager.Instance.GetPlayerConfigs().Count == PlayerConfigurationManager.Instance.MaxPlayers)
 		{
-			NextCharacter();
+			if (!teamSelectPanel.activeInHierarchy)
+			{
+				NextCharacter();
+			}
+			else
+			{
+				//color is blue
+				if (teamColor.color.r == 0)
+				{
+					//set color to red
+					teamColor.color = new Color32(255, 0, 0, 255);
+
+				}
+				else
+				{
+					//set color to blue
+					teamColor.color = new Color32(0, 51, 225, 255);
+
+				}
+				
+			}
+
 		}
-		
 	}
 	public void OnSpecialAttack(InputAction.CallbackContext context)
 	{
         if (context.started && PlayerConfigurationManager.Instance.GetPlayerConfigs().Count == PlayerConfigurationManager.Instance.MaxPlayers)
         {
-			PreviousCharacter();
+			if (!teamSelectPanel.activeInHierarchy)
+			{
+				PreviousCharacter();
+			}
+			else
+			{
+				//color is blue
+				if (teamColor.color.r == 0)
+				{
+					//set color to red
+					teamColor.color = new Color32(255, 0, 0, 255);
+
+				}
+				//color is red
+				else
+				{
+					//set color to blue
+					teamColor.color = new Color32(0, 51, 225, 255);
+
+				}
+			}
+
 		}
-		
 	}
 	public void OnAButton(InputAction.CallbackContext context)
 	{
 		if (context.started && PlayerConfigurationManager.Instance.GetPlayerConfigs().Count == PlayerConfigurationManager.Instance.MaxPlayers)
 		{
-			PlayerConfigurationManager.Instance.SetPlayerPrefab2(PlayerIndex, characters[selectedCharacter]);
-			charPrefab2picked = true;
-			charPrefab2 = characters[selectedCharacter];
+            if (!teamSelectPanel.activeInHierarchy)
+            {
+				PlayerConfigurationManager.Instance.SetPlayerPrefab2(PlayerIndex, characters[selectedCharacter]);
+				charPrefab2picked = true;
+				charPrefab2 = characters[selectedCharacter];
+			}
+            else
+            {
+				//color is blue
+				if(teamColor.color.r == 0)
+                {
+					team = 0;
+				}
+                else
+                {
+					team = 1;
+				}
+				teamPicked = true;
+			}
+			
 		}
 	}
 	public void OnBButton(InputAction.CallbackContext context)
@@ -133,18 +201,25 @@ public class PlayerSetupMenuController : MonoBehaviour
 		if(charPrefab1picked && charPrefab2picked && charPrefab3picked && flag)
         {
 			
-			readyPanel.SetActive(true);
 			menuPanel.SetActive(false);
-			flag = false;
-			Destroy(this.gameObject.GetComponent<PlayerInput>());
+			teamSelectPanel.SetActive(true);
 
-			playerPrefab = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-			//charPrefab1.
-			playerPrefab.GetComponent<PlayerMaster>().charPrefab1 = charPrefab1;
-			playerPrefab.GetComponent<PlayerMaster>().charPrefab2 = charPrefab2;
-			playerPrefab.GetComponent<PlayerMaster>().charPrefab3 = charPrefab3;
-			playerPrefab.GetComponent<PlayerMaster>().playerStart = this.transform;
-			PlayerConfigurationManager.Instance.ReadyPlayer(PlayerIndex);
+            if (teamPicked)
+            {
+				flag = false;
+				readyPanel.SetActive(true);
+				teamSelectPanel.SetActive(false);
+				Destroy(this.gameObject.GetComponent<PlayerInput>());
+				playerPrefab = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+				playerPrefab.GetComponent<PlayerMaster>().charPrefab1 = charPrefab1;
+				playerPrefab.GetComponent<PlayerMaster>().charPrefab2 = charPrefab2;
+				playerPrefab.GetComponent<PlayerMaster>().charPrefab3 = charPrefab3;
+				playerPrefab.GetComponent<PlayerMaster>().playerStart = this.transform;
+				playerPrefab.GetComponent<PlayerMaster>().team = team;
+				PlayerConfigurationManager.Instance.ReadyPlayer(PlayerIndex);
+				
+			}
+			
 		}
 
 	}

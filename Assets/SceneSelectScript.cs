@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SceneSelectScript : MonoBehaviour
 {
-    public static int selectedStage;
+    //map1 default
+    public static int selectedStage = 5;
     public SpriteRenderer Map1;
     public SpriteRenderer Map2;
 
@@ -13,7 +14,8 @@ public class SceneSelectScript : MonoBehaviour
     bool dpadVerticalBlocked = false;
     void Start()
     {
-
+        Map1.enabled = true;
+        Map2.enabled = false;
     }
 
     // Update is called once per frame
@@ -76,12 +78,16 @@ public class SceneSelectScript : MonoBehaviour
                 SceneManager.LoadScene(8); //Load 2v2 char select
             }
         }
-        /*
-        if (MenuSelection == 3)
+        //just for 2 map looping for now
+        if (MenuSelection > 2)
         {
-            
-        }*/
-        
+            MenuSelection = 1;
+        }
+        if (MenuSelection < 1)
+        {
+            MenuSelection = 2;
+        }
+
 
         //Go back to mode select
         if (BackPress)

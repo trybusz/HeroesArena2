@@ -10,6 +10,12 @@ public class PlayerMaster : MonoBehaviour
     public bool char2isDeadFlag = false;
     public bool char3isDeadFlag = false;
 
+    public Material red;
+    public Material blue;
+
+
+    //0 for blue, 1 for red
+    public int team;
 
     public GameObject healthBar;
     CharacterParent cp;
@@ -151,17 +157,30 @@ public class PlayerMaster : MonoBehaviour
         //add for later scenes 
         if (SceneManager.GetActiveScene().buildIndex == 5 && !ready)
         {
-            if (GetComponent<PlayerInput>().playerIndex < 2)
+            //blue team on the left
+            if (team == 0)
             {
+                //set spawn location and color
                 spawnLocation = new Vector3(-18.0f, 1.0f, 0.0f);
+                charPrefab1 = Instantiate(charPrefab1, spawnLocation, Quaternion.identity, this.transform);
+                charPrefab2 = Instantiate(charPrefab2, spawnLocation, Quaternion.identity, this.transform);
+                charPrefab3 = Instantiate(charPrefab3, spawnLocation, Quaternion.identity, this.transform);
+                charPrefab1.GetComponent<SpriteRenderer>().material.SetColor("_Color", Color.blue);
+                charPrefab2.GetComponent<SpriteRenderer>().material.SetColor("_Color", Color.blue);
+                charPrefab3.GetComponent<SpriteRenderer>().material.SetColor("_Color", Color.blue);
             }
             else
             {
+                //set spawn location and color
                 spawnLocation = new Vector3(18.0f, 1.0f, 0.0f);
+                charPrefab1 = Instantiate(charPrefab1, spawnLocation, Quaternion.identity, this.transform);
+                charPrefab2 = Instantiate(charPrefab2, spawnLocation, Quaternion.identity, this.transform);
+                charPrefab3 = Instantiate(charPrefab3, spawnLocation, Quaternion.identity, this.transform);
+                charPrefab1.GetComponent<SpriteRenderer>().material.SetColor("_Color", Color.red);
+                charPrefab2.GetComponent<SpriteRenderer>().material.SetColor("_Color", Color.red);
+                charPrefab3.GetComponent<SpriteRenderer>().material.SetColor("_Color", Color.red);
             }
-            charPrefab1 = Instantiate(charPrefab1, spawnLocation, Quaternion.identity, this.transform);
-            charPrefab2 = Instantiate(charPrefab2, spawnLocation, Quaternion.identity, this.transform);
-            charPrefab3 = Instantiate(charPrefab3, spawnLocation, Quaternion.identity, this.transform);
+
             if (GetComponent<PlayerInput>().playerIndex == 0) { healthBar = GameObject.Find("Canvas/HealthBar1"); }
             else if (GetComponent<PlayerInput>().playerIndex == 1) { healthBar = GameObject.Find("Canvas/HealthBar2"); }
             else if (GetComponent<PlayerInput>().playerIndex == 2) { healthBar = GameObject.Find("Canvas/HealthBar3"); }
