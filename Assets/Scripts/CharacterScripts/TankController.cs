@@ -61,6 +61,17 @@ public class TankController : CharacterParent
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
+
+    //[SerializeField] private AudioSource ShieldSound;
+    [SerializeField] private AudioSource DashSound;
+    [SerializeField] private AudioSource ShieldBreakSound;
+
+    //[SerializeField] private AudioClip shield;
+    [SerializeField] private AudioClip dash;
+    [SerializeField] private AudioClip breaks;
+
+
+
     private void Start()
     {
 
@@ -99,6 +110,7 @@ public class TankController : CharacterParent
 
         if (currentShieldHealth <= 0)
         {
+            ShieldBreakSound.PlayOneShot(breaks);
             weapon.SetActive(false);
             currentShieldHealth = maxShieldHealth;
         }
@@ -221,6 +233,7 @@ public class TankController : CharacterParent
         //Move Character
         if (dashing)
         {
+            DashSound.PlayOneShot(dash);
             rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod * 4;
         }
         else if(KBtime > Time.timeSinceLevelLoad){//For knockback

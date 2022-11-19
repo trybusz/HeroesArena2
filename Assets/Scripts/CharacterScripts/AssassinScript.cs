@@ -64,6 +64,11 @@ public class AssassinScript : CharacterParent
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
+
+    [SerializeField] private AudioSource invisibleSound;
+    [SerializeField] private AudioClip invisible;
+    [SerializeField] private AudioSource stabSound;
+
     private void Start()
     {
 
@@ -245,6 +250,7 @@ public class AssassinScript : CharacterParent
             
             if (normalAttackInput && !dashing)
             {
+                stabSound.Play();
                 weapon2.SetActive(true);
                 weapon.SetActive(false);
                 weaponHitbox.SetActive(true);
@@ -258,6 +264,7 @@ public class AssassinScript : CharacterParent
             invsIndicator.SetActive(true);
             if (specialAttackInput)
             {
+                invisibleSound.PlayOneShot(invisible);
                 invsIndicator.SetActive(false);
                 //Set time till next attack
                 specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;

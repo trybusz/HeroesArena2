@@ -74,6 +74,9 @@ public class charControl : CharacterParent
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
+
+    [SerializeField] private AudioSource swordSound;
+    [SerializeField] private AudioSource axeSound;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -100,6 +103,7 @@ public class charControl : CharacterParent
         GameObject axe = Instantiate(axePrefab, firePoint.transform.position, firePoint.transform.rotation);
         Rigidbody2D rb = axe.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        axeSound.Play();
     }
 
     public override void TakeDamage(int damage)
@@ -244,6 +248,7 @@ public class charControl : CharacterParent
             
             if (normalAttackInput)
             {
+                swordSound.Play();
                 weaponHitbox.SetActive(true);
                 swingAnim.SetActive(true);
                 //Set time till next attack

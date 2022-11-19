@@ -82,6 +82,10 @@ public class PirateControl : CharacterParent
     Vector3 scaleChange2 = new Vector3(2.0f, 2.0f, 1.0f);
     Vector3 scaleChange3 = new Vector3(1.75f, 1.75f, 1.75f);
     Vector3 scaleChange4 = new Vector3(-1.75f, 1.75f, 1.75f);
+
+    [SerializeField] private AudioSource cannonSound;
+    [SerializeField] private AudioSource swordSound;
+    [SerializeField] private AudioClip sword;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -105,6 +109,7 @@ public class PirateControl : CharacterParent
     {
         cannonPlaceholder.SetActive(false);
         Instantiate(canonPrefab, firePoint.transform.position, firePoint.transform.rotation);
+        cannonSound.PlayDelayed(1.5f);
     }
 
     public override void TakeDamage(int damage)
@@ -237,6 +242,7 @@ public class PirateControl : CharacterParent
         //If you click attack and you can attack, then attack
         if (normalAttackPauseTime + 0.6 < Time.timeSinceLevelLoad + normalAttackPause)
         {
+            //swordSound.Play();
             weapon.SetActive(true);
             weapon3.SetActive(false);
             weaponHitbox3.SetActive(false);
@@ -261,6 +267,7 @@ public class PirateControl : CharacterParent
         }
         else if (normalAttackPauseTime + 0.20 < Time.timeSinceLevelLoad + normalAttackPause)
         {
+            //swordSound.Play();
             swingAnim.transform.localScale = scaleChange3;//Flip Sword
             weaponHitbox.SetActive(true);
             swingAnim.SetActive(true);
@@ -282,6 +289,8 @@ public class PirateControl : CharacterParent
 
             if (normalAttackInput)
             {
+                swordSound.PlayOneShot(sword);
+                
                 swingAnim.transform.localScale = scaleChange4;//Flip Sword
                 weaponHitbox.SetActive(true);
                 swingAnim.SetActive(true);
@@ -289,6 +298,10 @@ public class PirateControl : CharacterParent
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
                 //This is for switching position of swinging weapons
                 weaponPos2 = 1;
+
+                
+
+
             }
 
         }

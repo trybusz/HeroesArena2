@@ -65,6 +65,9 @@ public class ClericSlimeControl : CharacterParent
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
+
+    [SerializeField] private AudioSource healSound;
+    //[SerializeField] private AudioSource bowSound;
     private void Start()
     {
 
@@ -89,6 +92,7 @@ public class ClericSlimeControl : CharacterParent
 
     void ShootProjectile()
     {
+        healSound.Play();
         weaponDamage.SetActive(false);
         weaponHeal.SetActive(true);
         GameObject water = Instantiate(damageRayPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
@@ -97,6 +101,7 @@ public class ClericSlimeControl : CharacterParent
     }
     void ShootProjectile2()
     {
+        healSound.Play();
         weaponHeal.SetActive(false);
         weaponDamage.SetActive(true);
         GameObject water = Instantiate(healRayPrefab, firePoint1.transform.position, firePoint1.transform.rotation);

@@ -65,6 +65,9 @@ public class WaterSlimeController : CharacterParent
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
+
+    [SerializeField] private AudioSource waterSound;
+    [SerializeField] private AudioSource healSound;
     private void Start()
     {
 
@@ -93,11 +96,13 @@ public class WaterSlimeController : CharacterParent
         GameObject water = Instantiate(waterBlastPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
         Rigidbody2D rb = water.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        waterSound.Play();
     }
     void ShootProjectile2()//Drops Heal
     {
         healIndicator.SetActive(false);
         Instantiate(waterHealingRing, this.transform.position, this.transform.rotation);
+        healSound.Play();
     }
 
     public override void TakeDamage(int damage)

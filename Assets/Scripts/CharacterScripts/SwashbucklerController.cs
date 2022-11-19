@@ -83,6 +83,11 @@ public class SwashbucklerController : CharacterParent
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
+
+    [SerializeField] private AudioSource gunSound;
+    [SerializeField] private AudioSource anchorSound;
+    [SerializeField] private AudioClip anchor;
+
     private void Start()
     {
 
@@ -108,6 +113,8 @@ public class SwashbucklerController : CharacterParent
 
     void ShootProjectile()
     {
+
+        gunSound.Play();
         
         if (Random.Range(-1.0f, 1.0f) > 0.0f)
         {
@@ -244,6 +251,9 @@ public class SwashbucklerController : CharacterParent
 
         if (isThrowingAnchor)
         {
+
+            //anchorSound.PlayOneShot(anchor);
+
             movementInput = Vector2.zero;
 
             aimInput = Vector2.zero;

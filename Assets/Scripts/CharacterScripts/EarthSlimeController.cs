@@ -69,6 +69,9 @@ public class EarthSlimeController : CharacterParent
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
+
+    [SerializeField] private AudioSource rockSound;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -90,6 +93,8 @@ public class EarthSlimeController : CharacterParent
 
     void ShootProjectile()
     {
+        rockSound.Play();
+        
         weaponFromFirePoint.SetActive(false);
         GameObject rock = Instantiate(rockShot, firePoint.transform.position, firePoint.transform.rotation);
         Rigidbody2D rb = rock.GetComponent<Rigidbody2D>();

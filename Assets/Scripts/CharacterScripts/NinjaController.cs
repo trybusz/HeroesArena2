@@ -68,6 +68,11 @@ public class NinjaController : CharacterParent
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
+
+    [SerializeField] private AudioSource dashSound;
+    [SerializeField] private AudioSource thwipSound;
+    [SerializeField] private AudioClip dash;
+
     private void Start()
     {
   
@@ -94,6 +99,7 @@ public class NinjaController : CharacterParent
     
     void ShootProjectile()
     {
+        thwipSound.Play();
         weapon.SetActive(false);
         GameObject star = Instantiate(starPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
         Rigidbody2D rb = star.GetComponent<Rigidbody2D>();
@@ -220,6 +226,7 @@ public class NinjaController : CharacterParent
         //Move Character
         if (dashing)
         {
+
             dashHitbox.SetActive(true);
             rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod * 10;
         }
@@ -254,6 +261,7 @@ public class NinjaController : CharacterParent
             dashIndicator.SetActive(true);
             if (normalAttackInput)
             {
+                dashSound.PlayOneShot(dash);
                 dashIndicator.SetActive(false);
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
@@ -265,6 +273,8 @@ public class NinjaController : CharacterParent
             weapon.SetActive(true);
             if (specialAttackInput)
             {
+
+                //dashSound.PlayOneShot(dash);
                 //Set time till next attack
                 specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
                 //Shoot Axe here

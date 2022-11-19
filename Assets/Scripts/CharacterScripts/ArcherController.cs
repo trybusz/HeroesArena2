@@ -71,6 +71,10 @@ public class ArcherController : CharacterParent
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
 
+    [SerializeField] private AudioSource bowSound;
+    [SerializeField] private AudioSource bombSound;
+
+
     private void Start()
     {
 
@@ -99,12 +103,14 @@ public class ArcherController : CharacterParent
         GameObject arrow = Instantiate(ArrowPrefab, firePoint.transform.position, Quaternion.Euler(new Vector3(0, 0, 45)) * firePoint.transform.rotation);
         Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        bowSound.Play();
     }
     void ShootProjectileBomb()
     {
         GameObject bomb = Instantiate(BombArrowPrefab, firePoint.transform.position, Quaternion.Euler(new Vector3(0, 0, 45)) * firePoint.transform.rotation);
         Rigidbody2D rb = bomb.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        bombSound.PlayDelayed(3f);
     }
 
     public override void TakeDamage(int damage)
