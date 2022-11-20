@@ -5,25 +5,1533 @@ using UnityEngine.UI;
 
 public class HealthBarScript1 : MonoBehaviour
 {
-    private float primaryValue;
-    private float specialValue;
-    private float primaryValue2;
-    private float specialValue2;
-    public Slider healthSlider;
-    public Slider primarySlider;
-    public Slider specialSlider;
+    public GameObject charOneAlive;
+    public GameObject charTwoAlive;
+    public GameObject charThreeAlive;
+    public GameObject HealthBar1;
+    public GameObject HealthBar2;
+    public GameObject HealthBar3;
+    public GameObject HealthBar4;
+    public GameObject HealthBar5;
+    public GameObject HealthBar6;
+    public GameObject HealthBar7;
+    public GameObject HealthBar8;
+    public GameObject HealthBar9;
+    public GameObject HealthBar10;
+    public GameObject HealthBar11;
+    public GameObject HealthBar12;
+    public GameObject HealthBar13;
+    public GameObject HealthBar14;
+    public GameObject HealthBar15;
+    public GameObject HealthBar16;
+    public GameObject HealthBar17;
+    public GameObject HealthBar18;
+    public GameObject HealthBar19;
+    public GameObject HealthBar20;
+    public GameObject Primary1;
+    public GameObject Primary2;
+    public GameObject Primary3;
+    public GameObject Primary4;
+    public GameObject Primary5;
+    public GameObject Primary6;
+    public GameObject Primary7;
+    public GameObject Primary8;
+    public GameObject Primary9;
+    public GameObject Primary10;
+    public GameObject Primary11;
+    public GameObject Primary12;
+    public GameObject Primary13;
+    public GameObject Primary14;
+    public GameObject Primary15;
+    public GameObject Primary16;
+    public GameObject Primary17;
+    public GameObject Primary18;
+    public GameObject Primary19;
+    public GameObject Primary20;
+    public GameObject Special1;
+    public GameObject Special2;
+    public GameObject Special3;
+    public GameObject Special4;
+    public GameObject Special5;
+    public GameObject Special6;
+    public GameObject Special7;
+    public GameObject Special8;
+    public GameObject Special9;
+    public GameObject Special10;
+    public GameObject Special11;
+    public GameObject Special12;
+    public GameObject Special13;
+    public GameObject Special14;
+    public GameObject Special15;
+    public GameObject Special16;
+    public GameObject Special17;
+    public GameObject Special18;
+    public GameObject Special19;
+    public GameObject Special20;
     // Start is called before the first frame update
+    public void SetChar(bool charuno, bool chardos, bool chartres)
+    {
+        charOneAlive.SetActive(!charuno);
+        charTwoAlive.SetActive(!chardos);
+        charThreeAlive.SetActive(!chartres);
+    }
     public void SetHealth(float healthRatio)
     {
-        healthSlider.value = healthRatio;
+        if (healthRatio > 0.95f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(true);
+            HealthBar4.SetActive(true);
+            HealthBar5.SetActive(true);
+            HealthBar6.SetActive(true);
+            HealthBar7.SetActive(true);
+            HealthBar8.SetActive(true);
+            HealthBar9.SetActive(true);
+            HealthBar10.SetActive(true);
+            HealthBar11.SetActive(true);
+            HealthBar12.SetActive(true);
+            HealthBar13.SetActive(true);
+            HealthBar14.SetActive(true);
+            HealthBar15.SetActive(true);
+            HealthBar16.SetActive(true);
+            HealthBar17.SetActive(true);
+            HealthBar18.SetActive(true);
+            HealthBar19.SetActive(true);
+            HealthBar20.SetActive(true);
+        }
+        else if(healthRatio > 0.90f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(true);
+            HealthBar4.SetActive(true);
+            HealthBar5.SetActive(true);
+            HealthBar6.SetActive(true);
+            HealthBar7.SetActive(true);
+            HealthBar8.SetActive(true);
+            HealthBar9.SetActive(true);
+            HealthBar10.SetActive(true);
+            HealthBar11.SetActive(true);
+            HealthBar12.SetActive(true);
+            HealthBar13.SetActive(true);
+            HealthBar14.SetActive(true);
+            HealthBar15.SetActive(true);
+            HealthBar16.SetActive(true);
+            HealthBar17.SetActive(true);
+            HealthBar18.SetActive(true);
+            HealthBar19.SetActive(true);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio > 0.85f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(true);
+            HealthBar4.SetActive(true);
+            HealthBar5.SetActive(true);
+            HealthBar6.SetActive(true);
+            HealthBar7.SetActive(true);
+            HealthBar8.SetActive(true);
+            HealthBar9.SetActive(true);
+            HealthBar10.SetActive(true);
+            HealthBar11.SetActive(true);
+            HealthBar12.SetActive(true);
+            HealthBar13.SetActive(true);
+            HealthBar14.SetActive(true);
+            HealthBar15.SetActive(true);
+            HealthBar16.SetActive(true);
+            HealthBar17.SetActive(true);
+            HealthBar18.SetActive(true);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio > 0.80f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(true);
+            HealthBar4.SetActive(true);
+            HealthBar5.SetActive(true);
+            HealthBar6.SetActive(true);
+            HealthBar7.SetActive(true);
+            HealthBar8.SetActive(true);
+            HealthBar9.SetActive(true);
+            HealthBar10.SetActive(true);
+            HealthBar11.SetActive(true);
+            HealthBar12.SetActive(true);
+            HealthBar13.SetActive(true);
+            HealthBar14.SetActive(true);
+            HealthBar15.SetActive(true);
+            HealthBar16.SetActive(true);
+            HealthBar17.SetActive(true);
+            HealthBar18.SetActive(false);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio > 0.75f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(true);
+            HealthBar4.SetActive(true);
+            HealthBar5.SetActive(true);
+            HealthBar6.SetActive(true);
+            HealthBar7.SetActive(true);
+            HealthBar8.SetActive(true);
+            HealthBar9.SetActive(true);
+            HealthBar10.SetActive(true);
+            HealthBar11.SetActive(true);
+            HealthBar12.SetActive(true);
+            HealthBar13.SetActive(true);
+            HealthBar14.SetActive(true);
+            HealthBar15.SetActive(true);
+            HealthBar16.SetActive(true);
+            HealthBar17.SetActive(false);
+            HealthBar18.SetActive(false);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio > 0.70f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(true);
+            HealthBar4.SetActive(true);
+            HealthBar5.SetActive(true);
+            HealthBar6.SetActive(true);
+            HealthBar7.SetActive(true);
+            HealthBar8.SetActive(true);
+            HealthBar9.SetActive(true);
+            HealthBar10.SetActive(true);
+            HealthBar11.SetActive(true);
+            HealthBar12.SetActive(true);
+            HealthBar13.SetActive(true);
+            HealthBar14.SetActive(true);
+            HealthBar15.SetActive(true);
+            HealthBar16.SetActive(false);
+            HealthBar17.SetActive(false);
+            HealthBar18.SetActive(false);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio > 0.65f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(true);
+            HealthBar4.SetActive(true);
+            HealthBar5.SetActive(true);
+            HealthBar6.SetActive(true);
+            HealthBar7.SetActive(true);
+            HealthBar8.SetActive(true);
+            HealthBar9.SetActive(true);
+            HealthBar10.SetActive(true);
+            HealthBar11.SetActive(true);
+            HealthBar12.SetActive(true);
+            HealthBar13.SetActive(true);
+            HealthBar14.SetActive(true);
+            HealthBar15.SetActive(false);
+            HealthBar16.SetActive(false);
+            HealthBar17.SetActive(false);
+            HealthBar18.SetActive(false);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio > 0.60f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(true);
+            HealthBar4.SetActive(true);
+            HealthBar5.SetActive(true);
+            HealthBar6.SetActive(true);
+            HealthBar7.SetActive(true);
+            HealthBar8.SetActive(true);
+            HealthBar9.SetActive(true);
+            HealthBar10.SetActive(true);
+            HealthBar11.SetActive(true);
+            HealthBar12.SetActive(true);
+            HealthBar13.SetActive(true);
+            HealthBar14.SetActive(false);
+            HealthBar15.SetActive(false);
+            HealthBar16.SetActive(false);
+            HealthBar17.SetActive(false);
+            HealthBar18.SetActive(false);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio > 0.55f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(true);
+            HealthBar4.SetActive(true);
+            HealthBar5.SetActive(true);
+            HealthBar6.SetActive(true);
+            HealthBar7.SetActive(true);
+            HealthBar8.SetActive(true);
+            HealthBar9.SetActive(true);
+            HealthBar10.SetActive(true);
+            HealthBar11.SetActive(true);
+            HealthBar12.SetActive(true);
+            HealthBar13.SetActive(false);
+            HealthBar14.SetActive(false);
+            HealthBar15.SetActive(false);
+            HealthBar16.SetActive(false);
+            HealthBar17.SetActive(false);
+            HealthBar18.SetActive(false);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio > 0.50f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(true);
+            HealthBar4.SetActive(true);
+            HealthBar5.SetActive(true);
+            HealthBar6.SetActive(true);
+            HealthBar7.SetActive(true);
+            HealthBar8.SetActive(true);
+            HealthBar9.SetActive(true);
+            HealthBar10.SetActive(true);
+            HealthBar11.SetActive(true);
+            HealthBar12.SetActive(false);
+            HealthBar13.SetActive(false);
+            HealthBar14.SetActive(false);
+            HealthBar15.SetActive(false);
+            HealthBar16.SetActive(false);
+            HealthBar17.SetActive(false);
+            HealthBar18.SetActive(false);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio > 0.45f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(true);
+            HealthBar4.SetActive(true);
+            HealthBar5.SetActive(true);
+            HealthBar6.SetActive(true);
+            HealthBar7.SetActive(true);
+            HealthBar8.SetActive(true);
+            HealthBar9.SetActive(true);
+            HealthBar10.SetActive(true);
+            HealthBar11.SetActive(false);
+            HealthBar12.SetActive(false);
+            HealthBar13.SetActive(false);
+            HealthBar14.SetActive(false);
+            HealthBar15.SetActive(false);
+            HealthBar16.SetActive(false);
+            HealthBar17.SetActive(false);
+            HealthBar18.SetActive(false);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio > 0.40f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(true);
+            HealthBar4.SetActive(true);
+            HealthBar5.SetActive(true);
+            HealthBar6.SetActive(true);
+            HealthBar7.SetActive(true);
+            HealthBar8.SetActive(true);
+            HealthBar9.SetActive(true);
+            HealthBar10.SetActive(false);
+            HealthBar11.SetActive(false);
+            HealthBar12.SetActive(false);
+            HealthBar13.SetActive(false);
+            HealthBar14.SetActive(false);
+            HealthBar15.SetActive(false);
+            HealthBar16.SetActive(false);
+            HealthBar17.SetActive(false);
+            HealthBar18.SetActive(false);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio > 0.35f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(true);
+            HealthBar4.SetActive(true);
+            HealthBar5.SetActive(true);
+            HealthBar6.SetActive(true);
+            HealthBar7.SetActive(true);
+            HealthBar8.SetActive(true);
+            HealthBar9.SetActive(false);
+            HealthBar10.SetActive(false);
+            HealthBar11.SetActive(false);
+            HealthBar12.SetActive(false);
+            HealthBar13.SetActive(false);
+            HealthBar14.SetActive(false);
+            HealthBar15.SetActive(false);
+            HealthBar16.SetActive(false);
+            HealthBar17.SetActive(false);
+            HealthBar18.SetActive(false);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio > 0.30f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(true);
+            HealthBar4.SetActive(true);
+            HealthBar5.SetActive(true);
+            HealthBar6.SetActive(true);
+            HealthBar7.SetActive(true);
+            HealthBar8.SetActive(false);
+            HealthBar9.SetActive(false);
+            HealthBar10.SetActive(false);
+            HealthBar11.SetActive(false);
+            HealthBar12.SetActive(false);
+            HealthBar13.SetActive(false);
+            HealthBar14.SetActive(false);
+            HealthBar15.SetActive(false);
+            HealthBar16.SetActive(false);
+            HealthBar17.SetActive(false);
+            HealthBar18.SetActive(false);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio > 0.25f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(true);
+            HealthBar4.SetActive(true);
+            HealthBar5.SetActive(true);
+            HealthBar6.SetActive(true);
+            HealthBar7.SetActive(false);
+            HealthBar8.SetActive(false);
+            HealthBar9.SetActive(false);
+            HealthBar10.SetActive(false);
+            HealthBar11.SetActive(false);
+            HealthBar12.SetActive(false);
+            HealthBar13.SetActive(false);
+            HealthBar14.SetActive(false);
+            HealthBar15.SetActive(false);
+            HealthBar16.SetActive(false);
+            HealthBar17.SetActive(false);
+            HealthBar18.SetActive(false);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio > 0.20f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(true);
+            HealthBar4.SetActive(true);
+            HealthBar5.SetActive(true);
+            HealthBar6.SetActive(false);
+            HealthBar7.SetActive(false);
+            HealthBar8.SetActive(false);
+            HealthBar9.SetActive(false);
+            HealthBar10.SetActive(false);
+            HealthBar11.SetActive(false);
+            HealthBar12.SetActive(false);
+            HealthBar13.SetActive(false);
+            HealthBar14.SetActive(false);
+            HealthBar15.SetActive(false);
+            HealthBar16.SetActive(false);
+            HealthBar17.SetActive(false);
+            HealthBar18.SetActive(false);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio > 0.15f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(true);
+            HealthBar4.SetActive(true);
+            HealthBar5.SetActive(false);
+            HealthBar6.SetActive(false);
+            HealthBar7.SetActive(false);
+            HealthBar8.SetActive(false);
+            HealthBar9.SetActive(false);
+            HealthBar10.SetActive(false);
+            HealthBar11.SetActive(false);
+            HealthBar12.SetActive(false);
+            HealthBar13.SetActive(false);
+            HealthBar14.SetActive(false);
+            HealthBar15.SetActive(false);
+            HealthBar16.SetActive(false);
+            HealthBar17.SetActive(false);
+            HealthBar18.SetActive(false);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio > 0.10f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(true);
+            HealthBar4.SetActive(false);
+            HealthBar5.SetActive(false);
+            HealthBar6.SetActive(false);
+            HealthBar7.SetActive(false);
+            HealthBar8.SetActive(false);
+            HealthBar9.SetActive(false);
+            HealthBar10.SetActive(false);
+            HealthBar11.SetActive(false);
+            HealthBar12.SetActive(false);
+            HealthBar13.SetActive(false);
+            HealthBar14.SetActive(false);
+            HealthBar15.SetActive(false);
+            HealthBar16.SetActive(false);
+            HealthBar17.SetActive(false);
+            HealthBar18.SetActive(false);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio > 0.05f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(true);
+            HealthBar3.SetActive(false);
+            HealthBar4.SetActive(false);
+            HealthBar5.SetActive(false);
+            HealthBar6.SetActive(false);
+            HealthBar7.SetActive(false);
+            HealthBar8.SetActive(false);
+            HealthBar9.SetActive(false);
+            HealthBar10.SetActive(false);
+            HealthBar11.SetActive(false);
+            HealthBar12.SetActive(false);
+            HealthBar13.SetActive(false);
+            HealthBar14.SetActive(false);
+            HealthBar15.SetActive(false);
+            HealthBar16.SetActive(false);
+            HealthBar17.SetActive(false);
+            HealthBar18.SetActive(false);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio > 0.00f)
+        {
+            HealthBar1.SetActive(true);
+            HealthBar2.SetActive(false);
+            HealthBar3.SetActive(false);
+            HealthBar4.SetActive(false);
+            HealthBar5.SetActive(false);
+            HealthBar6.SetActive(false);
+            HealthBar7.SetActive(false);
+            HealthBar8.SetActive(false);
+            HealthBar9.SetActive(false);
+            HealthBar10.SetActive(false);
+            HealthBar11.SetActive(false);
+            HealthBar12.SetActive(false);
+            HealthBar13.SetActive(false);
+            HealthBar14.SetActive(false);
+            HealthBar15.SetActive(false);
+            HealthBar16.SetActive(false);
+            HealthBar17.SetActive(false);
+            HealthBar18.SetActive(false);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
+        else if (healthRatio == 0.0f)
+        {
+            HealthBar1.SetActive(false);
+            HealthBar2.SetActive(false);
+            HealthBar3.SetActive(false);
+            HealthBar4.SetActive(false);
+            HealthBar5.SetActive(false);
+            HealthBar6.SetActive(false);
+            HealthBar7.SetActive(false);
+            HealthBar8.SetActive(false);
+            HealthBar9.SetActive(false);
+            HealthBar10.SetActive(false);
+            HealthBar11.SetActive(false);
+            HealthBar12.SetActive(false);
+            HealthBar13.SetActive(false);
+            HealthBar14.SetActive(false);
+            HealthBar15.SetActive(false);
+            HealthBar16.SetActive(false);
+            HealthBar17.SetActive(false);
+            HealthBar18.SetActive(false);
+            HealthBar19.SetActive(false);
+            HealthBar20.SetActive(false);
+        }
     }
     public void SetPrimary(float primaryRatio)
     {
-        primarySlider.value = primaryRatio;
+        if (primaryRatio > 0.95f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(true);
+            Primary4.SetActive(true);
+            Primary5.SetActive(true);
+            Primary6.SetActive(true);
+            Primary7.SetActive(true);
+            Primary8.SetActive(true);
+            Primary9.SetActive(true);
+            Primary10.SetActive(true);
+            Primary11.SetActive(true);
+            Primary12.SetActive(true);
+            Primary13.SetActive(true);
+            Primary14.SetActive(true);
+            Primary15.SetActive(true);
+            Primary16.SetActive(true);
+            Primary17.SetActive(true);
+            Primary18.SetActive(true);
+            Primary19.SetActive(true);
+            Primary20.SetActive(true);
+        }
+        else if (primaryRatio > 0.90f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(true);
+            Primary4.SetActive(true);
+            Primary5.SetActive(true);
+            Primary6.SetActive(true);
+            Primary7.SetActive(true);
+            Primary8.SetActive(true);
+            Primary9.SetActive(true);
+            Primary10.SetActive(true);
+            Primary11.SetActive(true);
+            Primary12.SetActive(true);
+            Primary13.SetActive(true);
+            Primary14.SetActive(true);
+            Primary15.SetActive(true);
+            Primary16.SetActive(true);
+            Primary17.SetActive(true);
+            Primary18.SetActive(true);
+            Primary19.SetActive(true);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio > 0.85f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(true);
+            Primary4.SetActive(true);
+            Primary5.SetActive(true);
+            Primary6.SetActive(true);
+            Primary7.SetActive(true);
+            Primary8.SetActive(true);
+            Primary9.SetActive(true);
+            Primary10.SetActive(true);
+            Primary11.SetActive(true);
+            Primary12.SetActive(true);
+            Primary13.SetActive(true);
+            Primary14.SetActive(true);
+            Primary15.SetActive(true);
+            Primary16.SetActive(true);
+            Primary17.SetActive(true);
+            Primary18.SetActive(true);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio > 0.80f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(true);
+            Primary4.SetActive(true);
+            Primary5.SetActive(true);
+            Primary6.SetActive(true);
+            Primary7.SetActive(true);
+            Primary8.SetActive(true);
+            Primary9.SetActive(true);
+            Primary10.SetActive(true);
+            Primary11.SetActive(true);
+            Primary12.SetActive(true);
+            Primary13.SetActive(true);
+            Primary14.SetActive(true);
+            Primary15.SetActive(true);
+            Primary16.SetActive(true);
+            Primary17.SetActive(true);
+            Primary18.SetActive(false);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio > 0.75f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(true);
+            Primary4.SetActive(true);
+            Primary5.SetActive(true);
+            Primary6.SetActive(true);
+            Primary7.SetActive(true);
+            Primary8.SetActive(true);
+            Primary9.SetActive(true);
+            Primary10.SetActive(true);
+            Primary11.SetActive(true);
+            Primary12.SetActive(true);
+            Primary13.SetActive(true);
+            Primary14.SetActive(true);
+            Primary15.SetActive(true);
+            Primary16.SetActive(true);
+            Primary17.SetActive(false);
+            Primary18.SetActive(false);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio > 0.70f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(true);
+            Primary4.SetActive(true);
+            Primary5.SetActive(true);
+            Primary6.SetActive(true);
+            Primary7.SetActive(true);
+            Primary8.SetActive(true);
+            Primary9.SetActive(true);
+            Primary10.SetActive(true);
+            Primary11.SetActive(true);
+            Primary12.SetActive(true);
+            Primary13.SetActive(true);
+            Primary14.SetActive(true);
+            Primary15.SetActive(true);
+            Primary16.SetActive(false);
+            Primary17.SetActive(false);
+            Primary18.SetActive(false);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio > 0.65f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(true);
+            Primary4.SetActive(true);
+            Primary5.SetActive(true);
+            Primary6.SetActive(true);
+            Primary7.SetActive(true);
+            Primary8.SetActive(true);
+            Primary9.SetActive(true);
+            Primary10.SetActive(true);
+            Primary11.SetActive(true);
+            Primary12.SetActive(true);
+            Primary13.SetActive(true);
+            Primary14.SetActive(true);
+            Primary15.SetActive(false);
+            Primary16.SetActive(false);
+            Primary17.SetActive(false);
+            Primary18.SetActive(false);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio > 0.60f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(true);
+            Primary4.SetActive(true);
+            Primary5.SetActive(true);
+            Primary6.SetActive(true);
+            Primary7.SetActive(true);
+            Primary8.SetActive(true);
+            Primary9.SetActive(true);
+            Primary10.SetActive(true);
+            Primary11.SetActive(true);
+            Primary12.SetActive(true);
+            Primary13.SetActive(true);
+            Primary14.SetActive(false);
+            Primary15.SetActive(false);
+            Primary16.SetActive(false);
+            Primary17.SetActive(false);
+            Primary18.SetActive(false);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio > 0.55f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(true);
+            Primary4.SetActive(true);
+            Primary5.SetActive(true);
+            Primary6.SetActive(true);
+            Primary7.SetActive(true);
+            Primary8.SetActive(true);
+            Primary9.SetActive(true);
+            Primary10.SetActive(true);
+            Primary11.SetActive(true);
+            Primary12.SetActive(true);
+            Primary13.SetActive(false);
+            Primary14.SetActive(false);
+            Primary15.SetActive(false);
+            Primary16.SetActive(false);
+            Primary17.SetActive(false);
+            Primary18.SetActive(false);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio > 0.50f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(true);
+            Primary4.SetActive(true);
+            Primary5.SetActive(true);
+            Primary6.SetActive(true);
+            Primary7.SetActive(true);
+            Primary8.SetActive(true);
+            Primary9.SetActive(true);
+            Primary10.SetActive(true);
+            Primary11.SetActive(true);
+            Primary12.SetActive(false);
+            Primary13.SetActive(false);
+            Primary14.SetActive(false);
+            Primary15.SetActive(false);
+            Primary16.SetActive(false);
+            Primary17.SetActive(false);
+            Primary18.SetActive(false);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio > 0.45f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(true);
+            Primary4.SetActive(true);
+            Primary5.SetActive(true);
+            Primary6.SetActive(true);
+            Primary7.SetActive(true);
+            Primary8.SetActive(true);
+            Primary9.SetActive(true);
+            Primary10.SetActive(true);
+            Primary11.SetActive(false);
+            Primary12.SetActive(false);
+            Primary13.SetActive(false);
+            Primary14.SetActive(false);
+            Primary15.SetActive(false);
+            Primary16.SetActive(false);
+            Primary17.SetActive(false);
+            Primary18.SetActive(false);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio > 0.40f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(true);
+            Primary4.SetActive(true);
+            Primary5.SetActive(true);
+            Primary6.SetActive(true);
+            Primary7.SetActive(true);
+            Primary8.SetActive(true);
+            Primary9.SetActive(true);
+            Primary10.SetActive(false);
+            Primary11.SetActive(false);
+            Primary12.SetActive(false);
+            Primary13.SetActive(false);
+            Primary14.SetActive(false);
+            Primary15.SetActive(false);
+            Primary16.SetActive(false);
+            Primary17.SetActive(false);
+            Primary18.SetActive(false);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio > 0.35f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(true);
+            Primary4.SetActive(true);
+            Primary5.SetActive(true);
+            Primary6.SetActive(true);
+            Primary7.SetActive(true);
+            Primary8.SetActive(true);
+            Primary9.SetActive(false);
+            Primary10.SetActive(false);
+            Primary11.SetActive(false);
+            Primary12.SetActive(false);
+            Primary13.SetActive(false);
+            Primary14.SetActive(false);
+            Primary15.SetActive(false);
+            Primary16.SetActive(false);
+            Primary17.SetActive(false);
+            Primary18.SetActive(false);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio > 0.30f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(true);
+            Primary4.SetActive(true);
+            Primary5.SetActive(true);
+            Primary6.SetActive(true);
+            Primary7.SetActive(true);
+            Primary8.SetActive(false);
+            Primary9.SetActive(false);
+            Primary10.SetActive(false);
+            Primary11.SetActive(false);
+            Primary12.SetActive(false);
+            Primary13.SetActive(false);
+            Primary14.SetActive(false);
+            Primary15.SetActive(false);
+            Primary16.SetActive(false);
+            Primary17.SetActive(false);
+            Primary18.SetActive(false);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio > 0.25f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(true);
+            Primary4.SetActive(true);
+            Primary5.SetActive(true);
+            Primary6.SetActive(true);
+            Primary7.SetActive(false);
+            Primary8.SetActive(false);
+            Primary9.SetActive(false);
+            Primary10.SetActive(false);
+            Primary11.SetActive(false);
+            Primary12.SetActive(false);
+            Primary13.SetActive(false);
+            Primary14.SetActive(false);
+            Primary15.SetActive(false);
+            Primary16.SetActive(false);
+            Primary17.SetActive(false);
+            Primary18.SetActive(false);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio > 0.20f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(true);
+            Primary4.SetActive(true);
+            Primary5.SetActive(true);
+            Primary6.SetActive(false);
+            Primary7.SetActive(false);
+            Primary8.SetActive(false);
+            Primary9.SetActive(false);
+            Primary10.SetActive(false);
+            Primary11.SetActive(false);
+            Primary12.SetActive(false);
+            Primary13.SetActive(false);
+            Primary14.SetActive(false);
+            Primary15.SetActive(false);
+            Primary16.SetActive(false);
+            Primary17.SetActive(false);
+            Primary18.SetActive(false);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio > 0.15f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(true);
+            Primary4.SetActive(true);
+            Primary5.SetActive(false);
+            Primary6.SetActive(false);
+            Primary7.SetActive(false);
+            Primary8.SetActive(false);
+            Primary9.SetActive(false);
+            Primary10.SetActive(false);
+            Primary11.SetActive(false);
+            Primary12.SetActive(false);
+            Primary13.SetActive(false);
+            Primary14.SetActive(false);
+            Primary15.SetActive(false);
+            Primary16.SetActive(false);
+            Primary17.SetActive(false);
+            Primary18.SetActive(false);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio > 0.10f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(true);
+            Primary4.SetActive(false);
+            Primary5.SetActive(false);
+            Primary6.SetActive(false);
+            Primary7.SetActive(false);
+            Primary8.SetActive(false);
+            Primary9.SetActive(false);
+            Primary10.SetActive(false);
+            Primary11.SetActive(false);
+            Primary12.SetActive(false);
+            Primary13.SetActive(false);
+            Primary14.SetActive(false);
+            Primary15.SetActive(false);
+            Primary16.SetActive(false);
+            Primary17.SetActive(false);
+            Primary18.SetActive(false);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio > 0.05f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(true);
+            Primary3.SetActive(false);
+            Primary4.SetActive(false);
+            Primary5.SetActive(false);
+            Primary6.SetActive(false);
+            Primary7.SetActive(false);
+            Primary8.SetActive(false);
+            Primary9.SetActive(false);
+            Primary10.SetActive(false);
+            Primary11.SetActive(false);
+            Primary12.SetActive(false);
+            Primary13.SetActive(false);
+            Primary14.SetActive(false);
+            Primary15.SetActive(false);
+            Primary16.SetActive(false);
+            Primary17.SetActive(false);
+            Primary18.SetActive(false);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio > 0.00f)
+        {
+            Primary1.SetActive(true);
+            Primary2.SetActive(false);
+            Primary3.SetActive(false);
+            Primary4.SetActive(false);
+            Primary5.SetActive(false);
+            Primary6.SetActive(false);
+            Primary7.SetActive(false);
+            Primary8.SetActive(false);
+            Primary9.SetActive(false);
+            Primary10.SetActive(false);
+            Primary11.SetActive(false);
+            Primary12.SetActive(false);
+            Primary13.SetActive(false);
+            Primary14.SetActive(false);
+            Primary15.SetActive(false);
+            Primary16.SetActive(false);
+            Primary17.SetActive(false);
+            Primary18.SetActive(false);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
+        else if (primaryRatio == 0.0f)
+        {
+            Primary1.SetActive(false);
+            Primary2.SetActive(false);
+            Primary3.SetActive(false);
+            Primary4.SetActive(false);
+            Primary5.SetActive(false);
+            Primary6.SetActive(false);
+            Primary7.SetActive(false);
+            Primary8.SetActive(false);
+            Primary9.SetActive(false);
+            Primary10.SetActive(false);
+            Primary11.SetActive(false);
+            Primary12.SetActive(false);
+            Primary13.SetActive(false);
+            Primary14.SetActive(false);
+            Primary15.SetActive(false);
+            Primary16.SetActive(false);
+            Primary17.SetActive(false);
+            Primary18.SetActive(false);
+            Primary19.SetActive(false);
+            Primary20.SetActive(false);
+        }
     }
-    public void SetSpecial(float specialRatio)
+    public void SetSpecial(float SpecialRatio)
     {
-        specialSlider.value = specialRatio;
+        if (SpecialRatio > 0.95f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(true);
+            Special4.SetActive(true);
+            Special5.SetActive(true);
+            Special6.SetActive(true);
+            Special7.SetActive(true);
+            Special8.SetActive(true);
+            Special9.SetActive(true);
+            Special10.SetActive(true);
+            Special11.SetActive(true);
+            Special12.SetActive(true);
+            Special13.SetActive(true);
+            Special14.SetActive(true);
+            Special15.SetActive(true);
+            Special16.SetActive(true);
+            Special17.SetActive(true);
+            Special18.SetActive(true);
+            Special19.SetActive(true);
+            Special20.SetActive(true);
+        }
+        else if (SpecialRatio > 0.90f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(true);
+            Special4.SetActive(true);
+            Special5.SetActive(true);
+            Special6.SetActive(true);
+            Special7.SetActive(true);
+            Special8.SetActive(true);
+            Special9.SetActive(true);
+            Special10.SetActive(true);
+            Special11.SetActive(true);
+            Special12.SetActive(true);
+            Special13.SetActive(true);
+            Special14.SetActive(true);
+            Special15.SetActive(true);
+            Special16.SetActive(true);
+            Special17.SetActive(true);
+            Special18.SetActive(true);
+            Special19.SetActive(true);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio > 0.85f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(true);
+            Special4.SetActive(true);
+            Special5.SetActive(true);
+            Special6.SetActive(true);
+            Special7.SetActive(true);
+            Special8.SetActive(true);
+            Special9.SetActive(true);
+            Special10.SetActive(true);
+            Special11.SetActive(true);
+            Special12.SetActive(true);
+            Special13.SetActive(true);
+            Special14.SetActive(true);
+            Special15.SetActive(true);
+            Special16.SetActive(true);
+            Special17.SetActive(true);
+            Special18.SetActive(true);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio > 0.80f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(true);
+            Special4.SetActive(true);
+            Special5.SetActive(true);
+            Special6.SetActive(true);
+            Special7.SetActive(true);
+            Special8.SetActive(true);
+            Special9.SetActive(true);
+            Special10.SetActive(true);
+            Special11.SetActive(true);
+            Special12.SetActive(true);
+            Special13.SetActive(true);
+            Special14.SetActive(true);
+            Special15.SetActive(true);
+            Special16.SetActive(true);
+            Special17.SetActive(true);
+            Special18.SetActive(false);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio > 0.75f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(true);
+            Special4.SetActive(true);
+            Special5.SetActive(true);
+            Special6.SetActive(true);
+            Special7.SetActive(true);
+            Special8.SetActive(true);
+            Special9.SetActive(true);
+            Special10.SetActive(true);
+            Special11.SetActive(true);
+            Special12.SetActive(true);
+            Special13.SetActive(true);
+            Special14.SetActive(true);
+            Special15.SetActive(true);
+            Special16.SetActive(true);
+            Special17.SetActive(false);
+            Special18.SetActive(false);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio > 0.70f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(true);
+            Special4.SetActive(true);
+            Special5.SetActive(true);
+            Special6.SetActive(true);
+            Special7.SetActive(true);
+            Special8.SetActive(true);
+            Special9.SetActive(true);
+            Special10.SetActive(true);
+            Special11.SetActive(true);
+            Special12.SetActive(true);
+            Special13.SetActive(true);
+            Special14.SetActive(true);
+            Special15.SetActive(true);
+            Special16.SetActive(false);
+            Special17.SetActive(false);
+            Special18.SetActive(false);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio > 0.65f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(true);
+            Special4.SetActive(true);
+            Special5.SetActive(true);
+            Special6.SetActive(true);
+            Special7.SetActive(true);
+            Special8.SetActive(true);
+            Special9.SetActive(true);
+            Special10.SetActive(true);
+            Special11.SetActive(true);
+            Special12.SetActive(true);
+            Special13.SetActive(true);
+            Special14.SetActive(true);
+            Special15.SetActive(false);
+            Special16.SetActive(false);
+            Special17.SetActive(false);
+            Special18.SetActive(false);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio > 0.60f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(true);
+            Special4.SetActive(true);
+            Special5.SetActive(true);
+            Special6.SetActive(true);
+            Special7.SetActive(true);
+            Special8.SetActive(true);
+            Special9.SetActive(true);
+            Special10.SetActive(true);
+            Special11.SetActive(true);
+            Special12.SetActive(true);
+            Special13.SetActive(true);
+            Special14.SetActive(false);
+            Special15.SetActive(false);
+            Special16.SetActive(false);
+            Special17.SetActive(false);
+            Special18.SetActive(false);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio > 0.55f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(true);
+            Special4.SetActive(true);
+            Special5.SetActive(true);
+            Special6.SetActive(true);
+            Special7.SetActive(true);
+            Special8.SetActive(true);
+            Special9.SetActive(true);
+            Special10.SetActive(true);
+            Special11.SetActive(true);
+            Special12.SetActive(true);
+            Special13.SetActive(false);
+            Special14.SetActive(false);
+            Special15.SetActive(false);
+            Special16.SetActive(false);
+            Special17.SetActive(false);
+            Special18.SetActive(false);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio > 0.50f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(true);
+            Special4.SetActive(true);
+            Special5.SetActive(true);
+            Special6.SetActive(true);
+            Special7.SetActive(true);
+            Special8.SetActive(true);
+            Special9.SetActive(true);
+            Special10.SetActive(true);
+            Special11.SetActive(true);
+            Special12.SetActive(false);
+            Special13.SetActive(false);
+            Special14.SetActive(false);
+            Special15.SetActive(false);
+            Special16.SetActive(false);
+            Special17.SetActive(false);
+            Special18.SetActive(false);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio > 0.45f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(true);
+            Special4.SetActive(true);
+            Special5.SetActive(true);
+            Special6.SetActive(true);
+            Special7.SetActive(true);
+            Special8.SetActive(true);
+            Special9.SetActive(true);
+            Special10.SetActive(true);
+            Special11.SetActive(false);
+            Special12.SetActive(false);
+            Special13.SetActive(false);
+            Special14.SetActive(false);
+            Special15.SetActive(false);
+            Special16.SetActive(false);
+            Special17.SetActive(false);
+            Special18.SetActive(false);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio > 0.40f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(true);
+            Special4.SetActive(true);
+            Special5.SetActive(true);
+            Special6.SetActive(true);
+            Special7.SetActive(true);
+            Special8.SetActive(true);
+            Special9.SetActive(true);
+            Special10.SetActive(false);
+            Special11.SetActive(false);
+            Special12.SetActive(false);
+            Special13.SetActive(false);
+            Special14.SetActive(false);
+            Special15.SetActive(false);
+            Special16.SetActive(false);
+            Special17.SetActive(false);
+            Special18.SetActive(false);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio > 0.35f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(true);
+            Special4.SetActive(true);
+            Special5.SetActive(true);
+            Special6.SetActive(true);
+            Special7.SetActive(true);
+            Special8.SetActive(true);
+            Special9.SetActive(false);
+            Special10.SetActive(false);
+            Special11.SetActive(false);
+            Special12.SetActive(false);
+            Special13.SetActive(false);
+            Special14.SetActive(false);
+            Special15.SetActive(false);
+            Special16.SetActive(false);
+            Special17.SetActive(false);
+            Special18.SetActive(false);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio > 0.30f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(true);
+            Special4.SetActive(true);
+            Special5.SetActive(true);
+            Special6.SetActive(true);
+            Special7.SetActive(true);
+            Special8.SetActive(false);
+            Special9.SetActive(false);
+            Special10.SetActive(false);
+            Special11.SetActive(false);
+            Special12.SetActive(false);
+            Special13.SetActive(false);
+            Special14.SetActive(false);
+            Special15.SetActive(false);
+            Special16.SetActive(false);
+            Special17.SetActive(false);
+            Special18.SetActive(false);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio > 0.25f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(true);
+            Special4.SetActive(true);
+            Special5.SetActive(true);
+            Special6.SetActive(true);
+            Special7.SetActive(false);
+            Special8.SetActive(false);
+            Special9.SetActive(false);
+            Special10.SetActive(false);
+            Special11.SetActive(false);
+            Special12.SetActive(false);
+            Special13.SetActive(false);
+            Special14.SetActive(false);
+            Special15.SetActive(false);
+            Special16.SetActive(false);
+            Special17.SetActive(false);
+            Special18.SetActive(false);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio > 0.20f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(true);
+            Special4.SetActive(true);
+            Special5.SetActive(true);
+            Special6.SetActive(false);
+            Special7.SetActive(false);
+            Special8.SetActive(false);
+            Special9.SetActive(false);
+            Special10.SetActive(false);
+            Special11.SetActive(false);
+            Special12.SetActive(false);
+            Special13.SetActive(false);
+            Special14.SetActive(false);
+            Special15.SetActive(false);
+            Special16.SetActive(false);
+            Special17.SetActive(false);
+            Special18.SetActive(false);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio > 0.15f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(true);
+            Special4.SetActive(true);
+            Special5.SetActive(false);
+            Special6.SetActive(false);
+            Special7.SetActive(false);
+            Special8.SetActive(false);
+            Special9.SetActive(false);
+            Special10.SetActive(false);
+            Special11.SetActive(false);
+            Special12.SetActive(false);
+            Special13.SetActive(false);
+            Special14.SetActive(false);
+            Special15.SetActive(false);
+            Special16.SetActive(false);
+            Special17.SetActive(false);
+            Special18.SetActive(false);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio > 0.10f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(true);
+            Special4.SetActive(false);
+            Special5.SetActive(false);
+            Special6.SetActive(false);
+            Special7.SetActive(false);
+            Special8.SetActive(false);
+            Special9.SetActive(false);
+            Special10.SetActive(false);
+            Special11.SetActive(false);
+            Special12.SetActive(false);
+            Special13.SetActive(false);
+            Special14.SetActive(false);
+            Special15.SetActive(false);
+            Special16.SetActive(false);
+            Special17.SetActive(false);
+            Special18.SetActive(false);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio > 0.05f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(true);
+            Special3.SetActive(false);
+            Special4.SetActive(false);
+            Special5.SetActive(false);
+            Special6.SetActive(false);
+            Special7.SetActive(false);
+            Special8.SetActive(false);
+            Special9.SetActive(false);
+            Special10.SetActive(false);
+            Special11.SetActive(false);
+            Special12.SetActive(false);
+            Special13.SetActive(false);
+            Special14.SetActive(false);
+            Special15.SetActive(false);
+            Special16.SetActive(false);
+            Special17.SetActive(false);
+            Special18.SetActive(false);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio > 0.00f)
+        {
+            Special1.SetActive(true);
+            Special2.SetActive(false);
+            Special3.SetActive(false);
+            Special4.SetActive(false);
+            Special5.SetActive(false);
+            Special6.SetActive(false);
+            Special7.SetActive(false);
+            Special8.SetActive(false);
+            Special9.SetActive(false);
+            Special10.SetActive(false);
+            Special11.SetActive(false);
+            Special12.SetActive(false);
+            Special13.SetActive(false);
+            Special14.SetActive(false);
+            Special15.SetActive(false);
+            Special16.SetActive(false);
+            Special17.SetActive(false);
+            Special18.SetActive(false);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
+        else if (SpecialRatio == 0.0f)
+        {
+            Special1.SetActive(false);
+            Special2.SetActive(false);
+            Special3.SetActive(false);
+            Special4.SetActive(false);
+            Special5.SetActive(false);
+            Special6.SetActive(false);
+            Special7.SetActive(false);
+            Special8.SetActive(false);
+            Special9.SetActive(false);
+            Special10.SetActive(false);
+            Special11.SetActive(false);
+            Special12.SetActive(false);
+            Special13.SetActive(false);
+            Special14.SetActive(false);
+            Special15.SetActive(false);
+            Special16.SetActive(false);
+            Special17.SetActive(false);
+            Special18.SetActive(false);
+            Special19.SetActive(false);
+            Special20.SetActive(false);
+        }
     }
     /*
     public void SetAbilities(float primaryAttackPauseTime, float primaryAttackPause, float specialAttackPauseTime, float specialAttackPause)

@@ -307,8 +307,9 @@ public class PlayerMaster : MonoBehaviour
             healthBar.GetComponent<HealthBarScript1>().SetHealth(cp.GetHealth());
             healthBar.GetComponent<HealthBarScript1>().SetPrimary(cp.GetPrimary());
             healthBar.GetComponent<HealthBarScript1>().SetSpecial(cp.GetSpecial());
+            healthBar.GetComponent<HealthBarScript1>().SetChar(charPrefab1.GetComponent<CharacterParent>().isDead, charPrefab2.GetComponent<CharacterParent>().isDead, charPrefab3.GetComponent<CharacterParent>().isDead);
 
-            
+
 
 
             //charPrefab1.GetComponent<PlayerInput>().;
