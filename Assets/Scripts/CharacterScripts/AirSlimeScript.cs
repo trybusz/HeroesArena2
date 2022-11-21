@@ -75,7 +75,7 @@ public class AirSlimeScript : CharacterParent
         normalAttackPauseTime = 0.0f;
         specialAttackInput = false;
         specialAttackInput = false;
-        specialAttackPause = 1.5f;
+        specialAttackPause = 1.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
     }
@@ -243,7 +243,7 @@ public class AirSlimeScript : CharacterParent
         if (specialAttackPauseTime < Time.timeSinceLevelLoad)
         {
             dashIndicator.SetActive(true);
-            if (specialAttackInput && !weapon.activeSelf)
+            if (specialAttackInput)
             {
                 dashIndicator.SetActive(false);
                 //Set time till next attack

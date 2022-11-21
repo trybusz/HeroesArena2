@@ -90,7 +90,7 @@ public class WizardScript : CharacterParent
         normalAttackInput = false;
         normalAttackPause = 0.5f;
         normalAttackPauseTime = 0.0f;
-        projectileSpeed = 12.0f;
+        projectileSpeed = 10.0f;
         specialAttackInput = false;
         specialAttackInput = false;
         specialAttackPause = 0.5f;
@@ -111,28 +111,28 @@ public class WizardScript : CharacterParent
         charge2.SetActive(false);
         GameObject light = Instantiate(charge2Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
         Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
-        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 2.0f), ForceMode2D.Impulse);
+        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 3.0f), ForceMode2D.Impulse);
     }
     void ShootProjectile3()
     {
         charge3.SetActive(false);
         GameObject light = Instantiate(charge3Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
         Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
-        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 4.0f), ForceMode2D.Impulse);
+        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 6.0f), ForceMode2D.Impulse);
     }
     void ShootProjectile4()
     {
         charge4.SetActive(false);
         GameObject light = Instantiate(charge4Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
         Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
-        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 6.0f), ForceMode2D.Impulse);
+        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 9.0f), ForceMode2D.Impulse);
     }
     void ShootProjectile5()
     {
         charge5.SetActive(false);
         GameObject light = Instantiate(charge5Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
         Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
-        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 10.0f), ForceMode2D.Impulse);
+        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 12.0f), ForceMode2D.Impulse);
     }
 
     public override void TakeDamage(int damage)
@@ -336,7 +336,8 @@ public class WizardScript : CharacterParent
         {
             if (specialAttackInput)
             {
-                currentCharHealth += 5;
+                currentCharHealth += 3;
+                TakeStun(0.5f);
                 if (chargeValue < 5)
                 {
                     chargeValue += 1;

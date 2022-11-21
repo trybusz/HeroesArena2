@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameEndScript : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class GameEndScript : MonoBehaviour
     public List<PlayerMaster> blueTeam;
     public List<PlayerMaster> redTeam;
     public static int winCase;
+    public int redTeamScore;
+    public int blueTeamScore;
+    public TextMeshProUGUI Score;
 
     // Start is called before the first frame update
     void Start()
@@ -35,8 +39,15 @@ public class GameEndScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        blueTeamScore = blueTeam[0].charPrefab1.GetComponent<CharacterParent>().thisCharScore + blueTeam[1].charPrefab1.GetComponent<CharacterParent>().thisCharScore +
+                        blueTeam[0].charPrefab2.GetComponent<CharacterParent>().thisCharScore + blueTeam[1].charPrefab2.GetComponent<CharacterParent>().thisCharScore +
+                        blueTeam[0].charPrefab3.GetComponent<CharacterParent>().thisCharScore + blueTeam[1].charPrefab3.GetComponent<CharacterParent>().thisCharScore;
+        redTeamScore =  redTeam[0].charPrefab1.GetComponent<CharacterParent>().thisCharScore + redTeam[1].charPrefab1.GetComponent<CharacterParent>().thisCharScore +
+                        redTeam[0].charPrefab2.GetComponent<CharacterParent>().thisCharScore + redTeam[1].charPrefab2.GetComponent<CharacterParent>().thisCharScore +
+                        redTeam[0].charPrefab3.GetComponent<CharacterParent>().thisCharScore + redTeam[1].charPrefab3.GetComponent<CharacterParent>().thisCharScore;
+        Score.SetText(blueTeamScore.ToString() + ":" + redTeamScore.ToString());
         // all of blue team is dead
-        if(blueTeam[0].char1isDeadFlag && blueTeam[0].char2isDeadFlag && blueTeam[0].char3isDeadFlag 
+        if (blueTeam[0].char1isDeadFlag && blueTeam[0].char2isDeadFlag && blueTeam[0].char3isDeadFlag 
             && blueTeam[1].char1isDeadFlag && blueTeam[1].char2isDeadFlag && blueTeam[1].char3isDeadFlag)
         {
             //red survived
@@ -51,13 +62,13 @@ public class GameEndScript : MonoBehaviour
             winCase = 0;
             SceneManager.LoadScene("EndScreen");
         }
-        else if(blueTeam[0].charPrefab1.GetComponent<CharacterParent>().thisCharScore + blueTeam[1].charPrefab1.GetComponent<CharacterParent>().thisCharScore > 100)
+        else if(blueTeamScore > 100)
         {
             //blue team captured the point
             winCase = 2;
             SceneManager.LoadScene("EndScreen");
         }
-        else if(redTeam[0].charPrefab1.GetComponent<CharacterParent>().thisCharScore + redTeam[1].charPrefab1.GetComponent<CharacterParent>().thisCharScore > 100)
+        else if(redTeamScore > 100)
         {
             //red team captured the point
             winCase = 3;

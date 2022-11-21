@@ -76,7 +76,7 @@ public class EarthSlimeController : CharacterParent
     {
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
-        charSpeedMod = 0.65f;
+        charSpeedMod = 0.55f;
         maxCharHealth = 225;
         currentCharHealth = 225;
         movementInput = Vector2.zero;

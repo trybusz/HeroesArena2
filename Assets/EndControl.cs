@@ -39,7 +39,7 @@ public class EndControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKeyDown)//Any Button Press
+        if (Input.anyKeyDown && Time.timeSinceLevelLoad > 2.0f)//Any Button Press
         {
             SceneManager.LoadScene(1);// load Start Screen
             //SoundManagerScript.PlayLoop("mainMenuMusic");

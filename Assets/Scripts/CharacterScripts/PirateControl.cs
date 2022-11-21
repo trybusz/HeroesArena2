@@ -100,7 +100,7 @@ public class PirateControl : CharacterParent
         normalAttackPause = 1.0f;
         normalAttackPauseTime = 0.0f;
         specialAttackInput = false;
-        specialAttackPause = 10.0f;
+        specialAttackPause = 7.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
     }

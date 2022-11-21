@@ -333,9 +333,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5895ba7ed1c708e4588e50d8466f1bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthSlider: {fileID: 4299768217614421222}
-  primarySlider: {fileID: 4299768217620215383}
-  specialSlider: {fileID: 4299768217978326689}
+  charOneAlive: {fileID: 0}
+  charTwoAlive: {fileID: 0}
+  charThreeAlive: {fileID: 0}
+  HealthBar1: {fileID: 0}
+  HealthBar2: {fileID: 0}
+  HealthBar3: {fileID: 0}
+  HealthBar4: {fileID: 0}
+  HealthBar5: {fileID: 0}
+  HealthBar6: {fileID: 0}
+  HealthBar7: {fileID: 0}
+  HealthBar8: {fileID: 0}
+  HealthBar9: {fileID: 0}
+  HealthBar10: {fileID: 0}
+  HealthBar11: {fileID: 0}
+  HealthBar12: {fileID: 0}
+  HealthBar13: {fileID: 0}
+  HealthBar14: {fileID: 0}
+  HealthBar15: {fileID: 0}
+  HealthBar16: {fileID: 0}
+  HealthBar17: {fileID: 0}
+  HealthBar18: {fileID: 0}
+  HealthBar19: {fileID: 0}
+  HealthBar20: {fileID: 0}
+  Primary1: {fileID: 0}
+  Primary2: {fileID: 0}
+  Primary3: {fileID: 0}
+  Primary4: {fileID: 0}
+  Primary5: {fileID: 0}
+  Primary6: {fileID: 0}
+  Primary7: {fileID: 0}
+  Primary8: {fileID: 0}
+  Primary9: {fileID: 0}
+  Primary10: {fileID: 0}
+  Primary11: {fileID: 0}
+  Primary12: {fileID: 0}
+  Primary13: {fileID: 0}
+  Primary14: {fileID: 0}
+  Primary15: {fileID: 0}
+  Primary16: {fileID: 0}
+  Primary17: {fileID: 0}
+  Primary18: {fileID: 0}
+  Primary19: {fileID: 0}
+  Primary20: {fileID: 0}
+  Special1: {fileID: 0}
+  Special2: {fileID: 0}
+  Special3: {fileID: 0}
+  Special4: {fileID: 0}
+  Special5: {fileID: 0}
+  Special6: {fileID: 0}
+  Special7: {fileID: 0}
+  Special8: {fileID: 0}
+  Special9: {fileID: 0}
+  Special10: {fileID: 0}
+  Special11: {fileID: 0}
+  Special12: {fileID: 0}
+  Special13: {fileID: 0}
+  Special14: {fileID: 0}
+  Special15: {fileID: 0}
+  Special16: {fileID: 0}
+  Special17: {fileID: 0}
+  Special18: {fileID: 0}
+  Special19: {fileID: 0}
+  Special20: {fileID: 0}
 --- !u!1 &4299768217620215381
 GameObject:
   m_ObjectHideFlags: 0

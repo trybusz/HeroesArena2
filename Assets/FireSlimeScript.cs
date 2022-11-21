@@ -229,7 +229,7 @@ public class FireSlimeScript : CharacterParent
         else if(normalAttackInput)
         {
             //Probably wont work
-            rb.velocity = new Vector2(movementInput.x - transform.forward.x, movementInput.y - transform.forward.y) * charSpeed * charSpeedMod;
+            rb.velocity = new Vector2(movementInput.x - aimInput.x, movementInput.y - aimInput.y) * charSpeed * charSpeedMod;
         }
         else
         {

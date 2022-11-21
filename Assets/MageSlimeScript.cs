@@ -80,7 +80,7 @@ public class MageSlimeScript : CharacterParent
         projectileSpeed = 30.0f;
         specialAttackInput = false;
         specialAttackInput = false;
-        specialAttackPause = 12.0f;
+        specialAttackPause = 10.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
     }

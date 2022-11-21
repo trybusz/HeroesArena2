@@ -385,6 +385,7 @@ MonoBehaviour:
   animator: {fileID: 2428059524725138207}
   stunTime: 0
   KBtime: 0
+  healSound: {fileID: 5095918713383099880}
 --- !u!82 &5095918713383099880
 AudioSource:
   m_ObjectHideFlags: 0

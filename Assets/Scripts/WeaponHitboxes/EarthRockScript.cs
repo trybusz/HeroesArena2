@@ -11,7 +11,7 @@ public class EarthRockScript : MonoBehaviour
     void Start()
     {
         airTime = 1.0f;
-        damage = 50;
+        damage = 40;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
         
 

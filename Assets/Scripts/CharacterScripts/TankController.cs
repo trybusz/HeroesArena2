@@ -81,8 +81,8 @@ public class TankController : CharacterParent
         charSpeedMod = 0.5f;
         maxCharHealth = 250;
         currentCharHealth = 250;
-        maxShieldHealth = 250;
-        currentShieldHealth = 250;
+        maxShieldHealth = 200;
+        currentShieldHealth = 200;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;

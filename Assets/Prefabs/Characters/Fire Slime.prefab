@@ -162,6 +162,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bebdb8a90683596499be5e0dd2315657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisCharScore: 0
+  scoreTime: 0
+  onCtrlPoint: 0
+  isDead: 0
+  isStunned: 0
+  isSwitching: 0
+  isSwitching2: 0
+  switchingIndicator: {fileID: 3109556610135377904}
+  weapon: {fileID: 6627464908305653375}
+  charSpeed: 0
+  charSpeedMod: 0
+  maxCharHealth: 0
+  currentCharHealth: 0
+  projectileSpeed: 0
+  projectileSpeed2: 0
+  firePoint1: {fileID: 4404543852195532048}
+  firePoint2: {fileID: 3602953079564127894}
+  firePoint3: {fileID: 5584503071825217562}
+  flamePrefab: {fileID: 4984782264723825174, guid: e5777882c555bbb4194f613d6ea6fe95, type: 3}
+  fireballPrefab: {fileID: 3677456353313391376, guid: 7d71aee6d731d534682b87c484c267f5, type: 3}
+  projectileCounter: 0
+  activePrefab: 0
+  animator: {fileID: 6360293996915782924}
+  stunTime: 0
+  KBtime: 0
 --- !u!1 &3602953079564127894
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,5 +430,10 @@ PrefabInstance:
 --- !u!4 &2746005736855432646 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2388887248318874463, guid: 1fad48fc6e9a6234fa0a9b1923b351a5, type: 3}
+  m_PrefabInstance: {fileID: 521518021323402905}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3109556610135377904 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3178292994224974185, guid: 1fad48fc6e9a6234fa0a9b1923b351a5, type: 3}
   m_PrefabInstance: {fileID: 521518021323402905}
   m_PrefabAsset: {fileID: 0}

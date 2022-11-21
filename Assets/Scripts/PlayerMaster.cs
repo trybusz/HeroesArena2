@@ -230,11 +230,13 @@ public class PlayerMaster : MonoBehaviour
                 {
                     activePrefab = charPrefab2;
                     activePrefab.transform.position = spawnLocation;
+                    charPrefab2.GetComponent<CharacterParent>().isSwitching = false;
                 }
                 else if (!charPrefab3.GetComponent<CharacterParent>().isDead)
                 {
                     activePrefab = charPrefab3;
                     activePrefab.transform.position = spawnLocation;
+                    charPrefab3.GetComponent<CharacterParent>().isSwitching = false;
                 }
                 else
                 {
@@ -249,11 +251,13 @@ public class PlayerMaster : MonoBehaviour
                 {
                     activePrefab = charPrefab1;
                     activePrefab.transform.position = spawnLocation;
+                    charPrefab1.GetComponent<CharacterParent>().isSwitching = false;
                 }
                 else if (!charPrefab3.GetComponent<CharacterParent>().isDead)
                 {
                     activePrefab = charPrefab3;
                     activePrefab.transform.position = spawnLocation;
+                    charPrefab3.GetComponent<CharacterParent>().isSwitching = false;
                 }
                 else
                 {
@@ -268,11 +272,13 @@ public class PlayerMaster : MonoBehaviour
                 {
                     activePrefab = charPrefab1;
                     activePrefab.transform.position = spawnLocation;
+                    charPrefab1.GetComponent<CharacterParent>().isSwitching = false;
                 }
                 else if (!charPrefab2.GetComponent<CharacterParent>().isDead)
                 {
                     activePrefab = charPrefab2;
                     activePrefab.transform.position = spawnLocation;
+                    charPrefab2.GetComponent<CharacterParent>().isSwitching = false;
                 }
                 else
                 {
@@ -304,10 +310,14 @@ public class PlayerMaster : MonoBehaviour
             charPrefab2.transform.position = activePrefab.transform.position;
             charPrefab3.transform.position = activePrefab.transform.position;
 
-            healthBar.GetComponent<HealthBarScript1>().SetHealth(cp.GetHealth());
-            healthBar.GetComponent<HealthBarScript1>().SetPrimary(cp.GetPrimary());
-            healthBar.GetComponent<HealthBarScript1>().SetSpecial(cp.GetSpecial());
-            healthBar.GetComponent<HealthBarScript1>().SetChar(charPrefab1.GetComponent<CharacterParent>().isDead, charPrefab2.GetComponent<CharacterParent>().isDead, charPrefab3.GetComponent<CharacterParent>().isDead);
+            if (healthBar != null)
+            {
+                healthBar.GetComponent<HealthBarScript1>().SetHealth(cp.GetHealth());
+                healthBar.GetComponent<HealthBarScript1>().SetPrimary(cp.GetPrimary());
+                healthBar.GetComponent<HealthBarScript1>().SetSpecial(cp.GetSpecial());
+                healthBar.GetComponent<HealthBarScript1>().SetChar(charPrefab1.GetComponent<CharacterParent>().isDead, charPrefab2.GetComponent<CharacterParent>().isDead, charPrefab3.GetComponent<CharacterParent>().isDead);
+
+            }
 
 
 
