@@ -75,7 +75,7 @@ public class MageSlimeScript : CharacterParent
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
-        normalAttackPause = 0.8f;
+        normalAttackPause = 1.0f;
         normalAttackPauseTime = 0.0f;
         projectileSpeed = 30.0f;
         specialAttackInput = false;

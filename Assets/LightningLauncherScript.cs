@@ -4,40 +4,76 @@ using UnityEngine;
 
 public class LightningLauncherScript : MonoBehaviour
 {
-    public float projectileSpeed = 30.0f;
-    public GameObject lightningPrefab;
+    public int damage;
     public float timeOfInst;
     public float airTime;
+    public float lightTime;
+    public GameObject Lightning1;
+    public GameObject Lightning2;
+    public GameObject Lightning3;
+    public GameObject Lightning4;
+    public GameObject LightningHitbox;
+    public int FSM = 0;
     // Start is called before the first frame update
     void Start()
     {
-        airTime = 3.0f;
+        airTime = 1.0f;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
+        lightTime = Time.timeSinceLevelLoad + 0.15f;
         //SoundManagerScript.PlaySound("Arrow");
 
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag != "ControlPoint" && other.tag != "WaterTag" && other.tag != "BuffZone")
-        {
-            if (timeOfInst - airTime + 0.05f < Time.timeSinceLevelLoad)//Stupid to avoid self collision
-            {
-                CharacterParent cp = other.GetComponent<CharacterParent>();
-                if (cp != null)
-                {
-                    GameObject light = Instantiate(lightningPrefab, this.transform.position, Quaternion.LookRotation(other.transform.position - this.transform.position, Vector3.up));
-                    Rigidbody2D rb = light.GetComponent<Rigidbody2D>();
-                    rb.AddForce((other.transform.position - this.transform.position).normalized * projectileSpeed, ForceMode2D.Impulse);
-                }
-            }
-        }
-    }
+
 
     // Update is called once per frame
     void Update()
     {
-     
+        if (timeOfInst < Time.timeSinceLevelLoad)
+        {
+            Destroy(gameObject);
+        }
+        if (lightTime < Time.timeSinceLevelLoad)
+        {
+            lightTime = Time.timeSinceLevelLoad + 0.15f;
+            if (FSM == 0)
+            {
+                FSM = 1;
+                Lightning1.SetActive(false);
+                Lightning2.SetActive(false);
+                Lightning3.SetActive(true);
+                Lightning4.SetActive(true);
+                LightningHitbox.SetActive(true);
+            }
+            else if (FSM == 1)
+            {
+                FSM = 2;
+                Lightning1.SetActive(false);
+                Lightning2.SetActive(false);
+                Lightning3.SetActive(false);
+                Lightning4.SetActive(false);
+                LightningHitbox.SetActive(false);
+            }
+            else if (FSM == 2)
+            {
+                FSM = 3;
+                Lightning1.SetActive(true);
+                Lightning2.SetActive(true);
+                Lightning3.SetActive(false);
+                Lightning4.SetActive(false);
+                LightningHitbox.SetActive(true);
+            }
+            else
+            {
+                FSM = 0;
+                Lightning1.SetActive(false);
+                Lightning2.SetActive(false);
+                Lightning3.SetActive(false);
+                Lightning4.SetActive(false);
+                LightningHitbox.SetActive(false);
+            }
+        }
+            
     }
 }
 

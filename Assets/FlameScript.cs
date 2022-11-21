@@ -10,7 +10,7 @@ public class FlameScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        airTime = Random.Range(0.75f, 1.25f);
+        airTime = Random.Range(0.5f, 1.5f);
         damage = 3;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
         //SoundManagerScript.PlaySound("Arrow");

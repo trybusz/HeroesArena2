@@ -7,11 +7,12 @@ public class InitialLightningScript : MonoBehaviour
     public int damage;
     public float timeOfInst;
     public float airTime;
+    public GameObject lightningPrefab;
     // Start is called before the first frame update
     void Start()
     {
         airTime = 3.0f;
-        damage = 40;
+        damage = 30;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
         //SoundManagerScript.PlaySound("Arrow");
 
@@ -25,9 +26,12 @@ public class InitialLightningScript : MonoBehaviour
             if (cp != null)
             {
                 cp.TakeDamage(damage);
+                cp.TakeStun(0.1f);
+                
             }
             if (!other.CompareTag("Hitbox") && other != null)
             {
+                Instantiate(lightningPrefab, this.transform.position, this.transform.rotation);
                 Destroy(gameObject);
             }
 

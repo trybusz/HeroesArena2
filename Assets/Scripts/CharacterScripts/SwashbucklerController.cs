@@ -102,7 +102,7 @@ public class SwashbucklerController : CharacterParent
         normalAttackPause = 1.5f;
         normalAttackPauseTime = 0.0f;
         projectileSpeed = 20.0f;
-        projectileSpeed2 = 15.0f;
+        projectileSpeed2 = 13.0f;
         specialAttackInput = false;
         specialAttackInput = false;
         specialAttackPause = 8.0f;

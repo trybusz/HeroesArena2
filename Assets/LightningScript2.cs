@@ -10,8 +10,7 @@ public class LightningScript2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        airTime = 3.0f;
-        damage = 40;
+        damage = 10;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
         //SoundManagerScript.PlaySound("Arrow");
 
@@ -21,13 +20,13 @@ public class LightningScript2 : MonoBehaviour
     {
         if (other.tag != "ControlPoint" && other.tag != "WaterTag" && other.tag != "BuffZone")
         {
-            CharacterParent cp = other.GetComponent<CharacterParent>();
-            if (cp != null)
-            {
-                cp.TakeDamage(damage);
-                Destroy(gameObject);
-            }
-            
+                CharacterParent cp = other.GetComponent<CharacterParent>();
+
+                if (cp != null)
+                {
+                    cp.TakeDamage(damage);
+                    cp.TakeStun(0.1f);
+                }
 
         }
     }
@@ -35,10 +34,7 @@ public class LightningScript2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timeOfInst < Time.timeSinceLevelLoad)
-        {
-            Destroy(gameObject);
-        }
+
     }
 }
 

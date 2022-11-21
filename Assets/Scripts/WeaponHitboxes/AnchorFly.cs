@@ -25,7 +25,7 @@ public class AnchorFly : MonoBehaviour
             if (cp != null)
             {
                 cp.TakeDamage(damage);
-                cp.TakeKnockback(-10.0f, transform.parent.position, 1.1f + Time.timeSinceLevelLoad - timeOfInst);
+                cp.TakeKnockback(-13.0f, transform.parent.position, 1.1f + Time.timeSinceLevelLoad - timeOfInst);
                 Instantiate(anchorImage, this.transform.position, this.transform.rotation, other.transform);
             }
             if (!other.CompareTag("Hitbox") && other != null)
