@@ -24,6 +24,9 @@ public class PlayerSetupMenuController : MonoBehaviour
 	private GameObject teamSelectPanel;
 	[SerializeField]
 	private GameObject menuPanel;
+	[SerializeField]
+	private GameObject instructionPanel;
+
 	public int selectedCharacter = 0;
 	public int selectedText = 0;
 	private float ignoreInputTime = 1.5f;
@@ -40,11 +43,16 @@ public class PlayerSetupMenuController : MonoBehaviour
 	public bool teamPicked = false;
 	
 	public Transform charLocation;
-    public void Awake()
-    {
-		DontDestroyOnLoad(this.gameObject);
-    }
+	public void Awake()
+	{
+		//DontDestroyOnLoad(this.gameObject);
 
+		if (GameObject.Find("InstructionPanel") != null)
+		{
+			instructionPanel = GameObject.Find("InstructionPanel");
+			instructionPanel.SetActive(false);
+		}
+	}
 
     public void Start()
     {
