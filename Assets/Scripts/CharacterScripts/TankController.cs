@@ -99,13 +99,18 @@ public class TankController : CharacterParent
 
     public override void TakeDamage(int damage)
     {
-        if (weapon.activeSelf && damage > 0)
+        if (!onSpawn)
         {
-            currentShieldHealth -= damage;
+            if (weapon.activeSelf && damage > 0)
+            {
+                currentShieldHealth -= damage;
+            }
+            else
+            {
+                currentCharHealth -= damage;
+            }
         }
-        else {
-            currentCharHealth -= damage;
-        }
+
         
 
         if (currentShieldHealth <= 0)

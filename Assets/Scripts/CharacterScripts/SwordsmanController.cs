@@ -2,13 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicianController : CharacterParent
+public class SwordsmanController : CharacterParent
 {
     //For character switching
     public GameObject switchingIndicator;
     private float switchingTime;
     //Rotating Weapon
     public GameObject weapon;
+    public GameObject weapon2;
+    public GameObject weapon3;
+    public int weaponPos = 1;
+    public GameObject Hitbox1;
+    public GameObject Hitbox2;
+    public GameObject Hitbox3;
+    public GameObject Hitbox4;
     //Player RigidBody
     private Rigidbody2D rb;
     //Base character speed
@@ -31,18 +38,7 @@ public class MagicianController : CharacterParent
     //Variable to measure cooldown
     private float normalAttackPauseTime;
     //SPECIAL ATTACK
-    //Special Attack Speed;
-    public float projectileSpeed;
-    //Transform for fire point
-    public GameObject firePoint1;
-    //Transform for fire point
-    public GameObject teleCheck;
-    //Transform for fire point
-    public GameObject teleportPrefab;
-    //Transform for fire point
-    public GameObject portal;
-    //Axe Prefab
-    public GameObject bombPrefab;
+    
     //Special Attack Button
     private bool specialAttackInput;
     //How long of a cooldown on normal attack
@@ -69,21 +65,22 @@ public class MagicianController : CharacterParent
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
 
-    private bool teleport = false;
+    //Character specific
+    public bool countering = false;
+    public bool counterBlock = false;
     private void Start()
     {
 
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
-        charSpeedMod = 0.80f;
-        maxCharHealth = 125;
-        currentCharHealth = 125;
+        charSpeedMod = 0.9f;
+        maxCharHealth = 175;
+        currentCharHealth = 175;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
-        normalAttackPause = 1.0f;
+        normalAttackPause = 0.6f;
         normalAttackPauseTime = 0.0f;
-        projectileSpeed = 7.0f;
         specialAttackInput = false;
         specialAttackInput = false;
         specialAttackPause = 5.0f;
@@ -92,18 +89,20 @@ public class MagicianController : CharacterParent
     }
     //Get Inputs
 
-    void ShootProjectile()
-    {
-        weapon.SetActive(false);
-        GameObject bomb = Instantiate(bombPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
-        Rigidbody2D rb1 = bomb.GetComponent<Rigidbody2D>();
-        rb1.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
-    }
-
-
     public override void TakeDamage(int damage)
     {
-        currentCharHealth -= damage;
+        if (!countering)
+        {
+            if (!onSpawn)
+            {
+                currentCharHealth -= damage;
+            }
+        }
+        else
+        {
+            counterBlock = true;
+        }
+        
 
         if (currentCharHealth <= 0)
         {
@@ -222,41 +221,76 @@ public class MagicianController : CharacterParent
         //Rotate Self
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Rotate True Aim Point
-        firePoint1.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Make character dash
 
 
-
-        if (normalAttackPauseTime < Time.timeSinceLevelLoad)
+        if (normalAttackPauseTime + 0.1 < Time.timeSinceLevelLoad + normalAttackPause && !countering)
         {
-            weapon.SetActive(true);
+            weaponPos = 1;
+            Hitbox1.SetActive(false);
+            Hitbox2.SetActive(false);
+        }
+        if (normalAttackPauseTime < Time.timeSinceLevelLoad && !countering && !counterBlock)
+        {
             if (normalAttackInput)
             {
-                ShootProjectile();
+                weaponPos = 2;
+                Hitbox1.SetActive(true);
+                Hitbox2.SetActive(true);
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
             }
 
         }
-        if (teleport == true && specialAttackPauseTime + 0.05f < Time.timeSinceLevelLoad + specialAttackPause)
+
+        //counterBlock = false;
+        if (specialAttackPauseTime + 0.6 < Time.timeSinceLevelLoad + specialAttackPause && counterBlock)
         {
-            //In child set teleport to false on collision enter
-            Instantiate(teleportPrefab, teleCheck.transform.position, teleCheck.transform.rotation);
-            this.transform.position = teleCheck.transform.position;
-            teleport = false;
+            weaponPos = 1;
+            Hitbox3.SetActive(false);
+            Hitbox4.SetActive(false);
+            counterBlock = false;
+        }
+            if (specialAttackPauseTime + 0.5 < Time.timeSinceLevelLoad + specialAttackPause && countering)
+        {
+            countering = false;
+            if (counterBlock)
+            {
+                Hitbox3.SetActive(true);
+                Hitbox4.SetActive(true);
+                weaponPos = 2;
+            }
         }
         if (specialAttackPauseTime < Time.timeSinceLevelLoad)
         {
             if (specialAttackInput)
             {
-                teleport = true;
+                weaponPos = 3;
+                countering = true;
                 //Set time till next attack
                 specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
 
             }
         }
 
-
+        if (weaponPos == 1)
+        {
+            weapon.SetActive(true);
+            weapon2.SetActive(false);
+            weapon3.SetActive(false);
+        }
+        else if (weaponPos == 2)
+        {
+            weapon.SetActive(false);
+            weapon2.SetActive(true);
+            weapon3.SetActive(false);
+        }
+        else
+        {
+            weapon.SetActive(false);
+            weapon2.SetActive(false);
+            weapon3.SetActive(true);
+        }
         //Set angle of aim
         if (aimInput.x != 0 && aimInput.y != 0)
         {

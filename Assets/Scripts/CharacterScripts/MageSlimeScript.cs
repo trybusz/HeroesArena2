@@ -2,18 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WizardScript : CharacterParent
+public class MageSlimeScript : CharacterParent
 {
     //For character switching
     public GameObject switchingIndicator;
     private float switchingTime;
     //Rotating Weapon
-    public GameObject charge1;
-    public GameObject charge2;
-    public GameObject charge3;
-    public GameObject charge4;
-    public GameObject charge5;
-    private int chargeValue;
+    public GameObject weapon;
     //Player RigidBody
     private Rigidbody2D rb;
     //Base character speed
@@ -41,17 +36,9 @@ public class WizardScript : CharacterParent
     //Transform for fire point
     public GameObject firePoint1;
     //Axe Prefab
-    public GameObject charge1Prefab;
+    public GameObject lightningPrefab;
     //Axe Prefab
-    public GameObject charge2Prefab;
-    //Axe Prefab
-    public GameObject charge3Prefab;
-    //Axe Prefab
-    public GameObject charge4Prefab;
-    //Axe Prefab
-    public GameObject charge5Prefab;
-    //Axe Prefab
-    public GameObject ChargingAnim;
+    public GameObject barrierPrefab;
     //Special Attack Button
     private bool specialAttackInput;
     //How long of a cooldown on normal attack
@@ -83,61 +70,40 @@ public class WizardScript : CharacterParent
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
         charSpeedMod = 0.75f;
-        maxCharHealth = 150;
-        currentCharHealth = 150;
+        maxCharHealth = 125;
+        currentCharHealth = 125;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
-        normalAttackPause = 0.5f;
+        normalAttackPause = 1.0f;
         normalAttackPauseTime = 0.0f;
-        projectileSpeed = 10.0f;
+        projectileSpeed = 30.0f;
         specialAttackInput = false;
         specialAttackInput = false;
-        specialAttackPause = 0.5f;
+        specialAttackPause = 10.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
     }
     //Get Inputs
 
-    void ShootProjectile1()
+    void ShootProjectile()
     {
-        charge1.SetActive(false);
-        GameObject light = Instantiate(charge1Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        weapon.SetActive(false);
+        GameObject light = Instantiate(lightningPrefab, firePoint1.transform.position, Quaternion.Euler(new Vector3(0, 0, 180)) * firePoint1.transform.rotation);
         Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
         rb1.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
     }
     void ShootProjectile2()
     {
-        charge2.SetActive(false);
-        GameObject light = Instantiate(charge2Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
-        Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
-        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 3.0f), ForceMode2D.Impulse);
-    }
-    void ShootProjectile3()
-    {
-        charge3.SetActive(false);
-        GameObject light = Instantiate(charge3Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
-        Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
-        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 6.0f), ForceMode2D.Impulse);
-    }
-    void ShootProjectile4()
-    {
-        charge4.SetActive(false);
-        GameObject light = Instantiate(charge4Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
-        Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
-        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 9.0f), ForceMode2D.Impulse);
-    }
-    void ShootProjectile5()
-    {
-        charge5.SetActive(false);
-        GameObject light = Instantiate(charge5Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
-        Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
-        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 12.0f), ForceMode2D.Impulse);
+            Instantiate(barrierPrefab, firePoint1.transform.position, Quaternion.Euler(new Vector3(0, 0, -45)) * firePoint1.transform.rotation);
     }
 
     public override void TakeDamage(int damage)
     {
-        currentCharHealth -= damage;
+        if (!onSpawn)
+        {
+            currentCharHealth -= damage;
+        }
 
         if (currentCharHealth <= 0)
         {
@@ -263,70 +229,10 @@ public class WizardScript : CharacterParent
 
         if (normalAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            if (chargeValue == 1)
-            {
-                charge1.SetActive(true);
-                charge2.SetActive(false);
-                charge3.SetActive(false);
-                charge4.SetActive(false);
-                charge5.SetActive(false);
-            }
-            else if (chargeValue == 2)
-            {
-                charge1.SetActive(false);
-                charge2.SetActive(true);
-                charge3.SetActive(false);
-                charge4.SetActive(false);
-                charge5.SetActive(false);
-            }
-            else if (chargeValue == 3)
-            {
-                charge1.SetActive(false);
-                charge2.SetActive(false);
-                charge3.SetActive(true);
-                charge4.SetActive(false);
-                charge5.SetActive(false);
-            }
-            else if (chargeValue == 4)
-            {
-                charge1.SetActive(false);
-                charge2.SetActive(false);
-                charge3.SetActive(false);
-                charge4.SetActive(true);
-                charge5.SetActive(false);
-            }
-            else if (chargeValue == 5)
-            {
-                charge1.SetActive(false);
-                charge2.SetActive(false); ;
-                charge3.SetActive(false);
-                charge4.SetActive(false);
-                charge5.SetActive(true);
-            }
-
+            weapon.SetActive(true);
             if (normalAttackInput)
             {
-                if (chargeValue == 1)
-                {
-                    ShootProjectile1();
-                }
-                else if (chargeValue == 2)
-                {
-                    ShootProjectile2();
-                }
-                else if (chargeValue == 3)
-                {
-                    ShootProjectile3();
-                }
-                else if (chargeValue == 4)
-                {
-                    ShootProjectile4();
-                }
-                else if (chargeValue == 5)
-                {
-                    ShootProjectile5();
-                }
-                chargeValue = 1;
+                ShootProjectile();
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
             }
@@ -336,12 +242,7 @@ public class WizardScript : CharacterParent
         {
             if (specialAttackInput)
             {
-                currentCharHealth += 3;
-                TakeStun(0.5f);
-                if (chargeValue < 5)
-                {
-                    chargeValue += 1;
-                }
+                ShootProjectile2();
                 //Set time till next attack
                 specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
 

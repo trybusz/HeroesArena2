@@ -2,20 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordsmanController : CharacterParent
+public class golemController : CharacterParent
 {
     //For character switching
     public GameObject switchingIndicator;
     private float switchingTime;
     //Rotating Weapon
     public GameObject weapon;
-    public GameObject weapon2;
-    public GameObject weapon3;
-    public int weaponPos = 1;
-    public GameObject Hitbox1;
-    public GameObject Hitbox2;
-    public GameObject Hitbox3;
-    public GameObject Hitbox4;
     //Player RigidBody
     private Rigidbody2D rb;
     //Base character speed
@@ -38,7 +31,17 @@ public class SwordsmanController : CharacterParent
     //Variable to measure cooldown
     private float normalAttackPauseTime;
     //SPECIAL ATTACK
-    
+    //Special Attack Speed;
+    public float projectileSpeed;
+    public float projectileSpeed2;
+    //Transform for fire point
+    public GameObject firePoint1;
+    //Transform for fire point
+    public GameObject boulderImage;
+    //Transform for fire point
+    public GameObject shell;
+    //Axe Prefab
+    public GameObject boulderPrefab;
     //Special Attack Button
     private bool specialAttackInput;
     //How long of a cooldown on normal attack
@@ -50,11 +53,15 @@ public class SwordsmanController : CharacterParent
     //Previous angle, to be used as a temp on angle
     float lastAngle = 0.0f;
 
+    public bool isShelled;
+
     public int projectileCounter = 0;
 
     public int activePrefab;
 
     public Animator animator;
+
+    public bool alreadyShot = true;
 
     //public bool isDead = false;
 
@@ -64,40 +71,41 @@ public class SwordsmanController : CharacterParent
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
-
-    //Character specific
-    public bool countering = false;
-    public bool counterBlock = false;
     private void Start()
     {
 
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
-        charSpeedMod = 0.9f;
-        maxCharHealth = 175;
-        currentCharHealth = 175;
+        charSpeedMod = 0.50f;
+        maxCharHealth = 250;
+        currentCharHealth = 250;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
-        normalAttackPause = 0.6f;
+        normalAttackPause = 1.5f;
         normalAttackPauseTime = 0.0f;
+        projectileSpeed = 4.0f;
         specialAttackInput = false;
-        specialAttackInput = false;
-        specialAttackPause = 5.0f;
+        specialAttackPause = 10.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
+        isShelled = false;
+        alreadyShot = true;
     }
     //Get Inputs
 
+    void ShootProjectile()
+    {
+        GameObject flame1 = Instantiate(boulderPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        Rigidbody2D rb1 = flame1.GetComponent<Rigidbody2D>();
+        rb1.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
+    }
+
     public override void TakeDamage(int damage)
     {
-        if (!countering)
+        if (!isShelled && !onSpawn)
         {
             currentCharHealth -= damage;
-        }
-        else
-        {
-            counterBlock = true;
         }
         
 
@@ -218,76 +226,53 @@ public class SwordsmanController : CharacterParent
         //Rotate Self
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Rotate True Aim Point
+        firePoint1.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Make character dash
-
-
-        if (normalAttackPauseTime + 0.1 < Time.timeSinceLevelLoad + normalAttackPause && !countering)
+        
+        if(normalAttackPauseTime + 0.5f < Time.timeSinceLevelLoad + normalAttackPause && (alreadyShot == false))
         {
-            weaponPos = 1;
-            Hitbox1.SetActive(false);
-            Hitbox2.SetActive(false);
+            alreadyShot = true;
+            ShootProjectile();
+            
+            boulderImage.SetActive(false);
         }
-        if (normalAttackPauseTime < Time.timeSinceLevelLoad && !countering && !counterBlock)
+
+        if (normalAttackPauseTime < Time.timeSinceLevelLoad)
         {
+            weapon.SetActive(true);
             if (normalAttackInput)
             {
-                weaponPos = 2;
-                Hitbox1.SetActive(true);
-                Hitbox2.SetActive(true);
+                weapon.SetActive(false);
+                boulderImage.SetActive(true);
+                alreadyShot = false;
+                TakeStun(0.5f);
+                //ShootProjectile();
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
             }
 
         }
 
-        //counterBlock = false;
-        if (specialAttackPauseTime + 0.6 < Time.timeSinceLevelLoad + specialAttackPause && counterBlock)
-        {
-            weaponPos = 1;
-            Hitbox3.SetActive(false);
-            Hitbox4.SetActive(false);
-            counterBlock = false;
-        }
-            if (specialAttackPauseTime + 0.5 < Time.timeSinceLevelLoad + specialAttackPause && countering)
-        {
-            countering = false;
-            if (counterBlock)
-            {
-                Hitbox3.SetActive(true);
-                Hitbox4.SetActive(true);
-                weaponPos = 2;
-            }
-        }
         if (specialAttackPauseTime < Time.timeSinceLevelLoad)
         {
             if (specialAttackInput)
             {
-                weaponPos = 3;
-                countering = true;
+                isShelled = true;
+                shell.SetActive(true);
+                TakeStun(3.0f);
+                currentCharHealth = maxCharHealth;
                 //Set time till next attack
                 specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
 
             }
         }
+        if (specialAttackPauseTime + 3.0f < Time.timeSinceLevelLoad + specialAttackPause)
+        {
+            shell.SetActive(false);
+            isShelled = false;
+        }
 
-        if (weaponPos == 1)
-        {
-            weapon.SetActive(true);
-            weapon2.SetActive(false);
-            weapon3.SetActive(false);
-        }
-        else if (weaponPos == 2)
-        {
-            weapon.SetActive(false);
-            weapon2.SetActive(true);
-            weapon3.SetActive(false);
-        }
-        else
-        {
-            weapon.SetActive(false);
-            weapon2.SetActive(false);
-            weapon3.SetActive(true);
-        }
+
         //Set angle of aim
         if (aimInput.x != 0 && aimInput.y != 0)
         {

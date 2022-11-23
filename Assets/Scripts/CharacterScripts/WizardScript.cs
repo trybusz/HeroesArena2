@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WarlockController : CharacterParent
+public class WizardScript : CharacterParent
 {
     //For character switching
     public GameObject switchingIndicator;
     private float switchingTime;
     //Rotating Weapon
-    public GameObject weapon;
+    public GameObject charge1;
+    public GameObject charge2;
+    public GameObject charge3;
+    public GameObject charge4;
+    public GameObject charge5;
+    private int chargeValue;
     //Player RigidBody
     private Rigidbody2D rb;
     //Base character speed
@@ -33,19 +38,20 @@ public class WarlockController : CharacterParent
     //SPECIAL ATTACK
     //Special Attack Speed;
     public float projectileSpeed;
-    public float projectileSpeed2;
     //Transform for fire point
     public GameObject firePoint1;
-    //Transform for fire point
-    public GameObject lifeDrain1;
-    //Transform for fire point
-    public GameObject lifeDrain2;
-    //Transform for fire point
-    public GameObject lifeDrain3;
     //Axe Prefab
-    public GameObject lifeDrainHitbox;
+    public GameObject charge1Prefab;
     //Axe Prefab
-    public GameObject beamPrefab;
+    public GameObject charge2Prefab;
+    //Axe Prefab
+    public GameObject charge3Prefab;
+    //Axe Prefab
+    public GameObject charge4Prefab;
+    //Axe Prefab
+    public GameObject charge5Prefab;
+    //Axe Prefab
+    public GameObject ChargingAnim;
     //Special Attack Button
     private bool specialAttackInput;
     //How long of a cooldown on normal attack
@@ -57,9 +63,7 @@ public class WarlockController : CharacterParent
     //Previous angle, to be used as a temp on angle
     float lastAngle = 0.0f;
 
-    public int projectileCounter = 10;
-
-    public int drainCounter = 4;
+    public int projectileCounter = 0;
 
     public int activePrefab;
 
@@ -86,26 +90,57 @@ public class WarlockController : CharacterParent
         normalAttackInput = false;
         normalAttackPause = 0.5f;
         normalAttackPauseTime = 0.0f;
-        projectileSpeed = 25.0f;
+        projectileSpeed = 10.0f;
         specialAttackInput = false;
         specialAttackInput = false;
-        specialAttackPause = 6.0f;
+        specialAttackPause = 0.5f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
-        projectileCounter = 10;
     }
     //Get Inputs
 
-    void ShootProjectile()
+    void ShootProjectile1()
     {
-        GameObject flame1 = Instantiate(beamPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
-        Rigidbody2D rb1 = flame1.GetComponent<Rigidbody2D>();
+        charge1.SetActive(false);
+        GameObject light = Instantiate(charge1Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
         rb1.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
+    }
+    void ShootProjectile2()
+    {
+        charge2.SetActive(false);
+        GameObject light = Instantiate(charge2Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
+        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 3.0f), ForceMode2D.Impulse);
+    }
+    void ShootProjectile3()
+    {
+        charge3.SetActive(false);
+        GameObject light = Instantiate(charge3Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
+        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 6.0f), ForceMode2D.Impulse);
+    }
+    void ShootProjectile4()
+    {
+        charge4.SetActive(false);
+        GameObject light = Instantiate(charge4Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
+        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 9.0f), ForceMode2D.Impulse);
+    }
+    void ShootProjectile5()
+    {
+        charge5.SetActive(false);
+        GameObject light = Instantiate(charge5Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
+        rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 12.0f), ForceMode2D.Impulse);
     }
 
     public override void TakeDamage(int damage)
     {
-        currentCharHealth -= damage;
+        if (!onSpawn)
+        {
+            currentCharHealth -= damage;
+        }
 
         if (currentCharHealth <= 0)
         {
@@ -227,99 +262,94 @@ public class WarlockController : CharacterParent
         firePoint1.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Make character dash
 
-        if (normalAttackPauseTime + 0.5f < Time.timeSinceLevelLoad + normalAttackPause && drainCounter == 3)
-        {
-            drainCounter = 4;
-            lifeDrain3.SetActive(false);
-        }
-        else if (normalAttackPauseTime + 0.35f < Time.timeSinceLevelLoad + normalAttackPause && drainCounter == 2)
-        {
-            drainCounter = 3;
-            lifeDrain3.SetActive(true);
-            lifeDrain2.SetActive(false);
-        }
-        else if (normalAttackPauseTime + 0.20f < Time.timeSinceLevelLoad + normalAttackPause && drainCounter == 1)
-        {
-            drainCounter = 2;
-            lifeDrain2.SetActive(true);
-            lifeDrain1.SetActive(false);
-        }
-        else if (normalAttackPauseTime + 0.05f < Time.timeSinceLevelLoad + normalAttackPause && drainCounter == 0)
-        {
-            drainCounter = 1;
-            lifeDrain1.SetActive(true);
-            lifeDrainHitbox.SetActive(false);
-        }
+
 
         if (normalAttackPauseTime < Time.timeSinceLevelLoad)
         {
+            if (chargeValue == 1)
+            {
+                charge1.SetActive(true);
+                charge2.SetActive(false);
+                charge3.SetActive(false);
+                charge4.SetActive(false);
+                charge5.SetActive(false);
+            }
+            else if (chargeValue == 2)
+            {
+                charge1.SetActive(false);
+                charge2.SetActive(true);
+                charge3.SetActive(false);
+                charge4.SetActive(false);
+                charge5.SetActive(false);
+            }
+            else if (chargeValue == 3)
+            {
+                charge1.SetActive(false);
+                charge2.SetActive(false);
+                charge3.SetActive(true);
+                charge4.SetActive(false);
+                charge5.SetActive(false);
+            }
+            else if (chargeValue == 4)
+            {
+                charge1.SetActive(false);
+                charge2.SetActive(false);
+                charge3.SetActive(false);
+                charge4.SetActive(true);
+                charge5.SetActive(false);
+            }
+            else if (chargeValue == 5)
+            {
+                charge1.SetActive(false);
+                charge2.SetActive(false); ;
+                charge3.SetActive(false);
+                charge4.SetActive(false);
+                charge5.SetActive(true);
+            }
+
             if (normalAttackInput)
             {
-                lifeDrainHitbox.SetActive(true);
-                drainCounter = 0;
+                if (chargeValue == 1)
+                {
+                    ShootProjectile1();
+                }
+                else if (chargeValue == 2)
+                {
+                    ShootProjectile2();
+                }
+                else if (chargeValue == 3)
+                {
+                    ShootProjectile3();
+                }
+                else if (chargeValue == 4)
+                {
+                    ShootProjectile4();
+                }
+                else if (chargeValue == 5)
+                {
+                    ShootProjectile5();
+                }
+                chargeValue = 1;
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
             }
 
         }
-        if (specialAttackPauseTime + 0.75f < Time.timeSinceLevelLoad + specialAttackPause && projectileCounter == 9)
+        if (specialAttackPauseTime + 0.45f < Time.timeSinceLevelLoad + specialAttackPause)
         {
-            TakeDamage(40);
-            projectileCounter = 10;
-            ShootProjectile();
-        }
-        else if (specialAttackPauseTime + 0.675f < Time.timeSinceLevelLoad + specialAttackPause && projectileCounter == 8)
-        {
-            projectileCounter = 9;
-            ShootProjectile();
-        }
-        else if (specialAttackPauseTime + 0.6f < Time.timeSinceLevelLoad + specialAttackPause && projectileCounter == 7)
-        {
-            projectileCounter = 8;
-            ShootProjectile();
-        }
-        else if (specialAttackPauseTime + 0.525f < Time.timeSinceLevelLoad + specialAttackPause && projectileCounter == 6)
-        {
-            projectileCounter = 7;
-            ShootProjectile();
-        }
-        else if (specialAttackPauseTime + 0.45f < Time.timeSinceLevelLoad + specialAttackPause && projectileCounter == 5)
-        {
-            projectileCounter = 6;
-            ShootProjectile();
-        }
-        else if (specialAttackPauseTime + 0.375f < Time.timeSinceLevelLoad + specialAttackPause && projectileCounter == 4)
-        {
-            projectileCounter = 5;
-            ShootProjectile();
-        }
-        else if (specialAttackPauseTime + 0.3f < Time.timeSinceLevelLoad + specialAttackPause && projectileCounter == 3)
-        {
-            projectileCounter = 4;
-            ShootProjectile();
-        }
-        else if (specialAttackPauseTime + 0.225f < Time.timeSinceLevelLoad + specialAttackPause && projectileCounter == 2)
-        {
-            projectileCounter = 3;
-            ShootProjectile();
-        }
-        else if (specialAttackPauseTime + 0.15f < Time.timeSinceLevelLoad + specialAttackPause && projectileCounter == 1)
-        {
-            projectileCounter = 2;
-            ShootProjectile();
-        }
-        else if (specialAttackPauseTime + 0.075f < Time.timeSinceLevelLoad + specialAttackPause && projectileCounter == 0)
-        {
-            projectileCounter = 1;
-            ShootProjectile();
+            ChargingAnim.SetActive(false);
         }
         if (specialAttackPauseTime < Time.timeSinceLevelLoad)
         {
             if (specialAttackInput)
             {
-                
-                TakeStun(0.75f);
-                projectileCounter = 0;
+                ChargingAnim.SetActive(true);
+                currentCharHealth += 3;
+                TakeStun(0.5f);
+                if (chargeValue < 5)
+                {
+                    chargeValue += 1;
+                }
                 //Set time till next attack
                 specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
 

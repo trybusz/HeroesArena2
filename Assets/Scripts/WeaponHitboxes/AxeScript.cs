@@ -26,6 +26,7 @@ public class AxeScript : MonoBehaviour
                 if (cp != null)
                 {
                     cp.TakeDamage(axeDamage);
+                    cp.TakeStun(0.2f);
                 }
                 if (!other.CompareTag("Hitbox") && other != null)
                 {
@@ -38,7 +39,7 @@ public class AxeScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(0.0f, 0.0f, -1.0f, Space.Self);
+        transform.Rotate(0.0f, 0.0f, -3.0f, Space.Self);
         if(timeOfInst < Time.timeSinceLevelLoad)
         {
             Destroy(gameObject);

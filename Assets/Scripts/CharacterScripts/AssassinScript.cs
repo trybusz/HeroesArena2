@@ -76,7 +76,7 @@ public class AssassinScript : CharacterParent
         charSpeed = 5.0f;
         dashing = false;
         charSpeed = 5.0f;
-        charSpeedMod = 0.9f;
+        charSpeedMod = 0.95f;
         maxCharHealth = 150;
         currentCharHealth = 150;
         movementInput = Vector2.zero;
@@ -97,7 +97,10 @@ public class AssassinScript : CharacterParent
 
     public override void TakeDamage(int damage)
     {
-        currentCharHealth -= damage;
+        if (!onSpawn)
+        {
+            currentCharHealth -= damage;
+        }
 
         if (currentCharHealth <= 0)
         {
@@ -208,7 +211,7 @@ public class AssassinScript : CharacterParent
             spriteR.enabled = false;
             WeaponSprite.enabled = false;
             InvisIndSprite.enabled = false;
-            rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod * 1.2f;
+            rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod;
         }
         else if (KBtime > Time.timeSinceLevelLoad)
         {

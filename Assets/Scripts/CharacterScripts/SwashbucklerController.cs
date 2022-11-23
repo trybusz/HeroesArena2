@@ -93,7 +93,7 @@ public class SwashbucklerController : CharacterParent
 
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
-        charSpeedMod = 0.55f;
+        charSpeedMod = 0.60f;
         maxCharHealth = 200;
         currentCharHealth = 200;
         movementInput = Vector2.zero;
@@ -152,7 +152,10 @@ public class SwashbucklerController : CharacterParent
 
     public override void TakeDamage(int damage)
     {
-        currentCharHealth -= damage;
+        if (!onSpawn)
+        {
+            currentCharHealth -= damage;
+        }
 
         if (currentCharHealth <= 0)
         {

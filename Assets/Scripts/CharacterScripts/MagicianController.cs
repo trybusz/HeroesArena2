@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class golemController : CharacterParent
+public class MagicianController : CharacterParent
 {
     //For character switching
     public GameObject switchingIndicator;
@@ -33,15 +33,16 @@ public class golemController : CharacterParent
     //SPECIAL ATTACK
     //Special Attack Speed;
     public float projectileSpeed;
-    public float projectileSpeed2;
     //Transform for fire point
     public GameObject firePoint1;
     //Transform for fire point
-    public GameObject boulderImage;
+    public GameObject teleCheck;
     //Transform for fire point
-    public GameObject shell;
+    public GameObject teleportPrefab;
+    //Transform for fire point
+    public GameObject portal;
     //Axe Prefab
-    public GameObject boulderPrefab;
+    public GameObject bombPrefab;
     //Special Attack Button
     private bool specialAttackInput;
     //How long of a cooldown on normal attack
@@ -53,15 +54,11 @@ public class golemController : CharacterParent
     //Previous angle, to be used as a temp on angle
     float lastAngle = 0.0f;
 
-    public bool isShelled;
-
     public int projectileCounter = 0;
 
     public int activePrefab;
 
     public Animator animator;
-
-    public bool alreadyShot = true;
 
     //public bool isDead = false;
 
@@ -71,43 +68,45 @@ public class golemController : CharacterParent
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
+
+    private bool teleport = false;
     private void Start()
     {
 
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
-        charSpeedMod = 0.50f;
-        maxCharHealth = 250;
-        currentCharHealth = 250;
+        charSpeedMod = 0.80f;
+        maxCharHealth = 125;
+        currentCharHealth = 125;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
-        normalAttackPause = 1.5f;
+        normalAttackPause = 1.0f;
         normalAttackPauseTime = 0.0f;
-        projectileSpeed = 4.0f;
+        projectileSpeed = 7.0f;
         specialAttackInput = false;
-        specialAttackPause = 10.0f;
+        specialAttackInput = false;
+        specialAttackPause = 5.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
-        isShelled = false;
-        alreadyShot = true;
     }
     //Get Inputs
 
     void ShootProjectile()
     {
-        GameObject flame1 = Instantiate(boulderPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
-        Rigidbody2D rb1 = flame1.GetComponent<Rigidbody2D>();
+        weapon.SetActive(false);
+        GameObject bomb = Instantiate(bombPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        Rigidbody2D rb1 = bomb.GetComponent<Rigidbody2D>();
         rb1.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
     }
 
+
     public override void TakeDamage(int damage)
     {
-        if (!isShelled)
+        if (!onSpawn)
         {
             currentCharHealth -= damage;
         }
-        
 
         if (currentCharHealth <= 0)
         {
@@ -228,48 +227,36 @@ public class golemController : CharacterParent
         //Rotate True Aim Point
         firePoint1.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Make character dash
-        
-        if(normalAttackPauseTime + 0.5f < Time.timeSinceLevelLoad + normalAttackPause && (alreadyShot == false))
-        {
-            alreadyShot = true;
-            ShootProjectile();
-            
-            boulderImage.SetActive(false);
-        }
+
+
 
         if (normalAttackPauseTime < Time.timeSinceLevelLoad)
         {
             weapon.SetActive(true);
             if (normalAttackInput)
             {
-                weapon.SetActive(false);
-                boulderImage.SetActive(true);
-                alreadyShot = false;
-                TakeStun(0.5f);
-                //ShootProjectile();
+                ShootProjectile();
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
             }
 
         }
-
+        if (teleport == true && specialAttackPauseTime + 0.05f < Time.timeSinceLevelLoad + specialAttackPause)
+        {
+            //In child set teleport to false on collision enter
+            Instantiate(teleportPrefab, teleCheck.transform.position, teleCheck.transform.rotation);
+            this.transform.position = teleCheck.transform.position;
+            teleport = false;
+        }
         if (specialAttackPauseTime < Time.timeSinceLevelLoad)
         {
             if (specialAttackInput)
             {
-                isShelled = true;
-                shell.SetActive(true);
-                TakeStun(3.0f);
-                currentCharHealth = maxCharHealth;
+                teleport = true;
                 //Set time till next attack
                 specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
 
             }
-        }
-        if (specialAttackPauseTime + 3.0f < Time.timeSinceLevelLoad + specialAttackPause)
-        {
-            shell.SetActive(false);
-            isShelled = false;
         }
 
 
