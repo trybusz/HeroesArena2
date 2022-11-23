@@ -2,20 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AirSlimeScript : CharacterParent
+public class golemController : CharacterParent
 {
     //For character switching
     public GameObject switchingIndicator;
     private float switchingTime;
     //Rotating Weapon
     public GameObject weapon;
-    public GameObject weapon2;
-    public GameObject dashIndicator;
-    public GameObject tornadoPrefab;
-    public GameObject firepoint1;
-    public GameObject firepoint2;
-    public float projectileSpeed;
-    public bool dashing;
     //Player RigidBody
     private Rigidbody2D rb;
     //Base character speed
@@ -38,6 +31,17 @@ public class AirSlimeScript : CharacterParent
     //Variable to measure cooldown
     private float normalAttackPauseTime;
     //SPECIAL ATTACK
+    //Special Attack Speed;
+    public float projectileSpeed;
+    public float projectileSpeed2;
+    //Transform for fire point
+    public GameObject firePoint1;
+    //Transform for fire point
+    public GameObject boulderImage;
+    //Transform for fire point
+    public GameObject shell;
+    //Axe Prefab
+    public GameObject boulderPrefab;
     //Special Attack Button
     private bool specialAttackInput;
     //How long of a cooldown on normal attack
@@ -49,51 +53,61 @@ public class AirSlimeScript : CharacterParent
     //Previous angle, to be used as a temp on angle
     float lastAngle = 0.0f;
 
+    public bool isShelled;
+
+    public int projectileCounter = 0;
+
+    public int activePrefab;
+
     public Animator animator;
+
+    public bool alreadyShot = true;
+
+    //public bool isDead = false;
 
     //public bool isStunned = false;
     public float stunTime = 0.0f;
-
-    //public bool isDead = false;
 
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
     private void Start()
     {
-        projectileSpeed = 7.0f;
+
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
-        dashing = false;
-        charSpeedMod = 1.0f;
-        maxCharHealth = 100;
-        currentCharHealth = 100;
+        charSpeedMod = 0.50f;
+        maxCharHealth = 250;
+        currentCharHealth = 250;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
-        normalAttackPause = 0.7f;
+        normalAttackPause = 1.5f;
         normalAttackPauseTime = 0.0f;
+        projectileSpeed = 4.0f;
         specialAttackInput = false;
-        specialAttackInput = false;
-        specialAttackPause = 0.5f;
+        specialAttackPause = 10.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
+        isShelled = false;
+        alreadyShot = true;
     }
     //Get Inputs
 
     void ShootProjectile()
     {
-        GameObject tornado1 = Instantiate(tornadoPrefab, firepoint1.transform.position, firepoint1.transform.rotation);
-        Rigidbody2D rb1 = tornado1.GetComponent<Rigidbody2D>();
-        rb1.AddForce(firepoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
-        GameObject tornado2 = Instantiate(tornadoPrefab, firepoint2.transform.position, firepoint2.transform.rotation);
-        Rigidbody2D rb2 = tornado2.GetComponent<Rigidbody2D>();
-        rb2.AddForce(firepoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        GameObject flame1 = Instantiate(boulderPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        Rigidbody2D rb1 = flame1.GetComponent<Rigidbody2D>();
+        rb1.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
     }
 
     public override void TakeDamage(int damage)
     {
-        currentCharHealth -= damage;
+        if (!isShelled)
+        {
+            currentCharHealth -= damage;
+        }
+        
 
         if (currentCharHealth <= 0)
         {
@@ -110,7 +124,6 @@ public class AirSlimeScript : CharacterParent
         isStunned = true;
         stunTime = duration + Time.timeSinceLevelLoad;
     }
-
     public override void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
     {
         KBtime = Time.timeSinceLevelLoad + duration;
@@ -123,6 +136,7 @@ public class AirSlimeScript : CharacterParent
         switchingIndicator.SetActive(true);
         switchingTime = 0.95f + Time.timeSinceLevelLoad;
     }
+
     public override float GetHealth()
     {
         return ((float)currentCharHealth / (float)maxCharHealth);
@@ -166,7 +180,6 @@ public class AirSlimeScript : CharacterParent
         }
 
 
-
         if (!isStunned)
         {
             movementInput = GetComponentInParent<PlayerMaster>().movementInput;
@@ -183,9 +196,9 @@ public class AirSlimeScript : CharacterParent
 
             aimInput = Vector2.zero;
 
-            normalAttackInput = false;
-
             specialAttackInput = false;
+
+            normalAttackInput = false;
         }
 
         if (stunTime < Time.timeSinceLevelLoad)
@@ -193,63 +206,70 @@ public class AirSlimeScript : CharacterParent
             isStunned = false;
         }
 
+        //update health
+
+
+
         //Animate Character
         animator.SetFloat("MoveX", Mathf.Abs(movementInput.x));
         animator.SetFloat("MoveY", Mathf.Abs(movementInput.y));
 
-        if (specialAttackPauseTime + 0.10f > Time.timeSinceLevelLoad + specialAttackPause)
-        {
-            dashing = true;
-        }
-        else
-        {
-            dashing = false;
-        }
-
-
         //Move Character
-        if (dashing)
+        if (KBtime > Time.timeSinceLevelLoad)
         {
-            rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod * 5;
-        }
-        else if (KBtime > Time.timeSinceLevelLoad)
-        {//For knockback
             rb.velocity = new Vector2(rb.transform.position.x - otherPos.x, rb.transform.position.y - otherPos.y).normalized * charKnockback;
         }
         else
         {
             rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod;
         }
-        //Rotate Weapon
-        weapon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Rotate Self
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        //Rotate True Aim Point
+        firePoint1.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Make character dash
+        
+        if(normalAttackPauseTime + 0.5f < Time.timeSinceLevelLoad + normalAttackPause && (alreadyShot == false))
+        {
+            alreadyShot = true;
+            ShootProjectile();
+            
+            boulderImage.SetActive(false);
+        }
 
         if (normalAttackPauseTime < Time.timeSinceLevelLoad)
         {
             weapon.SetActive(true);
-            weapon2.SetActive(true);
             if (normalAttackInput)
             {
-                ShootProjectile();
                 weapon.SetActive(false);
-                weapon2.SetActive(false);
+                boulderImage.SetActive(true);
+                alreadyShot = false;
+                TakeStun(0.5f);
+                //ShootProjectile();
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
             }
 
         }
+
         if (specialAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            dashIndicator.SetActive(true);
             if (specialAttackInput)
             {
-                dashIndicator.SetActive(false);
+                isShelled = true;
+                shell.SetActive(true);
+                TakeStun(3.0f);
+                currentCharHealth = maxCharHealth;
                 //Set time till next attack
                 specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
-                //Shoot Axe here
+
             }
+        }
+        if (specialAttackPauseTime + 3.0f < Time.timeSinceLevelLoad + specialAttackPause)
+        {
+            shell.SetActive(false);
+            isShelled = false;
         }
 
 

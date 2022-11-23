@@ -120,9 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c868b2fc712415418d71991809015cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 12
   timeOfInst: 0
-  airTime: 0.75
+  airTime: 0.4
 --- !u!61 &1121759884605080251
 BoxCollider2D:
   m_ObjectHideFlags: 0

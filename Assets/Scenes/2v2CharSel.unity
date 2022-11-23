@@ -443,11 +443,11 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'The objective of this game is to either eliminate every enemy player,
     or spend a combined 100 seconds as a team on the capture point in the center
-    of the map. On the next screen, you will select three different character types
-    that you can swap between at any point in the game. Your three characters are
-    selected and swapped between with the X, A and B buttons, respectively. These
-    character each have a primary and special attack that is activated with the right
-    and left bumpers.
+    of the map. On the next screen, you will select three different characters that
+    you can swap between at any point in the game. Your three characters are selected
+    and swapped between with the X, A and B buttons, respectively. These character
+    each have a primary and special attack that is activated with the right and left
+    bumpers.
 
 
 
@@ -552,7 +552,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1664270226}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -960, y: 516, z: -7.1846905}
+  m_LocalPosition: {x: -960, y: 540, z: -7.1846905}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -784,7 +784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3029216995516059714, guid: d2321f847816f564c94f616aee64acbd, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1080
+      value: 1080.4
       objectReference: {fileID: 0}
     - target: {fileID: 3029216995516059714, guid: d2321f847816f564c94f616aee64acbd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -820,7 +820,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3029216995516059714, guid: d2321f847816f564c94f616aee64acbd, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -540
+      value: -540.22
       objectReference: {fileID: 0}
     - target: {fileID: 3029216995516059714, guid: d2321f847816f564c94f616aee64acbd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

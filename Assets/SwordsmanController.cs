@@ -227,7 +227,7 @@ public class SwordsmanController : CharacterParent
             Hitbox1.SetActive(false);
             Hitbox2.SetActive(false);
         }
-        if (normalAttackPauseTime < Time.timeSinceLevelLoad && !countering)
+        if (normalAttackPauseTime < Time.timeSinceLevelLoad && !countering && !counterBlock)
         {
             if (normalAttackInput)
             {
@@ -240,7 +240,7 @@ public class SwordsmanController : CharacterParent
 
         }
 
-        counterBlock = false;
+        //counterBlock = false;
         if (specialAttackPauseTime + 0.6 < Time.timeSinceLevelLoad + specialAttackPause && counterBlock)
         {
             weaponPos = 1;

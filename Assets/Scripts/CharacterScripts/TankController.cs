@@ -99,7 +99,7 @@ public class TankController : CharacterParent
 
     public override void TakeDamage(int damage)
     {
-        if (weapon.activeSelf)
+        if (weapon.activeSelf && damage > 0)
         {
             currentShieldHealth -= damage;
         }
@@ -231,13 +231,14 @@ public class TankController : CharacterParent
 
 
         //Move Character
-        if (dashing)
+        if (KBtime > Time.timeSinceLevelLoad)
+        {//For knockback
+            rb.velocity = new Vector2(rb.transform.position.x - otherPos.x, rb.transform.position.y - otherPos.y).normalized * charKnockback;
+        }
+        else if (dashing)
         {
             DashSound.PlayOneShot(dash);
             rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod * 4;
-        }
-        else if(KBtime > Time.timeSinceLevelLoad){//For knockback
-            rb.velocity = new Vector2(rb.transform.position.x - otherPos.x, rb.transform.position.y - otherPos.y).normalized * charKnockback;
         }
         else
         {

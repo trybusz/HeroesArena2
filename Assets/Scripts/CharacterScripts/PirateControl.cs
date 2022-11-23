@@ -91,7 +91,7 @@ public class PirateControl : CharacterParent
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
         charSpeedMod = 0.65f;
-        maxCharHealth = 150;
+        maxCharHealth = 200;
         currentCharHealth = 150;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
@@ -100,7 +100,7 @@ public class PirateControl : CharacterParent
         normalAttackPause = 1.0f;
         normalAttackPauseTime = 0.0f;
         specialAttackInput = false;
-        specialAttackPause = 7.0f;
+        specialAttackPause = 6.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
     }

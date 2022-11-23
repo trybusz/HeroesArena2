@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AirSlimeScript : CharacterParent
+public class PaladinController : CharacterParent
 {
     //For character switching
     public GameObject switchingIndicator;
     private float switchingTime;
     //Rotating Weapon
     public GameObject weapon;
-    public GameObject weapon2;
-    public GameObject dashIndicator;
-    public GameObject tornadoPrefab;
-    public GameObject firepoint1;
-    public GameObject firepoint2;
-    public float projectileSpeed;
-    public bool dashing;
+    public GameObject weaponHitbox;
+    public GameObject healGoing;
+    public GameObject healPulse;
+    //Point to Rotate stuff around
+    public GameObject rotatePoint;
+    //Swing Anim
+    public GameObject swingAnim;
     //Player RigidBody
     private Rigidbody2D rb;
     //Base character speed
@@ -31,6 +31,8 @@ public class AirSlimeScript : CharacterParent
     //Aim Imput
     private Vector2 aimInput;
     //NORMAL ATTACK
+    //For swinging weapons
+    private bool weaponPos;
     //Normal Attack Button
     private bool normalAttackInput;
     //How long of a cooldown on normal attack
@@ -38,6 +40,12 @@ public class AirSlimeScript : CharacterParent
     //Variable to measure cooldown
     private float normalAttackPauseTime;
     //SPECIAL ATTACK
+    //Special Attack Speed;
+    public float projectileSpeed;
+    //Transform for fire point
+    public GameObject firePoint;
+    //Axe Prefab
+    public GameObject hammerPrefab;
     //Special Attack Button
     private bool specialAttackInput;
     //How long of a cooldown on normal attack
@@ -46,49 +54,55 @@ public class AirSlimeScript : CharacterParent
     private float specialAttackPauseTime;
     //Angle to hold weapon, set by joystick
     float angle = 0.0f;
+    //Forward Angle, set by joystick
+    float swordAngle = 0.0f;
+    float lastSwordAngle = 0.0f;
     //Previous angle, to be used as a temp on angle
     float lastAngle = 0.0f;
 
+    bool notThrown = false;
+
+    public int activePrefab;
+
+    //Animation Stuff
     public Animator animator;
+    //public bool isDead = false;
 
     //public bool isStunned = false;
     public float stunTime = 0.0f;
 
-    //public bool isDead = false;
-
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
+
+    [SerializeField] private AudioSource swordSound;
+    [SerializeField] private AudioSource axeSound;
     private void Start()
     {
-        projectileSpeed = 7.0f;
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
-        dashing = false;
-        charSpeedMod = 1.0f;
-        maxCharHealth = 100;
-        currentCharHealth = 100;
+        charSpeedMod = 0.65f;
+        maxCharHealth = 225;
+        currentCharHealth = 225;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
+        weaponPos = false;
         normalAttackInput = false;
-        normalAttackPause = 0.7f;
+        normalAttackPause = 1.0f;
         normalAttackPauseTime = 0.0f;
+        projectileSpeed = 10.0f;
         specialAttackInput = false;
-        specialAttackInput = false;
-        specialAttackPause = 0.5f;
+        specialAttackPause = 5.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
     }
-    //Get Inputs
 
     void ShootProjectile()
     {
-        GameObject tornado1 = Instantiate(tornadoPrefab, firepoint1.transform.position, firepoint1.transform.rotation);
-        Rigidbody2D rb1 = tornado1.GetComponent<Rigidbody2D>();
-        rb1.AddForce(firepoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
-        GameObject tornado2 = Instantiate(tornadoPrefab, firepoint2.transform.position, firepoint2.transform.rotation);
-        Rigidbody2D rb2 = tornado2.GetComponent<Rigidbody2D>();
-        rb2.AddForce(firepoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        GameObject hammer = Instantiate(hammerPrefab, firePoint.transform.position, Quaternion.Euler(new Vector3(0, 0, 45)) * firePoint.transform.rotation);
+        Rigidbody2D rb = hammer.GetComponent<Rigidbody2D>();
+        rb.AddForce(firePoint.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        axeSound.Play();
     }
 
     public override void TakeDamage(int damage)
@@ -165,8 +179,6 @@ public class AirSlimeScript : CharacterParent
             thisCharScore++;
         }
 
-
-
         if (!isStunned)
         {
             movementInput = GetComponentInParent<PlayerMaster>().movementInput;
@@ -193,59 +205,82 @@ public class AirSlimeScript : CharacterParent
             isStunned = false;
         }
 
-        //Animate Character
-        animator.SetFloat("MoveX", Mathf.Abs(movementInput.x));
-        animator.SetFloat("MoveY", Mathf.Abs(movementInput.y));
-
-        if (specialAttackPauseTime + 0.10f > Time.timeSinceLevelLoad + specialAttackPause)
-        {
-            dashing = true;
-        }
-        else
-        {
-            dashing = false;
-        }
 
 
         //Move Character
-        if (dashing)
+        if (KBtime > Time.timeSinceLevelLoad)
         {
-            rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod * 5;
-        }
-        else if (KBtime > Time.timeSinceLevelLoad)
-        {//For knockback
             rb.velocity = new Vector2(rb.transform.position.x - otherPos.x, rb.transform.position.y - otherPos.y).normalized * charKnockback;
         }
         else
         {
             rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod;
         }
+
+
+        //Animate Character
+        animator.SetFloat("MoveX", Mathf.Abs(movementInput.x));
+        animator.SetFloat("MoveY", Mathf.Abs(movementInput.y));
+
         //Rotate Weapon
-        weapon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        weapon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, swordAngle + 45.0f));
         //Rotate Self
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        //Make character dash
+        //Rotate Pivot Point
+        //Rotate Pivot Point
+        rotatePoint.transform.rotation = Quaternion.Euler(new Vector3(0, 0, swordAngle));
+        //Rotate True Aim Point
+        firePoint.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        //If you click attack and you can attack, then attack
+        if (normalAttackPauseTime + 0.50 < Time.timeSinceLevelLoad + normalAttackPause && notThrown)
+        {
+            //Throw Hammer
+            ShootProjectile();
+            notThrown = false;
+            weapon.SetActive(true);
+        }
+        if (normalAttackPauseTime + 0.05 < Time.timeSinceLevelLoad + normalAttackPause)
+        {
+            weaponHitbox.SetActive(false);
+            swingAnim.SetActive(false);
 
+        }
+        if (normalAttackPauseTime - 0.05f < Time.timeSinceLevelLoad)
+        {
+            weaponPos = false;
+            weapon.SetActive(true);
+        }
         if (normalAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            weapon.SetActive(true);
-            weapon2.SetActive(true);
+
             if (normalAttackInput)
             {
-                ShootProjectile();
-                weapon.SetActive(false);
-                weapon2.SetActive(false);
+                notThrown = true;
+                swordSound.Play();
+                weaponHitbox.SetActive(true);
+                swingAnim.SetActive(true);
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
+                //This is for switching position of swinging weapons
+                weaponPos = true;
             }
 
         }
+        if (specialAttackPauseTime + 0.55 < Time.timeSinceLevelLoad + specialAttackPause)
+        {
+            healPulse.SetActive(false);
+        }
+        else if (specialAttackPauseTime + 0.50 < Time.timeSinceLevelLoad + specialAttackPause)
+        {
+            healGoing.SetActive(false);
+            healPulse.SetActive(true);
+        }
+
         if (specialAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            dashIndicator.SetActive(true);
             if (specialAttackInput)
             {
-                dashIndicator.SetActive(false);
+                healGoing.SetActive(true);
                 //Set time till next attack
                 specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
                 //Shoot Axe here
@@ -253,18 +288,30 @@ public class AirSlimeScript : CharacterParent
         }
 
 
+
         //Set angle of aim
         if (aimInput.x != 0 && aimInput.y != 0)
         {
             angle = Mathf.Atan2(-aimInput.x, aimInput.y) * Mathf.Rad2Deg;
+            swordAngle = angle;
         }
         else
         {
             angle = lastAngle;
+            swordAngle = lastSwordAngle;
         }
         //Set last angle to be angle
         lastAngle = angle;
+        lastSwordAngle = swordAngle;
         //For the swing of a weapon
+        if (weaponPos)//save weapon position and esit that
+        {
+            swordAngle += 45;
+        }
+        else
+        {
+            swordAngle -= 45;
+        }
 
         if (currentCharHealth > maxCharHealth)
         {

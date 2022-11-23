@@ -86,7 +86,7 @@ public class NinjaController : CharacterParent
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
-        normalAttackPause = 7.0f;
+        normalAttackPause = 5.0f;
         normalAttackPauseTime = 0.0f;
         projectileSpeed = 17.0f;
         specialAttackInput = false;

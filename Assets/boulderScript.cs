@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InitialLightningScript : MonoBehaviour
+public class boulderScript : MonoBehaviour
 {
     public int damage;
     public float timeOfInst;
     public float airTime;
-    public GameObject lightningPrefab;
+    public float timeSinceStart;
+    public float timeTimesDamage;
     // Start is called before the first frame update
     void Start()
     {
-        airTime = 3.0f;
-        damage = 20;
+        airTime = 4.0f;
+        damage = 50;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
         //SoundManagerScript.PlaySound("Arrow");
 
@@ -20,18 +21,16 @@ public class InitialLightningScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag != "ControlPoint" && other.tag != "WaterTag" && other.tag != "BuffZone")
+        if (other.tag != "ControlPoint" && other.tag != "BuffZone")
         {
             CharacterParent cp = other.GetComponent<CharacterParent>();
             if (cp != null)
             {
-                cp.TakeDamage(damage);
-                cp.TakeStun(0.1f);
-                
+                cp.TakeDamage(damage + (int)timeTimesDamage);
+                cp.TakeKnockback(20.0f * (1 + timeSinceStart/airTime), this.transform.position, 0.10f);
             }
             if (!other.CompareTag("Hitbox") && other != null)
             {
-                Instantiate(lightningPrefab, this.transform.position, this.transform.rotation);
                 Destroy(gameObject);
             }
 
@@ -41,10 +40,11 @@ public class InitialLightningScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timeSinceStart = Time.timeSinceLevelLoad + airTime - timeOfInst;
+        timeTimesDamage = timeSinceStart * 25;
         if (timeOfInst < Time.timeSinceLevelLoad)
         {
             Destroy(gameObject);
         }
     }
 }
-

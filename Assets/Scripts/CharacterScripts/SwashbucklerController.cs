@@ -99,13 +99,13 @@ public class SwashbucklerController : CharacterParent
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
-        normalAttackPause = 1.5f;
+        normalAttackPause = 2.0f;
         normalAttackPauseTime = 0.0f;
         projectileSpeed = 20.0f;
         projectileSpeed2 = 13.0f;
         specialAttackInput = false;
         specialAttackInput = false;
-        specialAttackPause = 8.0f;
+        specialAttackPause = 7.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
     }
@@ -116,54 +116,30 @@ public class SwashbucklerController : CharacterParent
 
         gunSound.Play();
         
-        if (Random.Range(-1.0f, 1.0f) > 0.0f)
-        {
             GameObject bullet1 = Instantiate(bulletPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
             Rigidbody2D rb1 = bullet1.GetComponent<Rigidbody2D>();
             rb1.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
-        }
-        if (Random.Range(-1.0f, 1.0f) > 0.0f)
-        {
             GameObject bullet2 = Instantiate(bulletPrefab, firePoint2.transform.position, firePoint2.transform.rotation);
             Rigidbody2D rb2 = bullet2.GetComponent<Rigidbody2D>();
             rb2.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
-        }
-        if (Random.Range(-1.0f, 1.0f) > 0.0f)
-        {
             GameObject bullet3 = Instantiate(bulletPrefab, firePoint3.transform.position, firePoint3.transform.rotation);
             Rigidbody2D rb3 = bullet3.GetComponent<Rigidbody2D>();
             rb3.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
-        }
-        if (Random.Range(-1.0f, 1.0f) > 0.0f)
-        {
             GameObject bullet4 = Instantiate(bulletPrefab, firePoint4.transform.position, firePoint4.transform.rotation);
             Rigidbody2D rb4 = bullet4.GetComponent<Rigidbody2D>();
             rb4.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
-        }
-        if (Random.Range(-1.0f, 1.0f) > 0.0f)
-        {
             GameObject bullet5 = Instantiate(bulletPrefab, firePoint5.transform.position, firePoint5.transform.rotation);
             Rigidbody2D rb5 = bullet5.GetComponent<Rigidbody2D>();
             rb5.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
-        }
-        if (Random.Range(-1.0f, 1.0f) > 0.0f)
-        {
             GameObject bullet6 = Instantiate(bulletPrefab, firePoint6.transform.position, firePoint6.transform.rotation);
             Rigidbody2D rb6 = bullet6.GetComponent<Rigidbody2D>();
             rb6.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
-        }
-        if (Random.Range(-1.0f, 1.0f) > 0.0f)
-        {
             GameObject bullet7 = Instantiate(bulletPrefab, firePoint7.transform.position, firePoint7.transform.rotation);
             Rigidbody2D rb7 = bullet7.GetComponent<Rigidbody2D>();
             rb7.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
-        }
-        if (Random.Range(-1.0f, 1.0f) > 0.0f)
-        {
             GameObject bullet8 = Instantiate(bulletPrefab, firePoint8.transform.position, firePoint8.transform.rotation);
             Rigidbody2D rb8 = bullet8.GetComponent<Rigidbody2D>();
             rb8.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
-        }
 
     }
     void ShootProjectile2()//Drops Heal
@@ -379,3 +355,55 @@ public class SwashbucklerController : CharacterParent
         }
     }
 }
+
+
+/*
+ * if (Random.Range(-1.0f, 1.0f) > 0.0f)
+        {
+            GameObject bullet1 = Instantiate(bulletPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
+            Rigidbody2D rb1 = bullet1.GetComponent<Rigidbody2D>();
+            rb1.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        }
+        if (Random.Range(-1.0f, 1.0f) > 0.0f)
+        {
+            GameObject bullet2 = Instantiate(bulletPrefab, firePoint2.transform.position, firePoint2.transform.rotation);
+            Rigidbody2D rb2 = bullet2.GetComponent<Rigidbody2D>();
+            rb2.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        }
+        if (Random.Range(-1.0f, 1.0f) > 0.0f)
+        {
+            GameObject bullet3 = Instantiate(bulletPrefab, firePoint3.transform.position, firePoint3.transform.rotation);
+            Rigidbody2D rb3 = bullet3.GetComponent<Rigidbody2D>();
+            rb3.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        }
+        if (Random.Range(-1.0f, 1.0f) > 0.0f)
+        {
+            GameObject bullet4 = Instantiate(bulletPrefab, firePoint4.transform.position, firePoint4.transform.rotation);
+            Rigidbody2D rb4 = bullet4.GetComponent<Rigidbody2D>();
+            rb4.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        }
+        if (Random.Range(-1.0f, 1.0f) > 0.0f)
+        {
+            GameObject bullet5 = Instantiate(bulletPrefab, firePoint5.transform.position, firePoint5.transform.rotation);
+            Rigidbody2D rb5 = bullet5.GetComponent<Rigidbody2D>();
+            rb5.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        }
+        if (Random.Range(-1.0f, 1.0f) > 0.0f)
+        {
+            GameObject bullet6 = Instantiate(bulletPrefab, firePoint6.transform.position, firePoint6.transform.rotation);
+            Rigidbody2D rb6 = bullet6.GetComponent<Rigidbody2D>();
+            rb6.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        }
+        if (Random.Range(-1.0f, 1.0f) > 0.0f)
+        {
+            GameObject bullet7 = Instantiate(bulletPrefab, firePoint7.transform.position, firePoint7.transform.rotation);
+            Rigidbody2D rb7 = bullet7.GetComponent<Rigidbody2D>();
+            rb7.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        }
+        if (Random.Range(-1.0f, 1.0f) > 0.0f)
+        {
+            GameObject bullet8 = Instantiate(bulletPrefab, firePoint8.transform.position, firePoint8.transform.rotation);
+            Rigidbody2D rb8 = bullet8.GetComponent<Rigidbody2D>();
+            rb8.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        }
+*/

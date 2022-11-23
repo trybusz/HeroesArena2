@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InitialLightningScript : MonoBehaviour
+public class hammerScript : MonoBehaviour
 {
     public int damage;
     public float timeOfInst;
     public float airTime;
-    public GameObject lightningPrefab;
     // Start is called before the first frame update
     void Start()
     {
-        airTime = 3.0f;
-        damage = 20;
+        airTime = 1.0f;
+        damage = 25;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
         //SoundManagerScript.PlaySound("Arrow");
 
@@ -26,12 +25,10 @@ public class InitialLightningScript : MonoBehaviour
             if (cp != null)
             {
                 cp.TakeDamage(damage);
-                cp.TakeStun(0.1f);
-                
+                cp.TakeKnockback(10.0f, this.transform.position, 0.15f);
             }
             if (!other.CompareTag("Hitbox") && other != null)
             {
-                Instantiate(lightningPrefab, this.transform.position, this.transform.rotation);
                 Destroy(gameObject);
             }
 
@@ -47,4 +44,3 @@ public class InitialLightningScript : MonoBehaviour
         }
     }
 }
-

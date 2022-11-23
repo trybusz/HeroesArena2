@@ -38,6 +38,8 @@ public class MagicianController : CharacterParent
     //Transform for fire point
     public GameObject teleCheck;
     //Transform for fire point
+    public GameObject teleportPrefab;
+    //Transform for fire point
     public GameObject portal;
     //Axe Prefab
     public GameObject bombPrefab;
@@ -73,15 +75,15 @@ public class MagicianController : CharacterParent
 
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
-        charSpeedMod = 0.75f;
-        maxCharHealth = 150;
-        currentCharHealth = 150;
+        charSpeedMod = 0.80f;
+        maxCharHealth = 125;
+        currentCharHealth = 125;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
         normalAttackPause = 1.0f;
         normalAttackPauseTime = 0.0f;
-        projectileSpeed = 3.0f;
+        projectileSpeed = 7.0f;
         specialAttackInput = false;
         specialAttackInput = false;
         specialAttackPause = 5.0f;
@@ -239,6 +241,7 @@ public class MagicianController : CharacterParent
         if (teleport == true && specialAttackPauseTime + 0.05f < Time.timeSinceLevelLoad + specialAttackPause)
         {
             //In child set teleport to false on collision enter
+            Instantiate(teleportPrefab, teleCheck.transform.position, teleCheck.transform.rotation);
             this.transform.position = teleCheck.transform.position;
             teleport = false;
         }

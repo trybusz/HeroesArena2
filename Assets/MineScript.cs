@@ -2,20 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InitialLightningScript : MonoBehaviour
+public class MineScript : MonoBehaviour
 {
-    public int damage;
     public float timeOfInst;
     public float airTime;
-    public GameObject lightningPrefab;
+    public GameObject explosionPrefab;
+    public GameObject Orange;
+    public GameObject Red;
     // Start is called before the first frame update
     void Start()
     {
-        airTime = 3.0f;
-        damage = 20;
+        airTime = 1.5f;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
-        //SoundManagerScript.PlaySound("Arrow");
-
+        //this.transform.Rotate(0.0f, 0.0f, 45.0f, Space.Self);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -23,18 +22,13 @@ public class InitialLightningScript : MonoBehaviour
         if (other.tag != "ControlPoint" && other.tag != "WaterTag" && other.tag != "BuffZone")
         {
             CharacterParent cp = other.GetComponent<CharacterParent>();
-            if (cp != null)
-            {
-                cp.TakeDamage(damage);
-                cp.TakeStun(0.1f);
-                
-            }
+            if (cp != null) { 
             if (!other.CompareTag("Hitbox") && other != null)
             {
-                Instantiate(lightningPrefab, this.transform.position, this.transform.rotation);
+                Instantiate(explosionPrefab, this.transform.position, this.transform.rotation);
                 Destroy(gameObject);
             }
-
+        }
         }
     }
 
@@ -43,8 +37,17 @@ public class InitialLightningScript : MonoBehaviour
     {
         if (timeOfInst < Time.timeSinceLevelLoad)
         {
+            Instantiate(explosionPrefab, this.transform.position, this.transform.rotation);
+            //SoundManagerScript.PlaySound("Bomb");
             Destroy(gameObject);
+        }
+        if (timeOfInst - 0.5f < Time.timeSinceLevelLoad)
+        {
+            Red.SetActive(true);
+        }
+        if (timeOfInst - 1.0f < Time.timeSinceLevelLoad)
+        {
+            Orange.SetActive(true);
         }
     }
 }
-

@@ -92,7 +92,7 @@ public class charControl : CharacterParent
         normalAttackPauseTime = 0.0f;
         projectileSpeed = 10.0f;
         specialAttackInput = false;
-        specialAttackPause = 3.0f;
+        specialAttackPause = 2.5f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
 }
@@ -233,12 +233,23 @@ public class charControl : CharacterParent
         //Rotate True Aim Point
         firePoint.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //If you click attack and you can attack, then attack
-        if(normalAttackPauseTime + 0.05 < Time.timeSinceLevelLoad + normalAttackPause)
+        if (normalAttackPauseTime + 0.15 < Time.timeSinceLevelLoad + normalAttackPause)
+        {
+            weaponHitbox.SetActive(false);
+
+        }
+        else if (normalAttackPauseTime + 0.10 < Time.timeSinceLevelLoad + normalAttackPause && (float)currentCharHealth / (float)maxCharHealth < 0.5)
+        {
+            weaponHitbox.SetActive(true);
+
+        }
+        else if (normalAttackPauseTime + 0.05 < Time.timeSinceLevelLoad + normalAttackPause)
         {
             weaponHitbox.SetActive(false);
             swingAnim.SetActive(false);
             
         }
+        
         if (normalAttackPauseTime - 0.05f < Time.timeSinceLevelLoad)
         {
             weaponPos = false;

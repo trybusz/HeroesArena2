@@ -14,6 +14,7 @@ public class CharacterParent : MonoBehaviour
     public bool isStunned = false;
     public bool isSwitching = false;
     public bool isSwitching2 = false;
+    public bool onSpawn = false;
 
     public virtual float GetHealth()
     {
@@ -47,6 +48,10 @@ public class CharacterParent : MonoBehaviour
             scoreTime = Time.timeSinceLevelLoad + 1.0f;
             onCtrlPoint = true;
         }
+        if (collision.CompareTag("SpawnProtection"))
+        {
+            onSpawn = true;
+        }
 
     }
     public void OnTriggerExit2D(UnityEngine.Collider2D collision)
@@ -55,6 +60,10 @@ public class CharacterParent : MonoBehaviour
         {
             scoreTime = 0.0f;
             onCtrlPoint = false;
+        }
+        if (collision.CompareTag("SpawnProtection"))
+        {
+            onSpawn = false;
         }
     }
 
