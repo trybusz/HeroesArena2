@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TornadoProjScript : MonoBehaviour
+public class GravityPullDam : MonoBehaviour
 {
     public int damage;
     public float timeOfInst;
@@ -10,28 +10,20 @@ public class TornadoProjScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        airTime = 0.4f;
-        damage = 15;
+        airTime = 0.05f;
+        damage = 1;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
 
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag != "ControlPoint" && other.tag != "WaterTag" && other.tag != "BuffZone")
-        {
             CharacterParent cp = other.GetComponent<CharacterParent>();
             if (cp != null)
             {
                 cp.TakeDamage(damage);
-                cp.TakeKnockback(30.0f, this.transform.position, 0.3f);
+                cp.TakeKnockback(-3.0f, transform.parent.position, 0.05f);
             }
-            if (!other.CompareTag("Hitbox") && other != null)
-            {
-                Destroy(gameObject);
-            }
-
-        }
     }
 
     // Update is called once per frame

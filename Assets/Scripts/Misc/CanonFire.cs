@@ -13,7 +13,7 @@ public class CanonFire : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        airTime = 2.0f;
+        airTime = 1.75f;
         shot = false;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
         //this.transform.Rotate(0.0f, 0.0f, 45.0f, Space.Self);

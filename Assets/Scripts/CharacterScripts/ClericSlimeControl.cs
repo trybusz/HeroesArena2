@@ -73,7 +73,7 @@ public class ClericSlimeControl : CharacterParent
 
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
-        charSpeedMod = 0.80f;
+        charSpeedMod = 0.70f;
         maxCharHealth = 175;
         currentCharHealth = 175;
         movementInput = Vector2.zero;

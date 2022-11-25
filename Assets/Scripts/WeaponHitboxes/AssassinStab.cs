@@ -20,6 +20,7 @@ public class AssassinStab : MonoBehaviour
         if (cp != null && !this.transform.IsChildOf(cp.transform))
         {
             cp.TakeDamage(damage);
+            cp.TakeStun(0.1f);
         }
     }
 

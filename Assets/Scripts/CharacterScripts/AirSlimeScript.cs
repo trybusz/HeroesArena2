@@ -66,8 +66,8 @@ public class AirSlimeScript : CharacterParent
         charSpeed = 5.0f;
         dashing = false;
         charSpeedMod = 1.0f;
-        maxCharHealth = 100;
-        currentCharHealth = 100;
+        maxCharHealth = 125;
+        currentCharHealth = 125;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;

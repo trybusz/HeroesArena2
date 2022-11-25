@@ -92,7 +92,7 @@ public class charControl : CharacterParent
         normalAttackPauseTime = 0.0f;
         projectileSpeed = 10.0f;
         specialAttackInput = false;
-        specialAttackPause = 2.5f;
+        specialAttackPause = 4.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
 }

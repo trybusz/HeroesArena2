@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireSlimeScript : CharacterParent
+public class ShadowController : CharacterParent
 {
     //For character switching
     public GameObject switchingIndicator;
@@ -33,17 +33,12 @@ public class FireSlimeScript : CharacterParent
     //SPECIAL ATTACK
     //Special Attack Speed;
     public float projectileSpeed;
-    public float projectileSpeed2;
     //Transform for fire point
     public GameObject firePoint1;
-    //Transform for fire point
-    public GameObject firePoint2;
-    //Transform for fire point
-    public GameObject firePoint3;
     //Axe Prefab
-    public GameObject flamePrefab;
+    public GameObject shadowBladePrefab;
     //Axe Prefab
-    public GameObject fireballPrefab;
+    public GameObject shadowBombPrefab;
     //Special Attack Button
     private bool specialAttackInput;
     //How long of a cooldown on normal attack
@@ -54,8 +49,6 @@ public class FireSlimeScript : CharacterParent
     float angle = 0.0f;
     //Previous angle, to be used as a temp on angle
     float lastAngle = 0.0f;
-
-    public int projectileCounter = 0;
 
     public int activePrefab;
 
@@ -69,24 +62,25 @@ public class FireSlimeScript : CharacterParent
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
+
+
     private void Start()
     {
 
         rb = GetComponent<Rigidbody2D>();
         charSpeed = 5.0f;
         charSpeedMod = 0.85f;
-        maxCharHealth = 125;
-        currentCharHealth = 125;
+        maxCharHealth = 150;
+        currentCharHealth = 150;
         movementInput = Vector2.zero;
         aimInput = Vector2.zero;
         normalAttackInput = false;
-        normalAttackPause = 0.1f;
+        normalAttackPause = 0.4f;
         normalAttackPauseTime = 0.0f;
-        projectileSpeed = 3.0f;
-        projectileSpeed2 = 7.0f;
+        projectileSpeed = 6.0f;
         specialAttackInput = false;
         specialAttackInput = false;
-        specialAttackPause = 6.0f;
+        specialAttackPause = 15.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
     }
@@ -94,22 +88,15 @@ public class FireSlimeScript : CharacterParent
 
     void ShootProjectile()
     {
-        weapon.SetActive(false);
-        GameObject flame1 = Instantiate(flamePrefab, firePoint1.transform.position, Quaternion.Euler(new Vector3(0, 0, 180)) * firePoint1.transform.rotation);
-        Rigidbody2D rb1 = flame1.GetComponent<Rigidbody2D>();
-        rb1.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
-        GameObject flame2 = Instantiate(flamePrefab, firePoint2.transform.position, Quaternion.Euler(new Vector3(0, 0, 180)) * firePoint2.transform.rotation);
-        Rigidbody2D rb2 = flame2.GetComponent<Rigidbody2D>();
-        rb2.AddForce(firePoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
-        GameObject flame3 = Instantiate(flamePrefab, firePoint3.transform.position, Quaternion.Euler(new Vector3(0, 0, 180)) * firePoint3.transform.rotation);
-        Rigidbody2D rb3 = flame3.GetComponent<Rigidbody2D>();
-        rb3.AddForce(firePoint3.transform.up * projectileSpeed, ForceMode2D.Impulse);
+
+        GameObject bomb = Instantiate(shadowBombPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        Rigidbody2D rb = bomb.GetComponent<Rigidbody2D>();
+        rb.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
     }
-    void ShootProjectile2()
+    void ShootProjectile2()//Drops Heal
     {
-        GameObject fireball = Instantiate(fireballPrefab, firePoint1.transform.position, Quaternion.Euler(new Vector3(0, 0, 45)) * firePoint1.transform.rotation);
-        Rigidbody2D rb = fireball.GetComponent<Rigidbody2D>();
-        rb.AddForce(firePoint1.transform.up * projectileSpeed2, ForceMode2D.Impulse);
+        weapon.SetActive(false);
+        Instantiate(shadowBladePrefab, this.transform.position, this.transform.rotation);
     }
 
     public override void TakeDamage(int damage)
@@ -229,15 +216,12 @@ public class FireSlimeScript : CharacterParent
         {
             rb.velocity = new Vector2(rb.transform.position.x - otherPos.x, rb.transform.position.y - otherPos.y).normalized * charKnockback;
         }
-        else if(normalAttackInput)
-        {
-            //Probably wont work
-            rb.velocity = new Vector2(movementInput.x - aimInput.x, movementInput.y - aimInput.y) * charSpeed * charSpeedMod;
-        }
         else
         {
             rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod;
         }
+        //Rotate Weapon
+        weapon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Rotate Self
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         //Rotate True Aim Point
@@ -246,12 +230,14 @@ public class FireSlimeScript : CharacterParent
 
 
 
+
+
         if (normalAttackPauseTime < Time.timeSinceLevelLoad)
         {
             weapon.SetActive(true);
             if (normalAttackInput)
             {
-                ShootProjectile();
+                ShootProjectile2();
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
             }
@@ -261,10 +247,10 @@ public class FireSlimeScript : CharacterParent
         {
             if (specialAttackInput)
             {
-                ShootProjectile2();
                 //Set time till next attack
                 specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
-
+                //Shoot Axe here
+                ShootProjectile();
             }
         }
 

@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TornadoProjScript : MonoBehaviour
+public class GravityBomb : MonoBehaviour
 {
-    public int damage;
     public float timeOfInst;
     public float airTime;
+    public GameObject GravityVortexx;
     // Start is called before the first frame update
     void Start()
     {
-        airTime = 0.4f;
-        damage = 15;
+        airTime = 1.0f;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
+        //SoundManagerScript.PlaySound("Arrow");
 
     }
 
@@ -20,14 +20,9 @@ public class TornadoProjScript : MonoBehaviour
     {
         if (other.tag != "ControlPoint" && other.tag != "WaterTag" && other.tag != "BuffZone")
         {
-            CharacterParent cp = other.GetComponent<CharacterParent>();
-            if (cp != null)
-            {
-                cp.TakeDamage(damage);
-                cp.TakeKnockback(30.0f, this.transform.position, 0.3f);
-            }
             if (!other.CompareTag("Hitbox") && other != null)
             {
+                Instantiate(GravityVortexx, this.transform.position, this.transform.rotation);
                 Destroy(gameObject);
             }
 
@@ -39,6 +34,7 @@ public class TornadoProjScript : MonoBehaviour
     {
         if (timeOfInst < Time.timeSinceLevelLoad)
         {
+            Instantiate(GravityVortexx, this.transform.position, this.transform.rotation);
             Destroy(gameObject);
         }
     }

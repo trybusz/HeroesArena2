@@ -12,7 +12,7 @@ public class AxeScript : MonoBehaviour
     void Start()
     {
         airTime = 0.8f;
-        axeDamage = 35;
+        axeDamage = 25;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
     }
 

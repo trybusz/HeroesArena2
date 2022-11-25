@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TornadoProjScript : MonoBehaviour
+public class ShadowBladeScript : MonoBehaviour
 {
     public int damage;
     public float timeOfInst;
     public float airTime;
+    public bool charCheck = false;
     // Start is called before the first frame update
     void Start()
     {
-        airTime = 0.4f;
-        damage = 15;
+        airTime = 1.5f;
+        damage = 25;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
+        //SoundManagerScript.PlaySound("Arrow");
 
     }
 
@@ -24,13 +26,13 @@ public class TornadoProjScript : MonoBehaviour
             if (cp != null)
             {
                 cp.TakeDamage(damage);
-                cp.TakeKnockback(30.0f, this.transform.position, 0.3f);
+                charCheck = true;
             }
-            if (!other.CompareTag("Hitbox") && other != null)
+            if (!other.CompareTag("Hitbox") && other != null && charCheck)
             {
                 Destroy(gameObject);
             }
-
+            charCheck = false;
         }
     }
 
