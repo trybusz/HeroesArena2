@@ -200,6 +200,16 @@ public class FireSlimeScript : CharacterParent
 
             specialAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
         }
+        else if (onCtrlPoint)
+        {
+            movementInput = GetComponentInParent<PlayerMaster>().movementInput;
+
+            aimInput = GetComponentInParent<PlayerMaster>().aimInput;
+
+            normalAttackInput = false;
+
+            specialAttackInput = false;
+        }
         else
         {
             movementInput = Vector2.zero;
