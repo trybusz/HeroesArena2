@@ -16,7 +16,7 @@ public class PaladinHeal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        int isDoubled = GetComponent<PaladinController>().shouldDoubleHeal;
+        int isDoubled = GetComponentInParent<PaladinController>().shouldDoubleHeal;
         CharacterParent cp = other.GetComponent<CharacterParent>();
             if (cp != null)
             {

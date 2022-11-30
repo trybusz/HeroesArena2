@@ -14,7 +14,7 @@ public class GravityVortex : MonoBehaviour
     void Start()
     {
         timeForPull = Time.timeSinceLevelLoad + 0.05f;
-        airTime = 1.01f;
+        airTime = 1.51f;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
     }
 

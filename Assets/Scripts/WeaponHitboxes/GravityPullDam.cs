@@ -22,7 +22,7 @@ public class GravityPullDam : MonoBehaviour
             if (cp != null)
             {
                 cp.TakeDamage(damage);
-                cp.TakeKnockback(-3.0f, transform.parent.position, 0.05f);
+                cp.TakeKnockback(-5.0f, this.transform.position, 0.05f);
             }
     }
 

@@ -97,3 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24640ea3b8ecb634dbd52b2d549e6921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeOfInst: 0
+  airTime: 0
+  projectileSpeed: 25
+  shadowBladePrefab: {fileID: 8873392058201820985, guid: c4d79b2d33a27004598650683dc15250, type: 3}

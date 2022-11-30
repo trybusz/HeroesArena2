@@ -96,7 +96,7 @@ public class ShadowController : CharacterParent
     void ShootProjectile2()//Drops Heal
     {
         weapon.SetActive(false);
-        Instantiate(shadowBladePrefab, this.transform.position, this.transform.rotation);
+        Instantiate(shadowBladePrefab, firePoint1.transform.position, firePoint1.transform.rotation);
     }
 
     public override void TakeDamage(int damage)

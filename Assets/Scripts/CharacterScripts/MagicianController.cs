@@ -69,7 +69,7 @@ public class MagicianController : CharacterParent
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
 
-    private bool teleport = false;
+    public bool teleport = false;
     private void Start()
     {
 
@@ -251,17 +251,24 @@ public class MagicianController : CharacterParent
             }
 
         }
-        if (teleport == true && specialAttackPauseTime + 0.05f < Time.timeSinceLevelLoad + specialAttackPause)
+        if(specialAttackPauseTime + 0.05f < Time.timeSinceLevelLoad + specialAttackPause)
         {
-            //In child set teleport to false on collision enter
-            Instantiate(teleportPrefab, teleCheck.transform.position, teleCheck.transform.rotation);
-            this.transform.position = teleCheck.transform.position;
-            teleport = false;
+            if (teleport == true)//
+            {
+                //In child set teleport to false on collision enter
+                Instantiate(teleportPrefab, teleCheck.transform.position, teleCheck.transform.rotation);
+                this.transform.position = teleCheck.transform.position;
+                teleport = false;
+            }
+            teleCheck.SetActive(false);
         }
+
+
         if (specialAttackPauseTime < Time.timeSinceLevelLoad)
         {
             if (specialAttackInput)
             {
+                teleCheck.SetActive(true);
                 teleport = true;
                 //Set time till next attack
                 specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;

@@ -22,7 +22,11 @@ public class lifedrainScript : MonoBehaviour
         if (cp != null)
         {
             //this.GetComponentInParent()
-            thisParent.TakeDamage(-damage);
+            if (cp.GetComponent<BoxScript>() == null)
+            {
+                thisParent.TakeDamage(-damage);
+            }
+
             cp.TakeDamage(damage);
             cp.TakeStun(0.2f);
         }

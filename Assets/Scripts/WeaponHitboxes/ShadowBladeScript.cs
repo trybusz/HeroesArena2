@@ -7,7 +7,6 @@ public class ShadowBladeScript : MonoBehaviour
     public int damage;
     public float timeOfInst;
     public float airTime;
-    public bool charCheck = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,13 +25,11 @@ public class ShadowBladeScript : MonoBehaviour
             if (cp != null)
             {
                 cp.TakeDamage(damage);
-                charCheck = true;
             }
-            if (!other.CompareTag("Hitbox") && other != null && charCheck)
+            if (!other.CompareTag("Hitbox") && other != null)
             {
                 Destroy(gameObject);
             }
-            charCheck = false;
         }
     }
 

@@ -22,7 +22,7 @@ public class hammerSwing : MonoBehaviour
         {
             cp.TakeDamage(damage);
             cp.TakeKnockback(15.0f, transform.parent.position, 0.2f);
-            GetComponent<PaladinController>().shouldDoubleHeal = 0;
+            this.GetComponentInParent<PaladinController>().shouldDoubleHeal = 0;
         }
     }
 
