@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: -3485351894807092453}
   m_Layer: 0
   m_Name: PirateSlimePrefab
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -372,6 +372,7 @@ MonoBehaviour:
   isStunned: 0
   isSwitching: 0
   isSwitching2: 0
+  onSpawn: 0
   switchingIndicator: {fileID: 874204775023967967}
   weapon: {fileID: 7659650464798563990}
   weapon2: {fileID: 7864586542410145089}

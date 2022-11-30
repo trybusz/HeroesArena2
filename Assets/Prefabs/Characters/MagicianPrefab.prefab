@@ -320,7 +320,7 @@ GameObject:
   - component: {fileID: 4992544499106480286}
   m_Layer: 0
   m_Name: MagicianPrefab
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -491,6 +491,7 @@ MonoBehaviour:
   animator: {fileID: 1812676173950123577}
   stunTime: 0
   KBtime: 0
+  teleport: 0
 --- !u!1 &8954197972838794789
 GameObject:
   m_ObjectHideFlags: 0

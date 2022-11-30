@@ -9,6 +9,7 @@ TagManager:
   - NinjaStar
   - Hitbox
   - BuffZone
+  - Character
   layers:
   - Default
   - TransparentFX

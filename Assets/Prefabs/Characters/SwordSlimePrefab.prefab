@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: -7129580800235237773}
   m_Layer: 0
   m_Name: SwordSlimePrefab
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -251,6 +251,7 @@ MonoBehaviour:
   isStunned: 0
   isSwitching: 0
   isSwitching2: 0
+  onSpawn: 0
   switchingIndicator: {fileID: 1865873735741340129}
   weapon: {fileID: 7659650464798563990}
   weaponHitbox: {fileID: 5524131678815054689}

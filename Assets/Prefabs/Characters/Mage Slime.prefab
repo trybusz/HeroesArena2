@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 2630548296295299076}
   m_Layer: 0
   m_Name: Mage Slime
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -251,6 +251,7 @@ MonoBehaviour:
   isStunned: 0
   isSwitching: 0
   isSwitching2: 0
+  onSpawn: 0
   switchingIndicator: {fileID: 6934850396703881362}
   weapon: {fileID: 1217001913664954653}
   charSpeed: 0

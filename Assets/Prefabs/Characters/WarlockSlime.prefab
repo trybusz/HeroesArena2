@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 3650879839831313557}
   m_Layer: 0
   m_Name: WarlockSlime
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -339,6 +339,7 @@ MonoBehaviour:
   isStunned: 0
   isSwitching: 0
   isSwitching2: 0
+  onSpawn: 0
   switchingIndicator: {fileID: 2765001802077296582}
   weapon: {fileID: 6233372237363891785}
   charSpeed: 0

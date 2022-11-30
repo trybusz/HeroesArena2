@@ -752,7 +752,7 @@ GameObject:
   - component: {fileID: 4917360094379152845}
   m_Layer: 0
   m_Name: Swordsman Slime
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -908,6 +908,7 @@ MonoBehaviour:
   isStunned: 0
   isSwitching: 0
   isSwitching2: 0
+  onSpawn: 0
   switchingIndicator: {fileID: 7481977959047093896}
   weapon: {fileID: 1660546418281498375}
   weapon2: {fileID: 654288384208050654}

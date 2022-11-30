@@ -201,7 +201,7 @@ public class NinjaController : CharacterParent
 
             normalAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
         }
-        else if (onCtrlPoint)
+        else if (onSpawn)
         {
             movementInput = GetComponentInParent<PlayerMaster>().movementInput;
 

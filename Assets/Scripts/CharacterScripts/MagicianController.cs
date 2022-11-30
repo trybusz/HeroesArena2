@@ -189,7 +189,7 @@ public class MagicianController : CharacterParent
 
             specialAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
         }
-        else if (onCtrlPoint)
+        else if (onSpawn)
         {
             movementInput = GetComponentInParent<PlayerMaster>().movementInput;
 

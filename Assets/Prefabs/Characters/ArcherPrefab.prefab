@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 33794538289161395}
   m_Layer: 0
   m_Name: ArcherPrefab
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -436,6 +436,7 @@ MonoBehaviour:
   isStunned: 0
   isSwitching: 0
   isSwitching2: 0
+  onSpawn: 0
   switchingIndicator: {fileID: 4393956307172362890}
   weapon: {fileID: 5119249986666960014}
   weapon2: {fileID: 6878088088102624592}

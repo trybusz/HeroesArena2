@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: -323996061311570983}
   m_Layer: 0
   m_Name: ClericSlime
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -369,6 +369,7 @@ MonoBehaviour:
   isStunned: 0
   isSwitching: 0
   isSwitching2: 0
+  onSpawn: 0
   switchingIndicator: {fileID: 5967590253846745571}
   weaponHeal: {fileID: 6347386602494448878}
   weaponDamage: {fileID: 516534054865213201}

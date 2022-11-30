@@ -195,7 +195,7 @@ public class PaladinController : CharacterParent
 
             specialAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
         }
-        else if (onCtrlPoint)
+        else if (onSpawn)
         {
             movementInput = GetComponentInParent<PlayerMaster>().movementInput;
 
@@ -266,7 +266,7 @@ public class PaladinController : CharacterParent
             //Throw Hammer
             ShootProjectile();
             notThrown = false;
-            weapon.SetActive(true);
+            weapon.SetActive(false);
         }
         if (normalAttackPauseTime + 0.05 < Time.timeSinceLevelLoad + normalAttackPause)
         {
@@ -285,7 +285,7 @@ public class PaladinController : CharacterParent
             if (normalAttackInput)
             {
                 notThrown = true;
-                swordSound.Play();
+                //swordSound.Play();
                 weaponHitbox.SetActive(true);
                 swingAnim.SetActive(true);
                 //Set time till next attack

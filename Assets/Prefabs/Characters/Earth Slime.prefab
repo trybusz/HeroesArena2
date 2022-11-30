@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 2038147535737604814}
   m_Layer: 0
   m_Name: Earth Slime
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -232,6 +232,7 @@ MonoBehaviour:
   isStunned: 0
   isSwitching: 0
   isSwitching2: 0
+  onSpawn: 0
   switchingIndicator: {fileID: 1380210326258120781}
   weapon: {fileID: 8451632406846855172}
   weaponFromFirePoint: {fileID: 6175740725028565462}

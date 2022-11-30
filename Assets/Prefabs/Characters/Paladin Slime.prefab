@@ -386,7 +386,7 @@ GameObject:
   - component: {fileID: 8560794393096466890}
   m_Layer: 0
   m_Name: Paladin Slime
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -733,6 +733,7 @@ MonoBehaviour:
   isStunned: 0
   isSwitching: 0
   isSwitching2: 0
+  onSpawn: 0
   switchingIndicator: {fileID: 6296136939969837785}
   weapon: {fileID: 2650437604766604718}
   weaponHitbox: {fileID: 156813486298163289}
@@ -747,6 +748,8 @@ MonoBehaviour:
   projectileSpeed: 0
   firePoint: {fileID: 4698603414205214725}
   hammerPrefab: {fileID: 8204973293152799350, guid: e087a09b8fce266418d5e70984792142, type: 3}
+  shouldDoubleHeal: 0
+  doubleHealTime: 0
   activePrefab: 0
   animator: {fileID: 5937286068273988380}
   stunTime: 0
@@ -890,6 +893,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  damage2: 0
 --- !u!1 &8377562545995939124
 GameObject:
   m_ObjectHideFlags: 0

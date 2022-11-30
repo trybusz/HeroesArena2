@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: -1071539645397370555}
   m_Layer: 0
   m_Name: Swashbuckling Slime
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -439,6 +439,7 @@ MonoBehaviour:
   isStunned: 0
   isSwitching: 0
   isSwitching2: 0
+  onSpawn: 0
   switchingIndicator: {fileID: 2850459772402322615}
   weapon: {fileID: 795302194684152219}
   anchorIndicator: {fileID: 666022316892956966}

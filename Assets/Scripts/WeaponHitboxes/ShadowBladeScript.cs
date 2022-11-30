@@ -26,7 +26,7 @@ public class ShadowBladeScript : MonoBehaviour
             {
                 cp.TakeDamage(damage);
             }
-            if (!other.CompareTag("Hitbox") && other != null)
+            if (!other.CompareTag("Hitbox") && !other.CompareTag("Character") && other != null)
             {
                 Destroy(gameObject);
             }
