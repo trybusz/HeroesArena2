@@ -24,12 +24,15 @@ public class ExplosionScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        CharacterParent cp = other.GetComponent<CharacterParent>();
-        if (cp != null)
+        if (other.tag != "ControlPoint" && other.tag != "WaterTag" && other.tag != "BuffZone")
         {
-            cp.TakeDamage(damage);
+            CharacterParent cp = other.GetComponent<CharacterParent>();
+            if (cp != null)
+            {
+                cp.TakeDamage(damage);
+            }
         }
-        //object1.transform.parent = object2.transform
+
     }
 
     // Update is called once per frame

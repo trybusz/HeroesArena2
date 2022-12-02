@@ -191,17 +191,7 @@ public class TankController : CharacterParent
 
 
 
-        if (!isStunned)
-        {
-            movementInput = GetComponentInParent<PlayerMaster>().movementInput;
-
-            aimInput = GetComponentInParent<PlayerMaster>().aimInput;
-
-            normalAttackInput = GetComponentInParent<PlayerMaster>().normalAttackInput;
-
-            specialAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
-        }
-        else if (onSpawn)
+        if (onSpawn)
         {
             movementInput = GetComponentInParent<PlayerMaster>().movementInput;
 
@@ -210,6 +200,16 @@ public class TankController : CharacterParent
             normalAttackInput = false;
 
             specialAttackInput = false;
+        }
+        else if (!isStunned)
+        {
+            movementInput = GetComponentInParent<PlayerMaster>().movementInput;
+
+            aimInput = GetComponentInParent<PlayerMaster>().aimInput;
+
+            normalAttackInput = GetComponentInParent<PlayerMaster>().normalAttackInput;
+
+            specialAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
         }
         else
         {

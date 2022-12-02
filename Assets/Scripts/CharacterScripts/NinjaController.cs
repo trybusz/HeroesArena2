@@ -190,7 +190,17 @@ public class NinjaController : CharacterParent
             thisCharScore++;
         }
 
-        if (!isStunned)
+        if (onSpawn)
+        {
+            movementInput = GetComponentInParent<PlayerMaster>().movementInput;
+
+            aimInput = GetComponentInParent<PlayerMaster>().aimInput;
+
+            normalAttackInput = false;
+
+            specialAttackInput = false;
+        }
+        else if(!isStunned)
         {
             movementInput = GetComponentInParent<PlayerMaster>().movementInput;
 
@@ -200,16 +210,6 @@ public class NinjaController : CharacterParent
             specialAttackInput = GetComponentInParent<PlayerMaster>().normalAttackInput;
 
             normalAttackInput = GetComponentInParent<PlayerMaster>().specialAttackInput;
-        }
-        else if (onSpawn)
-        {
-            movementInput = GetComponentInParent<PlayerMaster>().movementInput;
-
-            aimInput = GetComponentInParent<PlayerMaster>().aimInput;
-
-            normalAttackInput = false;
-
-            specialAttackInput = false;
         }
         else
         {
