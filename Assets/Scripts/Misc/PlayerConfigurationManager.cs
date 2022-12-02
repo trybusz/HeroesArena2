@@ -17,6 +17,8 @@ public class PlayerConfigurationManager : MonoBehaviour
 
     public static PlayerConfigurationManager Instance { get; private set; }
 
+    public static List<int> teams;
+
     private void Awake()
     {
         if (Instance != null)
@@ -28,6 +30,7 @@ public class PlayerConfigurationManager : MonoBehaviour
             Instance = this;
             //DontDestroyOnLoad(Instance);
             playerConfigs = new List<PlayerConfiguration>();
+            teams = new List<int>();
         }
 
     }
@@ -53,6 +56,10 @@ public class PlayerConfigurationManager : MonoBehaviour
     {
         return playerConfigs;
     }
+    public List<int> GetTeams()
+    {
+        return teams;
+    }
 
     public void SetPlayerPrefab1(int index, GameObject prefab)
     {
@@ -66,7 +73,6 @@ public class PlayerConfigurationManager : MonoBehaviour
     {
         playerConfigs[index].charPrefab3 = prefab;
     }
-
 
     public void ReadyPlayer(int index)
     {
@@ -96,5 +102,6 @@ public class PlayerConfiguration
     public GameObject charPrefab1 { get; set; }
     public GameObject charPrefab2 { get; set; }
     public GameObject charPrefab3 { get; set; }
+    
 
 }

@@ -126,7 +126,7 @@ public class MenuControl : MonoBehaviour
         //Go to new screens
         if (SelPress && MenuSelection == 1)
         {
-            SceneManager.LoadScene(4); //Load Mode Scene
+            SceneManager.LoadScene(7); //Load Scene Select, skip mode scene for now
         }
         if (SelPress && MenuSelection == 2)
         {
