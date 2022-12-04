@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Linq;
+using System.Collections.Generic;
 
 public class PlayerSetupMenuController : MonoBehaviour
 {
@@ -65,12 +67,18 @@ public class PlayerSetupMenuController : MonoBehaviour
 
 	}
 
+
+
+	public int CountInstances(List<int> list, int NameSearch)
+	{
+		return list.Count(n => n == NameSearch);
+	}
+
 	public void NextCharacter()
 	{
 		selectedCharacter = (selectedCharacter + 1) % characters.Length;
 		description.SetText(descriptions[selectedCharacter].text);
 		image.sprite = images[selectedCharacter];
-		
 	}
 
 	public void PreviousCharacter()
@@ -163,24 +171,27 @@ public class PlayerSetupMenuController : MonoBehaviour
 	{
 		if (context.started && PlayerConfigurationManager.Instance.GetPlayerConfigs().Count == PlayerConfigurationManager.Instance.MaxPlayers)
 		{
-            if (!teamSelectPanel.activeInHierarchy)
-            {
-				PlayerConfigurationManager.Instance.SetPlayerPrefab2(PlayerIndex, characters[selectedCharacter]);
-				charPrefab2picked = true;
-				charPrefab2 = characters[selectedCharacter];
+			if (!teamSelectPanel.activeInHierarchy)
+			{
+				if (charPrefab1 != characters[selectedCharacter] && charPrefab3 != characters[selectedCharacter]) {
+					PlayerConfigurationManager.Instance.SetPlayerPrefab2(PlayerIndex, characters[selectedCharacter]);
+					charPrefab2picked = true;
+					charPrefab2 = characters[selectedCharacter];
+			}
 			}
             else
             {
 				//color is blue
-				if(teamColor.color.r == 0)
+				if(teamColor.color.r == 0 && CountInstances(PlayerConfigurationManager.Instance.GetTeams(), 0) < 2)
                 {
 					team = 0;
 				}
-                else
+                else if(CountInstances(PlayerConfigurationManager.Instance.GetTeams(), 1) < 2)
                 {
 					team = 1;
 				}
 				teamPicked = true;
+				PlayerConfigurationManager.Instance.GetTeams().Add(team);
 			}
 			
 		}
@@ -189,18 +200,24 @@ public class PlayerSetupMenuController : MonoBehaviour
 	{
 		if (context.started && PlayerConfigurationManager.Instance.GetPlayerConfigs().Count == PlayerConfigurationManager.Instance.MaxPlayers)
 		{
-			PlayerConfigurationManager.Instance.SetPlayerPrefab3(PlayerIndex, characters[selectedCharacter]);
-			charPrefab3picked = true;
-			charPrefab3 = characters[selectedCharacter];
+			if (charPrefab1 != characters[selectedCharacter] && charPrefab2 != characters[selectedCharacter])
+			{
+				PlayerConfigurationManager.Instance.SetPlayerPrefab3(PlayerIndex, characters[selectedCharacter]);
+                charPrefab3picked = true;
+				charPrefab3 = characters[selectedCharacter];
+			}
 		}
 	}
 	public void OnXButton(InputAction.CallbackContext context)
 	{
 		if (context.started && PlayerConfigurationManager.Instance.GetPlayerConfigs().Count == PlayerConfigurationManager.Instance.MaxPlayers) 
 		{
-			PlayerConfigurationManager.Instance.SetPlayerPrefab1(PlayerIndex, characters[selectedCharacter]);
-			charPrefab1picked = true;
-			charPrefab1 = characters[selectedCharacter];
+			if (charPrefab2 != characters[selectedCharacter] && charPrefab3 != characters[selectedCharacter])
+			{
+				PlayerConfigurationManager.Instance.SetPlayerPrefab1(PlayerIndex, characters[selectedCharacter]);
+				charPrefab1picked = true;
+				charPrefab1 = characters[selectedCharacter];
+			}
 		}
 	}
 

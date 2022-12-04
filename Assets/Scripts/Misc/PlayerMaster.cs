@@ -44,6 +44,9 @@ public class PlayerMaster : MonoBehaviour
     private float switchTime = 2.0f;
     public int switchCharNum = 0;
     public float switchCountTime = 0.0f;
+    public bool menuInput;
+    public bool windowsInput;
+
 
     public void InitializePlayer(PlayerConfiguration config)
     {
@@ -150,6 +153,16 @@ public class PlayerMaster : MonoBehaviour
     {
         YButtonInput = context.performed;
     }
+    public void OnMenuButton(InputAction.CallbackContext context)
+    {
+        menuInput = context.performed;
+        Debug.Log(menuInput);
+    }
+    public void OnWindowButton(InputAction.CallbackContext context)
+    {
+        windowsInput = context.performed;
+        Debug.Log(windowsInput);
+    }
 
     // Update is called once per frame
     void Update()
@@ -187,9 +200,6 @@ public class PlayerMaster : MonoBehaviour
             else if (GetComponent<PlayerInput>().playerIndex == 3) { healthBar = GameObject.Find("Canvas/HealthBar4"); }
 
             //Pause all characters at start of game
-            charPrefab1.GetComponent<CharacterParent>().TakeStun(5.0f);
-            charPrefab2.GetComponent<CharacterParent>().TakeStun(5.0f);
-            charPrefab3.GetComponent<CharacterParent>().TakeStun(5.0f);
 
             activePrefab = charPrefab1;
             activePrefab.SetActive(true);
@@ -319,8 +329,11 @@ public class PlayerMaster : MonoBehaviour
 
             }
 
-
-
+            //quit game load end scene
+            if(menuInput && windowsInput)
+            {
+                SceneManager.LoadScene(9);
+            }
 
             //charPrefab1.GetComponent<PlayerInput>().;
         }

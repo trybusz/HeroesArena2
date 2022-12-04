@@ -65,6 +65,8 @@ MonoBehaviour:
   switching: 0
   switchCharNum: 0
   switchCountTime: 0
+  menuInput: 0
+  windowsInput: 0
 --- !u!114 &-4231450839511228816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,6 +216,38 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 544f7641-0ed3-4a85-8a83-040842cb515c
     m_ActionName: Player/DpadUp[/XInputControllerWindows1/dpad/up,/XInputControllerWindows/dpad/up]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5839613535102133406}
+        m_TargetAssemblyTypeName: PlayerMaster, Assembly-CSharp
+        m_MethodName: OnMenuButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 100de886-6b52-4c6f-b056-d3ebd6708de5
+    m_ActionName: Player/Menu[/XInputControllerWindows1/start,/XInputControllerWindows2/start,/XInputControllerWindows3/start,/XInputControllerWindows/start]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5839613535102133406}
+        m_TargetAssemblyTypeName: PlayerMaster, Assembly-CSharp
+        m_MethodName: OnWindowButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 266f0991-d3cc-4909-871d-09921d781d8e
+    m_ActionName: Player/View[/XInputControllerWindows1/select,/XInputControllerWindows2/select,/XInputControllerWindows3/select,/XInputControllerWindows/select]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Xbox Controller
   m_DefaultActionMap: Player

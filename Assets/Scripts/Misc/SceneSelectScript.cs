@@ -92,7 +92,7 @@ public class SceneSelectScript : MonoBehaviour
         //Go back to mode select
         if (BackPress)
         {
-            SceneManager.LoadScene(4);
+            SceneManager.LoadScene(1);
         }
     }
 }
