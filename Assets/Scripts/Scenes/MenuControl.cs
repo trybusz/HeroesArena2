@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class MenuControl : MonoBehaviour
 {
     //Declare Variables
-    public GameObject SelPlay, SelOptions, SelCredits, SelQuit;
+    public GameObject SelPlay, SelOptions, SelCredits, SelQuit, SelControls;
     public int MenuSelection = 1; //Used to rotate selection
     //A Button
     private bool SelPress = false;
@@ -51,7 +51,11 @@ public class MenuControl : MonoBehaviour
         {
 
             //Do your button down stuff here
-            MenuSelection += 1;
+            if (MenuSelection != 5)
+            {
+                MenuSelection += 1;
+            }
+
             dpadVerticalBlocked = true; //Disable it
 
         }
@@ -65,7 +69,11 @@ public class MenuControl : MonoBehaviour
         {
 
             //Do your button down stuff here
-            MenuSelection -= 1;
+            if(MenuSelection != 1)
+            {
+                MenuSelection -= 1;
+            }
+
             dpadVerticalBlocked = true; //Disable it
 
         }
@@ -93,6 +101,7 @@ public class MenuControl : MonoBehaviour
         {
             SelPlay.SetActive(true);
             SelOptions.SetActive(false);
+            SelControls.SetActive(false);
             SelCredits.SetActive(false);
             SelQuit.SetActive(false);
         }
@@ -100,6 +109,7 @@ public class MenuControl : MonoBehaviour
         {
             SelPlay.SetActive(false);
             SelOptions.SetActive(true);
+            SelControls.SetActive(false);
             SelCredits.SetActive(false);
             SelQuit.SetActive(false);
         }
@@ -107,13 +117,23 @@ public class MenuControl : MonoBehaviour
         {
             SelPlay.SetActive(false);
             SelOptions.SetActive(false);
-            SelCredits.SetActive(true);
+            SelControls.SetActive(true);
+            SelCredits.SetActive(false);
             SelQuit.SetActive(false);
         }
         if (MenuSelection == 4)
         {
             SelPlay.SetActive(false);
             SelOptions.SetActive(false);
+            SelControls.SetActive(false);
+            SelCredits.SetActive(true);
+            SelQuit.SetActive(false);
+        }
+        if (MenuSelection == 5)
+        {
+            SelPlay.SetActive(false);
+            SelOptions.SetActive(false);
+            SelControls.SetActive(false);
             SelCredits.SetActive(false);
             SelQuit.SetActive(true);
         }
@@ -134,9 +154,13 @@ public class MenuControl : MonoBehaviour
         }
         if (SelPress && MenuSelection == 3)
         {
-            SceneManager.LoadScene(2); //Load Credits Scene (3)
+            SceneManager.LoadScene(11); //Load Credits Scene (3)
         }
         if (SelPress && MenuSelection == 4)
+        {
+            SceneManager.LoadScene(2); //Load Credits Scene (3)
+        }
+        if (SelPress && MenuSelection == 5)
         {
             Application.Quit(); //Exit Game
         }
