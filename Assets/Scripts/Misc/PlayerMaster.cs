@@ -174,7 +174,20 @@ public class PlayerMaster : MonoBehaviour
             if (team == 0)
             {
                 //set spawn location and color
-                spawnLocation = new Vector3(-18.0f, 1.0f, 0.0f);
+                if(SceneManager.GetActiveScene().name == "Map1")
+                {
+                    spawnLocation = new Vector3(-18.0f, 1.0f, 0.0f);
+                }
+                if (SceneManager.GetActiveScene().name == "Map2")
+                {
+                    spawnLocation = new Vector3(-8.5f, 2.0f, 0.0f);
+                }
+                if (SceneManager.GetActiveScene().name == "Map3")
+                {
+                    spawnLocation = new Vector3(-10.5f, 4.0f, 0.0f);
+                }
+
+
                 charPrefab1 = Instantiate(charPrefab1, spawnLocation, Quaternion.identity, this.transform);
                 charPrefab2 = Instantiate(charPrefab2, spawnLocation, Quaternion.identity, this.transform);
                 charPrefab3 = Instantiate(charPrefab3, spawnLocation, Quaternion.identity, this.transform);
@@ -185,7 +198,19 @@ public class PlayerMaster : MonoBehaviour
             else
             {
                 //set spawn location and color
-                spawnLocation = new Vector3(18.0f, 1.0f, 0.0f);
+                
+                if (SceneManager.GetActiveScene().name == "Map1")
+                {
+                    spawnLocation = new Vector3(18.0f, 1.0f, 0.0f);
+                }
+                if (SceneManager.GetActiveScene().name == "Map2")
+                {
+                    spawnLocation = new Vector3(8.5f, 2.0f, 0.0f);
+                }
+                if (SceneManager.GetActiveScene().name == "Map3")
+                {
+                    spawnLocation = new Vector3(10.5f, 4.0f, 0.0f);
+                }
                 charPrefab1 = Instantiate(charPrefab1, spawnLocation, Quaternion.identity, this.transform);
                 charPrefab2 = Instantiate(charPrefab2, spawnLocation, Quaternion.identity, this.transform);
                 charPrefab3 = Instantiate(charPrefab3, spawnLocation, Quaternion.identity, this.transform);
