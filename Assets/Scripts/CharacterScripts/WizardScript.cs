@@ -77,6 +77,8 @@ public class WizardScript : CharacterParent
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
+
+    [SerializeField] private AudioSource spellSound;
     private void Start()
     {
 
@@ -105,6 +107,7 @@ public class WizardScript : CharacterParent
         GameObject light = Instantiate(charge1Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
         Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
         rb1.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        spellSound.Play();
     }
     void ShootProjectile2()
     {
@@ -112,6 +115,7 @@ public class WizardScript : CharacterParent
         GameObject light = Instantiate(charge2Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
         Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
         rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 3.0f), ForceMode2D.Impulse);
+        spellSound.Play();
     }
     void ShootProjectile3()
     {
@@ -119,6 +123,7 @@ public class WizardScript : CharacterParent
         GameObject light = Instantiate(charge3Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
         Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
         rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 6.0f), ForceMode2D.Impulse);
+        spellSound.Play();
     }
     void ShootProjectile4()
     {
@@ -126,6 +131,7 @@ public class WizardScript : CharacterParent
         GameObject light = Instantiate(charge4Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
         Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
         rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 9.0f), ForceMode2D.Impulse);
+        spellSound.Play();
     }
     void ShootProjectile5()
     {
@@ -133,6 +139,7 @@ public class WizardScript : CharacterParent
         GameObject light = Instantiate(charge5Prefab, firePoint1.transform.position, firePoint1.transform.rotation);
         Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
         rb1.AddForce(firePoint1.transform.up * (projectileSpeed + 12.0f), ForceMode2D.Impulse);
+        spellSound.Play();
     }
 
     public override void TakeDamage(int damage)

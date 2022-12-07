@@ -69,6 +69,10 @@ public class FireSlimeScript : CharacterParent
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
+
+    [SerializeField] private AudioSource ballSound;
+    [SerializeField] private AudioSource fireSound;
+
     private void Start()
     {
 
@@ -104,12 +108,14 @@ public class FireSlimeScript : CharacterParent
         GameObject flame3 = Instantiate(flamePrefab, firePoint3.transform.position, Quaternion.Euler(new Vector3(0, 0, 180)) * firePoint3.transform.rotation);
         Rigidbody2D rb3 = flame3.GetComponent<Rigidbody2D>();
         rb3.AddForce(firePoint3.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        fireSound.Play();
     }
     void ShootProjectile2()
     {
         GameObject fireball = Instantiate(fireballPrefab, firePoint1.transform.position, Quaternion.Euler(new Vector3(0, 0, 45)) * firePoint1.transform.rotation);
         Rigidbody2D rb = fireball.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint1.transform.up * projectileSpeed2, ForceMode2D.Impulse);
+        ballSound.Play();
     }
 
     public override void TakeDamage(int damage)

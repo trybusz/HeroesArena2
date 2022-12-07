@@ -59,6 +59,8 @@ public class AirSlimeScript : CharacterParent
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
+
+    [SerializeField] private AudioSource windSound;
     private void Start()
     {
         projectileSpeed = 7.0f;
@@ -89,6 +91,7 @@ public class AirSlimeScript : CharacterParent
         GameObject tornado2 = Instantiate(tornadoPrefab, firepoint2.transform.position, firepoint2.transform.rotation);
         Rigidbody2D rb2 = tornado2.GetComponent<Rigidbody2D>();
         rb2.AddForce(firepoint2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        windSound.Play();
     }
 
     public override void TakeDamage(int damage)

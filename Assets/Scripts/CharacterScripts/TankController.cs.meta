@@ -3,7 +3,18 @@ guid: c1c7ec034efc1b745b13a542746ef4fd
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - switchingIndicator: {instanceID: 0}
+  - weapon: {instanceID: 0}
+  - dashHitbox: {instanceID: 0}
+  - weaponDashHitbox: {instanceID: 0}
+  - dashIndicator: {instanceID: 0}
+  - shieldReady: {instanceID: 0}
+  - animator: {instanceID: 0}
+  - DashSound: {instanceID: 0}
+  - ShieldBreakSound: {instanceID: 0}
+  - dash: {instanceID: 0}
+  - breaks: {fileID: 8300000, guid: 686ecdbbdb0eba648bd0ef6f1839fa74, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

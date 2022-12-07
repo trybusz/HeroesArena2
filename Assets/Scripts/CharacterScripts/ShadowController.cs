@@ -63,7 +63,8 @@ public class ShadowController : CharacterParent
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
 
-
+    [SerializeField] private AudioSource waterSound;
+    [SerializeField] private AudioSource healSound;
     private void Start()
     {
 
@@ -92,11 +93,13 @@ public class ShadowController : CharacterParent
         GameObject bomb = Instantiate(shadowBombPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
         Rigidbody2D rb = bomb.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        waterSound.PlayDelayed(3f);
     }
     void ShootProjectile2()//Drops Heal
     {
         weapon.SetActive(false);
         Instantiate(shadowBladePrefab, firePoint1.transform.position, firePoint1.transform.rotation);
+        healSound.Play();
     }
 
     public override void TakeDamage(int damage)

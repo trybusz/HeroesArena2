@@ -64,6 +64,9 @@ public class MageSlimeScript : CharacterParent
     public float KBtime = 0.0f;
     float charKnockback;
     Vector3 otherPos = Vector3.zero;
+
+    [SerializeField] private AudioSource lightningSound;
+
     private void Start()
     {
 
@@ -92,6 +95,7 @@ public class MageSlimeScript : CharacterParent
         GameObject light = Instantiate(lightningPrefab, firePoint1.transform.position, Quaternion.Euler(new Vector3(0, 0, 180)) * firePoint1.transform.rotation);
         Rigidbody2D rb1 = light.GetComponent<Rigidbody2D>();
         rb1.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        lightningSound.Play();
     }
     void ShootProjectile2()
     {
