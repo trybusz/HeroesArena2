@@ -12,7 +12,7 @@ public class InitialLightningScript : MonoBehaviour
     void Start()
     {
         airTime = 3.0f;
-        damage = 20;
+        damage = 16;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
         //SoundManagerScript.PlaySound("Arrow");
 

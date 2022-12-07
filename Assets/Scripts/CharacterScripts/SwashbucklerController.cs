@@ -328,7 +328,7 @@ public class SwashbucklerController : CharacterParent
             }
 
         }
-        if (specialAttackPauseTime - specialAttackPause + 0.7f > Time.timeSinceLevelLoad)
+        if (specialAttackPauseTime - specialAttackPause + 0.8f > Time.timeSinceLevelLoad)
         {
             isThrowingAnchor = true;
         }

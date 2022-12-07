@@ -21,7 +21,7 @@ public class boulderScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag != "ControlPoint" && other.tag != "BuffZone")
+        if (other.tag != "ControlPoint" && other.tag != "BuffZone" && other.tag != "WaterTag")
         {
             CharacterParent cp = other.GetComponent<CharacterParent>();
             if (cp != null)

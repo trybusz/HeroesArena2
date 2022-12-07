@@ -26,7 +26,7 @@ public class AxeScript : MonoBehaviour
                 if (cp != null)
                 {
                     cp.TakeDamage(axeDamage);
-                    cp.TakeStun(0.2f);
+                    cp.TakeStun(0.4f);
                 }
                 if (!other.CompareTag("Hitbox") && other != null)
                 {

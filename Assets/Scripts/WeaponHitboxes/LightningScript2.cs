@@ -10,7 +10,7 @@ public class LightningScript2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        damage = 10;
+        damage = 8;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
         //SoundManagerScript.PlaySound("Arrow");
 
@@ -25,7 +25,7 @@ public class LightningScript2 : MonoBehaviour
                 if (cp != null)
                 {
                     cp.TakeDamage(damage);
-                    cp.TakeStun(0.1f);
+                    cp.TakeStun(0.08f);
                 }
 
         }

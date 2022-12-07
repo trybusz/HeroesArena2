@@ -168,7 +168,7 @@ public class PlayerMaster : MonoBehaviour
     void Update()
     {
         //add for later scenes 
-        if (SceneManager.GetActiveScene().buildIndex == 5 && !ready)
+        if ((SceneManager.GetActiveScene().buildIndex == 5 || SceneManager.GetActiveScene().buildIndex == 6 || SceneManager.GetActiveScene().buildIndex == 12) && !ready)
         {
             //blue team on the left
             if (team == 0)
@@ -205,11 +205,11 @@ public class PlayerMaster : MonoBehaviour
                 }
                 if (SceneManager.GetActiveScene().name == "Map2")
                 {
-                    spawnLocation = new Vector3(8.5f, 2.0f, 0.0f);
+                    spawnLocation = new Vector3(28.5f, 2.0f, 0.0f);
                 }
                 if (SceneManager.GetActiveScene().name == "Map3")
                 {
-                    spawnLocation = new Vector3(10.5f, 4.0f, 0.0f);
+                    spawnLocation = new Vector3(26.5f, 4.0f, 0.0f);
                 }
                 charPrefab1 = Instantiate(charPrefab1, spawnLocation, Quaternion.identity, this.transform);
                 charPrefab2 = Instantiate(charPrefab2, spawnLocation, Quaternion.identity, this.transform);

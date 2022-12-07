@@ -28,7 +28,6 @@ public class lifedrainScript : MonoBehaviour
             }
 
             cp.TakeDamage(damage);
-            cp.TakeStun(0.2f);
         }
     }
 

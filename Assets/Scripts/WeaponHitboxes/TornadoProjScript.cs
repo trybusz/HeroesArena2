@@ -11,7 +11,7 @@ public class TornadoProjScript : MonoBehaviour
     void Start()
     {
         airTime = 0.4f;
-        damage = 15;
+        damage = 20;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
 
     }

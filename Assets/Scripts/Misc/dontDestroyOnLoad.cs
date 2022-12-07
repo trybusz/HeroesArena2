@@ -14,7 +14,8 @@ public class dontDestroyOnLoad : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 5)
+        //maps 1 2 and 3
+        if (SceneManager.GetActiveScene().buildIndex == 5 || SceneManager.GetActiveScene().buildIndex == 6 || SceneManager.GetActiveScene().buildIndex == 12)
         {
             this.gameObject.GetComponent<Canvas>().enabled = false;
         }

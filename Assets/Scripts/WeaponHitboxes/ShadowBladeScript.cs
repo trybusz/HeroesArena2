@@ -7,12 +7,14 @@ public class ShadowBladeScript : MonoBehaviour
     public int damage;
     public float timeOfInst;
     public float airTime;
+    public bool hitSomething;
     // Start is called before the first frame update
     void Start()
     {
         airTime = 1.5f;
         damage = 25;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
+        hitSomething = false;
         //SoundManagerScript.PlaySound("Arrow");
 
     }
@@ -28,7 +30,15 @@ public class ShadowBladeScript : MonoBehaviour
             }
             if (!other.CompareTag("Hitbox") && !other.CompareTag("Character") && other != null)
             {
-                Destroy(gameObject);
+                if(hitSomething == false)
+                {
+                    hitSomething = true;
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
+                
             }
         }
     }

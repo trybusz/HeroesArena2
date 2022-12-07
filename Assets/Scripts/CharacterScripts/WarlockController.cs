@@ -89,7 +89,7 @@ public class WarlockController : CharacterParent
         projectileSpeed = 25.0f;
         specialAttackInput = false;
         specialAttackInput = false;
-        specialAttackPause = 6.0f;
+        specialAttackPause = 6.5f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
         projectileCounter = 10;

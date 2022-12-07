@@ -8,6 +8,7 @@ public class SceneSelectScript : MonoBehaviour
     public static int selectedStage = 5;
     public SpriteRenderer Map1;
     public SpriteRenderer Map2;
+    public SpriteRenderer Map3;
 
     public int MenuSelection = 1; //Used to rotate selection
     // Start is called before the first frame update
@@ -16,6 +17,7 @@ public class SceneSelectScript : MonoBehaviour
     {
         Map1.enabled = true;
         Map2.enabled = false;
+        Map3.enabled = false;
     }
 
     // Update is called once per frame
@@ -60,6 +62,7 @@ public class SceneSelectScript : MonoBehaviour
         {
             Map1.enabled = true;
             Map2.enabled = false;
+            Map3.enabled = false;
 
             if (SelPress)
             {
@@ -71,21 +74,36 @@ public class SceneSelectScript : MonoBehaviour
         {
             Map1.enabled = false;
             Map2.enabled = true;
+            Map3.enabled = false;
 
             if (SelPress)
             {
                 selectedStage = 6;
                 SceneManager.LoadScene(8); //Load 2v2 char select
             }
+
         }
+        if (MenuSelection == 3)
+        {
+            Map1.enabled = false;
+            Map2.enabled = false;
+            Map3.enabled = true;
+
+            if (SelPress)
+            {
+                selectedStage = 12;
+                SceneManager.LoadScene(8); //Load 2v2 char select
+            }
+        }
+
         //just for 2 map looping for now
-        if (MenuSelection > 2)
+        if (MenuSelection > 3)
         {
             MenuSelection = 1;
         }
         if (MenuSelection < 1)
         {
-            MenuSelection = 2;
+            MenuSelection = 3;
         }
 
 

@@ -391,8 +391,8 @@ MonoBehaviour:
   m_text: "Warlock Slime\r\nHealth: 150\r\nSpeed: 75\r\nPrimary Ability: Life Steal\r\n    
     - Damage: 20\r\n     - Cooldown: 0.5 Seconds\r\n     - Notes: Heals yourself
     anytime you deal damage\r\nSpecial Ability: Shoots Life Force Beam\r\n     -
-    Damage: 20\r\n     - Cooldown: 6.0 Seconds\r\n     - Air Speed: 25.0\r\n    
-    - Air Time: 2.0 Seconds\r\n     - Notes: Shoots 10 beams one after another, Deals
+    Damage: 15\n     - Cooldown: 6.5 Seconds\r\n     - Air Speed: 25.0\r\n     -
+    Air Time: 2.0 Seconds\r\n     - Notes: Shoots 10 beams one after another, Deals
     40 damage to self, Stunned while in use\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -529,9 +529,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Mage Slime\r\nHealth: 125\r\nSpeed: 75\r\nPrimary Ability: Shoots Lightning\r\n    
-    - Damage: 20\r\n     - Cooldown: 1.0 Seconds\r\n     - Air Speed: 30.0\r\n    
+    - Damage: 16\r\n     - Cooldown: 1.0 Seconds\r\n     - Air Speed: 30.0\r\n    
     - Air Time: 3.0 Seconds\r\n     - Stun: 0.1 Seconds\r\n     - Notes: Places a
-    lightning web that does 10 damage per pulse\r\nSpecial Ability: Magic Barrier\r\n    
+    lightning web that does 8 damage per pulse\r\nSpecial Ability: Magic Barrier\r\n    
     - Cooldown: 10.0 Seconds\r\n     - Lasts 4.0 Seconds\r\n     - Notes: Blocks
     all Projectiles\r\n"
   m_isRightToLeft: 0
@@ -1848,7 +1848,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Air Slime\r\nHealth: 125\r\nSpeed: 100\r\nPrimary Ability: Gust of Wind\r\n    
-    - Damage: 15\r\n     - Cooldown: 0.7 Seconds\r\n     - Air Speed: 7.0 Seconds\r\n    
+    - Damage: 20\n     - Cooldown: 0.7 Seconds\r\n     - Air Speed: 7.0 Seconds\r\n    
     - Air Time: 0.4 Seconds\r\n     - Has high knockback\r\n     - Notes: Shoots
     8 projectiles in a spread\r\nSpecial Ability: Wind Dash\r\n     - Cooldown: 0.5
     Seconds\r\n     - Notes: Short dash\r\n"
@@ -2126,7 +2126,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Ninja Slime\r\nHealth: 100\r\nSpeed: 100\r\nPrimary Ability: Throw Ninja
+  m_text: "Ninja Slime\r\nHealth: 125\nSpeed: 100\r\nPrimary Ability: Throw Ninja
     Stars\r\n     - Damage: 12\r\n     - Cooldown: 0.4 Seconds\r\n     - Air Speed:
     17.0\r\n     - Air Time: 0.4 Seconds\r\n     - Notes: Throws three ninja stars
     10 degrees apart\r\nSpecial Ability: Ninja Dash\r\n     - Damage: 30\r\n    
@@ -2754,7 +2754,7 @@ MonoBehaviour:
     - Damage: 40\r\n     - Cooldown: 0.7 Seconds\r\n     - Has Knockback\r\n    
     - Notes: Does double damage when below half health\r\nSpecial Ability: Throws
     Axe\r\n     - Damage: 25\r\n     - Cooldown: 4.0 Seconds\r\n     - Air Speed:
-    10\r\n     - Air Time: 0.8 Seconds\r\n     - Stun: 0.2 seconds\r\n     - Notes:
+    10\r\n     - Air Time: 0.8 Seconds\r\n     - Stun: 0.4 seconds\r\n     - Notes:
     Stuns for 0.2 Seconds\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

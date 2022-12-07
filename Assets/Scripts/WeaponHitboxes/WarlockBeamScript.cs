@@ -11,7 +11,7 @@ public class WarlockBeamScript : MonoBehaviour
     void Start()
     {
         airTime = 2.0f;
-        damage = 20;
+        damage = 15;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
         //SoundManagerScript.PlaySound("Arrow");
 
