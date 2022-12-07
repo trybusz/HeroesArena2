@@ -68,6 +68,14 @@ public class SwordsmanController : CharacterParent
     //Character specific
     public bool countering = false;
     public bool counterBlock = false;
+    [SerializeField] private AudioSource swordSound;
+    [SerializeField] private AudioSource counterSound;
+    //[SerializeField] private AudioSource bowSound;
+    [SerializeField] private AudioClip sword;
+    [SerializeField] private AudioClip counter;
+
+
+
     private void Start()
     {
 
@@ -247,6 +255,7 @@ public class SwordsmanController : CharacterParent
                 weaponPos = 2;
                 Hitbox1.SetActive(true);
                 Hitbox2.SetActive(true);
+                swordSound.PlayOneShot(sword);
                 //Set time till next attack
                 normalAttackPauseTime = Time.timeSinceLevelLoad + normalAttackPause;
             }
@@ -269,6 +278,7 @@ public class SwordsmanController : CharacterParent
                 Hitbox3.SetActive(true);
                 Hitbox4.SetActive(true);
                 weaponPos = 2;
+                counterSound.PlayOneShot(counter);
             }
         }
         if (specialAttackPauseTime < Time.timeSinceLevelLoad)

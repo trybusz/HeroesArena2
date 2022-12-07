@@ -70,6 +70,11 @@ public class MagicianController : CharacterParent
     Vector3 otherPos = Vector3.zero;
 
     public bool teleport = false;
+
+    [SerializeField] private AudioSource teleportSound;
+    [SerializeField] private AudioSource bombSound;
+
+
     private void Start()
     {
 
@@ -89,6 +94,7 @@ public class MagicianController : CharacterParent
         specialAttackPause = 5.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
+
     }
     //Get Inputs
 
@@ -98,6 +104,7 @@ public class MagicianController : CharacterParent
         GameObject bomb = Instantiate(bombPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
         Rigidbody2D rb1 = bomb.GetComponent<Rigidbody2D>();
         rb1.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        bombSound.PlayDelayed(2f);
     }
 
 
@@ -259,6 +266,7 @@ public class MagicianController : CharacterParent
                 Instantiate(teleportPrefab, teleCheck.transform.position, teleCheck.transform.rotation);
                 this.transform.position = teleCheck.transform.position;
                 teleport = false;
+                //teleportSound.Play();
             }
             teleCheck.SetActive(false);
         }

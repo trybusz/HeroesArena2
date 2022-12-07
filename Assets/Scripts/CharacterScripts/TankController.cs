@@ -252,7 +252,7 @@ public class TankController : CharacterParent
         }
         else if (dashing)
         {
-            DashSound.PlayOneShot(dash);
+            //DashSound.PlayOneShot(dash);
             rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod * 4;
         }
         else
