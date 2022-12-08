@@ -63,6 +63,9 @@ public class PaladinController : CharacterParent
     public int shouldDoubleHeal = 2;
     public float doubleHealTime = 0.0f;
 
+    public SpriteRenderer primAbilInd;
+    public SpriteRenderer secAbilInd;
+
     bool notThrown = false;
 
     public int activePrefab;
@@ -127,8 +130,11 @@ public class PaladinController : CharacterParent
     }
     public override void TakeStun(float duration)
     {
-        isStunned = true;
-        stunTime = duration + Time.timeSinceLevelLoad;
+        if (stunTime < duration + Time.timeSinceLevelLoad)
+        {
+            isStunned = true;
+            stunTime = duration + Time.timeSinceLevelLoad;
+        }
     }
 
     public override void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
@@ -346,5 +352,7 @@ public class PaladinController : CharacterParent
         {
             currentCharHealth = maxCharHealth;
         }
+        primAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
+        secAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
     }
 }

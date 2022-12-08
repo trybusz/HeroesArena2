@@ -58,6 +58,9 @@ public class ArcherController : CharacterParent
 
     public int activePrefab;
 
+    public SpriteRenderer primAbilInd;
+    public SpriteRenderer secAbilInd;
+
     public GameObject RotatePoint;
     public Animator animator;
     public int BowPosition = 0;//Used to determine whether bow is unloaded (0), loaded (1), or Pulled (2), or Pulled with Bomb (3)
@@ -138,8 +141,11 @@ public class ArcherController : CharacterParent
     }
     public override void TakeStun(float duration)
     {
-        isStunned = true;
-        stunTime = duration + Time.timeSinceLevelLoad;
+        if (stunTime < duration + Time.timeSinceLevelLoad)
+        {
+            isStunned = true;
+            stunTime = duration + Time.timeSinceLevelLoad;
+        }
     }
 
     public override void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
@@ -355,6 +361,7 @@ public class ArcherController : CharacterParent
             currentCharHealth = maxCharHealth;
         }
 
-        
+        primAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
+        secAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
     }
 }

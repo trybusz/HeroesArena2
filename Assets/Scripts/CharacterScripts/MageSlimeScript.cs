@@ -54,6 +54,9 @@ public class MageSlimeScript : CharacterParent
 
     public int activePrefab;
 
+    public SpriteRenderer primAbilInd;
+    public SpriteRenderer secAbilInd;
+
     public Animator animator;
 
     //public bool isDead = false;
@@ -121,8 +124,11 @@ public class MageSlimeScript : CharacterParent
     }
     public override void TakeStun(float duration)
     {
-        isStunned = true;
-        stunTime = duration + Time.timeSinceLevelLoad;
+        if (stunTime < duration + Time.timeSinceLevelLoad)
+        {
+            isStunned = true;
+            stunTime = duration + Time.timeSinceLevelLoad;
+        }
     }
     public override void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
     {
@@ -281,5 +287,7 @@ public class MageSlimeScript : CharacterParent
         {
             currentCharHealth = maxCharHealth;
         }
+        primAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
+        secAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
     }
 }

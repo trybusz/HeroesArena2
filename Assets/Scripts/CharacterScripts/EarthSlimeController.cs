@@ -54,6 +54,9 @@ public class EarthSlimeController : CharacterParent
     //Previous angle, to be used as a temp on angle
     float lastAngle = 0.0f;
 
+
+    public SpriteRenderer primAbilInd;
+    public SpriteRenderer secAbilInd;
     public bool isAiming = false;
 
     public int activePrefab;
@@ -124,8 +127,11 @@ public class EarthSlimeController : CharacterParent
     }
     public override void TakeStun(float duration)
     {
-        isStunned = true;
-        stunTime = duration + Time.timeSinceLevelLoad;
+        if (stunTime < duration + Time.timeSinceLevelLoad)
+        {
+            isStunned = true;
+            stunTime = duration + Time.timeSinceLevelLoad;
+        }
     }
 
     public override void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
@@ -305,5 +311,7 @@ public class EarthSlimeController : CharacterParent
         {
             currentCharHealth = maxCharHealth;
         }
+        primAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
+        secAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
     }
 }

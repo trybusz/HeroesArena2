@@ -12,7 +12,7 @@ public class lifedrainScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        damage = 20;
+        damage = 15;
         thisParent = this.GetComponentInParent<CharacterParent>();
     }
 

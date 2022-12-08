@@ -57,6 +57,8 @@ public class MagicianController : CharacterParent
     public int projectileCounter = 0;
 
     public int activePrefab;
+    public SpriteRenderer primAbilInd;
+    public SpriteRenderer secAbilInd;
 
     public Animator animator;
 
@@ -71,8 +73,6 @@ public class MagicianController : CharacterParent
 
     public bool teleport = false;
 
-    [SerializeField] private AudioSource teleportSound;
-    [SerializeField] private AudioSource bombSound;
 
 
     private void Start()
@@ -104,7 +104,7 @@ public class MagicianController : CharacterParent
         GameObject bomb = Instantiate(bombPrefab, firePoint1.transform.position, firePoint1.transform.rotation);
         Rigidbody2D rb1 = bomb.GetComponent<Rigidbody2D>();
         rb1.AddForce(firePoint1.transform.up * projectileSpeed, ForceMode2D.Impulse);
-        bombSound.PlayDelayed(2f);
+        //bombSound.PlayDelayed(2f);
     }
 
 
@@ -127,8 +127,11 @@ public class MagicianController : CharacterParent
     }
     public override void TakeStun(float duration)
     {
-        isStunned = true;
-        stunTime = duration + Time.timeSinceLevelLoad;
+        if (stunTime < duration + Time.timeSinceLevelLoad)
+        {
+            isStunned = true;
+            stunTime = duration + Time.timeSinceLevelLoad;
+        }
     }
     public override void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
     {
@@ -302,5 +305,7 @@ public class MagicianController : CharacterParent
         {
             currentCharHealth = maxCharHealth;
         }
+        primAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
+        secAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
     }
 }

@@ -54,6 +54,8 @@ public class FireSlimeScript : CharacterParent
     float angle = 0.0f;
     //Previous angle, to be used as a temp on angle
     float lastAngle = 0.0f;
+    public SpriteRenderer primAbilInd;
+    public SpriteRenderer secAbilInd;
 
     public int projectileCounter = 0;
 
@@ -137,8 +139,11 @@ public class FireSlimeScript : CharacterParent
     }
     public override void TakeStun(float duration)
     {
-        isStunned = true;
-        stunTime = duration + Time.timeSinceLevelLoad;
+        if (stunTime < duration + Time.timeSinceLevelLoad)
+        {
+            isStunned = true;
+            stunTime = duration + Time.timeSinceLevelLoad;
+        }
     }
     public override void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
     {
@@ -302,5 +307,7 @@ public class FireSlimeScript : CharacterParent
         {
             currentCharHealth = maxCharHealth;
         }
+        primAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
+        secAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
     }
 }

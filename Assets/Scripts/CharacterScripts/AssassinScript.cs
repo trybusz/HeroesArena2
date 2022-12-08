@@ -11,7 +11,6 @@ public class AssassinScript : CharacterParent
     public GameObject weapon;
     public GameObject weapon2;
     public GameObject weaponHitbox;
-    public GameObject invsIndicator;
     public bool dashing;
     //Player RigidBody
     private Rigidbody2D rb;
@@ -57,7 +56,9 @@ public class AssassinScript : CharacterParent
 
     private SpriteRenderer spriteR;
     public SpriteRenderer WeaponSprite;
-    public SpriteRenderer InvisIndSprite;
+
+    public SpriteRenderer primAbilInd;
+    public SpriteRenderer secAbilInd;
 
 
 
@@ -86,7 +87,7 @@ public class AssassinScript : CharacterParent
         normalAttackPauseTime = 0.0f;
         specialAttackInput = false;
         specialAttackInput = false;
-        specialAttackPause = 10.0f;
+        specialAttackPause = 8.0f;
         specialAttackPauseTime = 0.0f;
         isDead = false;
         spriteR = gameObject.GetComponent<SpriteRenderer>();
@@ -114,8 +115,11 @@ public class AssassinScript : CharacterParent
     }
     public override void TakeStun(float duration)
     {
-        isStunned = true;
-        stunTime = duration + Time.timeSinceLevelLoad;
+        if (stunTime < duration + Time.timeSinceLevelLoad)
+        {
+            isStunned = true;
+            stunTime = duration + Time.timeSinceLevelLoad;
+        }
     }
     public override void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
     {
@@ -220,7 +224,7 @@ public class AssassinScript : CharacterParent
             //Set Invs
             spriteR.enabled = false;
             WeaponSprite.enabled = false;
-            InvisIndSprite.enabled = false;
+            //InvisIndSprite.enabled = false;
             rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod;
         }
         else if (KBtime > Time.timeSinceLevelLoad)
@@ -231,7 +235,7 @@ public class AssassinScript : CharacterParent
         {
             spriteR.enabled = true;
             WeaponSprite.enabled = true;
-            InvisIndSprite.enabled = true;
+            //InvisIndSprite.enabled = true;
             rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod;
         }
         //Rotate Weapon
@@ -274,11 +278,9 @@ public class AssassinScript : CharacterParent
         }
         if (specialAttackPauseTime < Time.timeSinceLevelLoad)
         {
-            invsIndicator.SetActive(true);
             if (specialAttackInput)
             {
                 invisibleSound.PlayOneShot(invisible);
-                invsIndicator.SetActive(false);
                 //Set time till next attack
                 specialAttackPauseTime = Time.timeSinceLevelLoad + specialAttackPause;
             }
@@ -302,5 +304,9 @@ public class AssassinScript : CharacterParent
         {
             currentCharHealth = maxCharHealth;
         }
+
+        primAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
+        secAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
+
     }
 }

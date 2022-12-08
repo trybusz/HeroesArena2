@@ -67,6 +67,9 @@ public class PirateControl : CharacterParent
     public int activePrefab;
     public float swordCountTime = 0.0f;
 
+    public SpriteRenderer primAbilInd;
+    public SpriteRenderer secAbilInd;
+
     //Animation Stuff
     public Animator animator;
 
@@ -131,8 +134,11 @@ public class PirateControl : CharacterParent
     }
     public override void TakeStun(float duration)
     {
-        isStunned = true;
-        stunTime = duration + Time.timeSinceLevelLoad;
+        if (stunTime < duration + Time.timeSinceLevelLoad)
+        {
+            isStunned = true;
+            stunTime = duration + Time.timeSinceLevelLoad;
+        }
     }
 
     public override void TakeKnockback(float knockback, Vector3 KBPosition, float duration)
@@ -367,5 +373,7 @@ public class PirateControl : CharacterParent
         {
             currentCharHealth = maxCharHealth;
         }
+        primAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
+        secAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
     }
 }

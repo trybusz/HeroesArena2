@@ -14,12 +14,16 @@ public class ExplosionScript : MonoBehaviour
     public GameObject Explo5;
     public GameObject Explo6;
     // Start is called before the first frame update
+    [SerializeField] private AudioSource teleportSound;
+    [SerializeField] private AudioSource bombSound;
+
     void Start()
     {
         airTime = 0.6f;
         damage = 100;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
         //this.transform.Rotate(0.0f, 0.0f, 45.0f, Space.Self);
+        bombSound.Play();
     }
 
     private void OnTriggerEnter2D(Collider2D other)

@@ -389,7 +389,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Warlock Slime\r\nHealth: 150\r\nSpeed: 75\r\nPrimary Ability: Life Steal\r\n    
-    - Damage: 20\r\n     - Cooldown: 0.5 Seconds\r\n     - Notes: Heals yourself
+    - Damage: 15\r\n     - Cooldown: 0.5 Seconds\r\n     - Notes: Heals yourself
     anytime you deal damage\r\nSpecial Ability: Shoots Life Force Beam\r\n     -
     Damage: 15\n     - Cooldown: 6.5 Seconds\r\n     - Air Speed: 25.0\r\n     -
     Air Time: 2.0 Seconds\r\n     - Notes: Shoots 10 beams one after another, Deals
@@ -810,7 +810,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Assassin Slime\r\nHealth: 150\r\nSpeed: 95\r\nPrimary Ability: Dagger
     Stab\r\n     - Damage: 100\r\n     - Cooldown: 0.8 Seconds\r\n     - Stun: 0.1
-    Seconds\r\nSpecial Ability: Invisibility\r\n     - Cooldown: 10.0 Seconds\r\n    
+    Seconds\r\nSpecial Ability: Invisibility\r\n     - Cooldown: 8.0 Seconds\r\n    
     - Notes: Character is not visible, but can still take damage\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
