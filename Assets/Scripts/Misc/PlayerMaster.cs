@@ -34,7 +34,7 @@ public class PlayerMaster : MonoBehaviour
     public bool XButtonInput { get; private set; }
     public bool YButtonInput { get; private set; }
 
-    private GameObject activePrefab;
+    public GameObject activePrefab;
     public Transform playerStart;
     public Vector2 movementInput;
     public Vector2 aimInput;
@@ -191,9 +191,6 @@ public class PlayerMaster : MonoBehaviour
                 charPrefab1 = Instantiate(charPrefab1, spawnLocation, Quaternion.identity, this.transform);
                 charPrefab2 = Instantiate(charPrefab2, spawnLocation, Quaternion.identity, this.transform);
                 charPrefab3 = Instantiate(charPrefab3, spawnLocation, Quaternion.identity, this.transform);
-                charPrefab1.GetComponent<SpriteRenderer>().material.SetColor("_Color", Color.blue);
-                charPrefab2.GetComponent<SpriteRenderer>().material.SetColor("_Color", Color.blue);
-                charPrefab3.GetComponent<SpriteRenderer>().material.SetColor("_Color", Color.blue);
             }
             else
             {
@@ -214,9 +211,6 @@ public class PlayerMaster : MonoBehaviour
                 charPrefab1 = Instantiate(charPrefab1, spawnLocation, Quaternion.identity, this.transform);
                 charPrefab2 = Instantiate(charPrefab2, spawnLocation, Quaternion.identity, this.transform);
                 charPrefab3 = Instantiate(charPrefab3, spawnLocation, Quaternion.identity, this.transform);
-                charPrefab1.GetComponent<SpriteRenderer>().material.SetColor("_Color", Color.red);
-                charPrefab2.GetComponent<SpriteRenderer>().material.SetColor("_Color", Color.red);
-                charPrefab3.GetComponent<SpriteRenderer>().material.SetColor("_Color", Color.red);
             }
 
             if (GetComponent<PlayerInput>().playerIndex == 0) { healthBar = GameObject.Find("Canvas/HealthBar1"); }
@@ -354,13 +348,20 @@ public class PlayerMaster : MonoBehaviour
 
             }
 
+            //update color of active prefab as a function of health
+            if (team == 0)
+            {
+                activePrefab.GetComponent<SpriteRenderer>().color = new Color(1.0f - activePrefab.GetComponent<CharacterParent>().GetHealth(), 1.0f - activePrefab.GetComponent<CharacterParent>().GetHealth(), 1.0f, 1.0f);
+            }
+            else if (team == 1)
+            {
+                activePrefab.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f - activePrefab.GetComponent<CharacterParent>().GetHealth(), 1.0f - activePrefab.GetComponent<CharacterParent>().GetHealth(), 1.0f);
+            }
             //quit game load end scene
-            if(menuInput && windowsInput)
+            if (menuInput && windowsInput)
             {
                 SceneManager.LoadScene(9);
             }
-
-            //charPrefab1.GetComponent<PlayerInput>().;
         }
     }
 }

@@ -39,41 +39,71 @@ public class GameEndScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        blueTeamScore = blueTeam[0].charPrefab1.GetComponent<CharacterParent>().thisCharScore + blueTeam[1].charPrefab1.GetComponent<CharacterParent>().thisCharScore +
-                        blueTeam[0].charPrefab2.GetComponent<CharacterParent>().thisCharScore + blueTeam[1].charPrefab2.GetComponent<CharacterParent>().thisCharScore +
-                        blueTeam[0].charPrefab3.GetComponent<CharacterParent>().thisCharScore + blueTeam[1].charPrefab3.GetComponent<CharacterParent>().thisCharScore;
-        redTeamScore =  redTeam[0].charPrefab1.GetComponent<CharacterParent>().thisCharScore + redTeam[1].charPrefab1.GetComponent<CharacterParent>().thisCharScore +
-                        redTeam[0].charPrefab2.GetComponent<CharacterParent>().thisCharScore + redTeam[1].charPrefab2.GetComponent<CharacterParent>().thisCharScore +
-                        redTeam[0].charPrefab3.GetComponent<CharacterParent>().thisCharScore + redTeam[1].charPrefab3.GetComponent<CharacterParent>().thisCharScore;
-        Score.SetText(blueTeamScore.ToString() + ":" + redTeamScore.ToString());
-        // all of blue team is dead
-        if (blueTeam[0].char1isDeadFlag && blueTeam[0].char2isDeadFlag && blueTeam[0].char3isDeadFlag 
-            && blueTeam[1].char1isDeadFlag && blueTeam[1].char2isDeadFlag && blueTeam[1].char3isDeadFlag)
+        if (blueTeam.Count == 2 && redTeam.Count == 2)
         {
-            //red survived
-            winCase = 1;
-            SceneManager.LoadScene("EndScreen");
+            blueTeamScore = blueTeam[0].charPrefab1.GetComponent<CharacterParent>().thisCharScore + blueTeam[1].charPrefab1.GetComponent<CharacterParent>().thisCharScore +
+                            blueTeam[0].charPrefab2.GetComponent<CharacterParent>().thisCharScore + blueTeam[1].charPrefab2.GetComponent<CharacterParent>().thisCharScore +
+                            blueTeam[0].charPrefab3.GetComponent<CharacterParent>().thisCharScore + blueTeam[1].charPrefab3.GetComponent<CharacterParent>().thisCharScore;
+            redTeamScore = redTeam[0].charPrefab1.GetComponent<CharacterParent>().thisCharScore + redTeam[1].charPrefab1.GetComponent<CharacterParent>().thisCharScore +
+                            redTeam[0].charPrefab2.GetComponent<CharacterParent>().thisCharScore + redTeam[1].charPrefab2.GetComponent<CharacterParent>().thisCharScore +
+                            redTeam[0].charPrefab3.GetComponent<CharacterParent>().thisCharScore + redTeam[1].charPrefab3.GetComponent<CharacterParent>().thisCharScore;
+            Score.SetText(blueTeamScore.ToString() + ":" + redTeamScore.ToString());
+            // all of blue team is dead
+            if (blueTeam[0].char1isDeadFlag && blueTeam[0].char2isDeadFlag && blueTeam[0].char3isDeadFlag
+                && blueTeam[1].char1isDeadFlag && blueTeam[1].char2isDeadFlag && blueTeam[1].char3isDeadFlag)
+            {
+                //red survived
+                winCase = 1;
+                SceneManager.LoadScene("EndScreen");
+            }
+            // all of red team is dead
+            else if (redTeam[0].char1isDeadFlag && redTeam[0].char2isDeadFlag && redTeam[0].char3isDeadFlag
+                && redTeam[1].char1isDeadFlag && redTeam[1].char2isDeadFlag && redTeam[1].char3isDeadFlag)
+            {
+                //blue team survived
+                winCase = 0;
+                SceneManager.LoadScene("EndScreen");
+            }
         }
-        // all of red team is dead
-        else if (redTeam[0].char1isDeadFlag && redTeam[0].char2isDeadFlag && redTeam[0].char3isDeadFlag
-            && redTeam[1].char1isDeadFlag && redTeam[1].char2isDeadFlag && redTeam[1].char3isDeadFlag)
-        {
-            //blue team survived
-            winCase = 0;
-            SceneManager.LoadScene("EndScreen");
-        }
-        else if(blueTeamScore > 100)
-        {
-            //blue team captured the point
-            winCase = 2;
-            SceneManager.LoadScene("EndScreen");
-        }
-        else if(redTeamScore > 100)
-        {
-            //red team captured the point
-            winCase = 3;
-           SceneManager.LoadScene("EndScreen");
 
+        if (blueTeam.Count == 1 && redTeam.Count == 1)
+        {
+            blueTeamScore = blueTeam[0].charPrefab1.GetComponent<CharacterParent>().thisCharScore +
+                            blueTeam[0].charPrefab2.GetComponent<CharacterParent>().thisCharScore + 
+                            blueTeam[0].charPrefab3.GetComponent<CharacterParent>().thisCharScore;
+            redTeamScore = redTeam[0].charPrefab1.GetComponent<CharacterParent>().thisCharScore +
+                            redTeam[0].charPrefab2.GetComponent<CharacterParent>().thisCharScore +
+                            redTeam[0].charPrefab3.GetComponent<CharacterParent>().thisCharScore;
+            Score.SetText(blueTeamScore.ToString() + ":" + redTeamScore.ToString());
+            // all of blue team is dead
+            if (blueTeam[0].char1isDeadFlag && blueTeam[0].char2isDeadFlag && blueTeam[0].char3isDeadFlag)
+            {
+                //red survived
+                winCase = 1;
+                SceneManager.LoadScene("EndScreen");
+            }
+            // all of red team is dead
+            else if (redTeam[0].char1isDeadFlag && redTeam[0].char2isDeadFlag && redTeam[0].char3isDeadFlag)
+            {
+                //blue team survived
+                winCase = 0;
+                SceneManager.LoadScene("EndScreen");
+            }
         }
-    }
+
+        if (blueTeamScore > 100)
+            {
+                //blue team captured the point
+                winCase = 2;
+                SceneManager.LoadScene("EndScreen");
+            }
+            else if (redTeamScore > 100)
+            {
+                //red team captured the point
+                winCase = 3;
+                SceneManager.LoadScene("EndScreen");
+
+            }
+        }
+    
 }

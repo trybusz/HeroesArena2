@@ -834,6 +834,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3432996892152377060, guid: d2321f847816f564c94f616aee64acbd, type: 3}
+      propertyPath: MaxPlayers
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7649680981901533397, guid: d2321f847816f564c94f616aee64acbd, type: 3}
       propertyPath: m_AllowJoining
       value: 1
