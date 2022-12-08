@@ -8,10 +8,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerConfigurationManager : MonoBehaviour
 {
-   
+
     [SerializeField]
     private List<PlayerConfiguration> playerConfigs;
-    
+
     [SerializeField]
     public int MaxPlayers = 4;
 
@@ -44,7 +44,7 @@ public class PlayerConfigurationManager : MonoBehaviour
         {
             playerConfigs.Add(new PlayerConfiguration(pi));
             Debug.Log("Player Config added for index " + pi.playerIndex);
-           
+
         }
         else
         {
@@ -78,10 +78,32 @@ public class PlayerConfigurationManager : MonoBehaviour
     {
         playerConfigs[index].isReady = true;
         Debug.Log(playerConfigs[index].charPrefab1);
-        if (playerConfigs.Count == MaxPlayers && playerConfigs[0].isReady && playerConfigs[1].isReady && playerConfigs[2].isReady && playerConfigs[3].isReady)
+        if (playerConfigs.Count == MaxPlayers)
         {
-            Debug.Log("Scene Load");
-            SceneManager.LoadScene(SceneSelectScript.selectedStage);
+            if (MaxPlayers == 2)
+            {
+                if (playerConfigs[0].isReady && playerConfigs[1].isReady)
+                {
+                    Debug.Log("Scene Load");
+                    SceneManager.LoadScene(SceneSelectScript.selectedStage);
+                }
+            }
+            else if (MaxPlayers == 4)
+            {
+                if (playerConfigs[0].isReady && playerConfigs[1].isReady && playerConfigs[2].isReady && playerConfigs[3].isReady)
+                {
+                    Debug.Log("Scene Load");
+                    SceneManager.LoadScene(SceneSelectScript.selectedStage);
+                }
+            }
+            else if (MaxPlayers == 6)
+            {
+                if (playerConfigs[0].isReady && playerConfigs[1].isReady && playerConfigs[2].isReady && playerConfigs[3].isReady && playerConfigs[4].isReady && playerConfigs[5].isReady)
+                {
+                    Debug.Log("Scene Load");
+                    SceneManager.LoadScene(SceneSelectScript.selectedStage);
+                }
+            }
         }
     }
 }

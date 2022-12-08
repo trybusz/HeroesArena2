@@ -34,7 +34,7 @@ public class PlayerMaster : MonoBehaviour
     public bool XButtonInput { get; private set; }
     public bool YButtonInput { get; private set; }
 
-    private GameObject activePrefab;
+    public GameObject activePrefab;
     public Transform playerStart;
     public Vector2 movementInput;
     public Vector2 aimInput;
@@ -359,12 +359,10 @@ public class PlayerMaster : MonoBehaviour
             }
 
             //quit game load end scene
-            if(menuInput && windowsInput)
+            if (menuInput && windowsInput)
             {
                 SceneManager.LoadScene(9);
             }
-
-            //charPrefab1.GetComponent<PlayerInput>().;
         }
     }
 }
