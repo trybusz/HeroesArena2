@@ -177,7 +177,7 @@ public class PlayerSetupMenuController : MonoBehaviour
 					PlayerConfigurationManager.Instance.SetPlayerPrefab2(PlayerIndex, characters[selectedCharacter]);
 					charPrefab2picked = true;
 					charPrefab2 = characters[selectedCharacter];
-			}
+				}
 			}
             else
             {

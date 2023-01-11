@@ -138,10 +138,10 @@ public class MenuControl : MonoBehaviour
             SelQuit.SetActive(true);
         }
 
-        //Go back to Start Screen
+        //Go back to Start Screen that doesn't have the sound manager
         if (BackPress)
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(13);
         }
         //Go to new screens
         if (SelPress && MenuSelection == 1)

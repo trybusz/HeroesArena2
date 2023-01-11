@@ -12,7 +12,7 @@ public class ShadowBladeScript : MonoBehaviour
     void Start()
     {
         airTime = 1.5f;
-        damage = 25;
+        damage = 20;
         timeOfInst = Time.timeSinceLevelLoad + airTime;
         hitSomething = false;
         //SoundManagerScript.PlaySound("Arrow");

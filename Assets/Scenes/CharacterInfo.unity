@@ -669,7 +669,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Shadow Slime\r\nHealth: 150\r\nSpeed: 85\r\nPrimary Ability: Shadow Blade\r\n    
-    - Damage: 25\r\n     - Cooldown: 0.4 Seconds\r\n     - Air Speed: 25.0\r\n    
+    - Damage: 20\n     - Cooldown: 0.4 Seconds\r\n     - Air Speed: 25.0\r\n    
     - Air Time: 1.5 Seconds\r\n     - Notes: Spawns a Shadow Blade that flies forward
     after one second\r\nSpecial Ability: Shoots Life Force Beam\r\n     - Damage:
     1\r\n     - Cooldown: 6.0 Seconds\r\n     - Air Speed: 15.0\r\n     - Air Time:

@@ -13,17 +13,20 @@ public class GameEndScript : MonoBehaviour
     public PlayerMaster[] playerMasters;
     public List<PlayerMaster> blueTeam;
     public List<PlayerMaster> redTeam;
-    public static int winCase;
+    public static int winCase = -1;
     public int redTeamScore;
     public int blueTeamScore;
     public TextMeshProUGUI Score;
+    public float endTime = 0.0f;
+
 
     // Start is called before the first frame update
     void Start()
     {
+
         playerMasters = GameObject.FindObjectsOfType<PlayerMaster>();
-       
-        for(int i = 0; i < playerMasters.Length; i++)
+        winCase = -1;
+        for (int i = 0; i < playerMasters.Length; i++)
         {
             if (playerMasters[i].team == 0)
             {
@@ -53,23 +56,29 @@ public class GameEndScript : MonoBehaviour
                 && blueTeam[1].char1isDeadFlag && blueTeam[1].char2isDeadFlag && blueTeam[1].char3isDeadFlag)
             {
                 //red survived
-                winCase = 1;
-                SceneManager.LoadScene("EndScreen");
+                if (winCase == -1)
+                {
+                    endTime = 2.5f + Time.timeSinceLevelLoad;
+                    winCase = 1;
+                }
             }
             // all of red team is dead
             else if (redTeam[0].char1isDeadFlag && redTeam[0].char2isDeadFlag && redTeam[0].char3isDeadFlag
                 && redTeam[1].char1isDeadFlag && redTeam[1].char2isDeadFlag && redTeam[1].char3isDeadFlag)
             {
                 //blue team survived
-                winCase = 0;
-                SceneManager.LoadScene("EndScreen");
+                if (winCase == -1)
+                {
+                    endTime = 2.5f + Time.timeSinceLevelLoad;
+                    winCase = 0;
+                }
             }
         }
 
         if (blueTeam.Count == 1 && redTeam.Count == 1)
         {
             blueTeamScore = blueTeam[0].charPrefab1.GetComponent<CharacterParent>().thisCharScore +
-                            blueTeam[0].charPrefab2.GetComponent<CharacterParent>().thisCharScore + 
+                            blueTeam[0].charPrefab2.GetComponent<CharacterParent>().thisCharScore +
                             blueTeam[0].charPrefab3.GetComponent<CharacterParent>().thisCharScore;
             redTeamScore = redTeam[0].charPrefab1.GetComponent<CharacterParent>().thisCharScore +
                             redTeam[0].charPrefab2.GetComponent<CharacterParent>().thisCharScore +
@@ -79,31 +88,47 @@ public class GameEndScript : MonoBehaviour
             if (blueTeam[0].char1isDeadFlag && blueTeam[0].char2isDeadFlag && blueTeam[0].char3isDeadFlag)
             {
                 //red survived
-                winCase = 1;
-                SceneManager.LoadScene("EndScreen");
+
+                if (winCase == -1)
+                {
+                    endTime = 2.5f + Time.timeSinceLevelLoad;
+                    winCase = 1;
+                }
+
             }
             // all of red team is dead
             else if (redTeam[0].char1isDeadFlag && redTeam[0].char2isDeadFlag && redTeam[0].char3isDeadFlag)
             {
                 //blue team survived
-                winCase = 0;
-                SceneManager.LoadScene("EndScreen");
-            }
-        }
+                if (winCase == -1)
+                {
+                    endTime = 2.5f + Time.timeSinceLevelLoad;
+                    winCase = 0;
+                }
 
-        if (blueTeamScore > 100)
-            {
-                //blue team captured the point
-                winCase = 2;
-                SceneManager.LoadScene("EndScreen");
-            }
-            else if (redTeamScore > 100)
-            {
-                //red team captured the point
-                winCase = 3;
-                SceneManager.LoadScene("EndScreen");
 
             }
         }
-    
+
+        if (blueTeamScore > 99)
+        {
+            //blue team captured the point
+            winCase = 2;
+            SceneManager.LoadScene("EndScreen");
+        }
+        else if (redTeamScore > 99)
+        {
+            //red team captured the point
+            winCase = 3;
+            SceneManager.LoadScene("EndScreen");
+
+        }
+        if (winCase != -1 && endTime < Time.timeSinceLevelLoad)
+        {
+            SceneManager.LoadScene("EndScreen");
+        }
+
+
+    }
+
 }

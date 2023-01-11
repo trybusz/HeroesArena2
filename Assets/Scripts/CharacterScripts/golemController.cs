@@ -307,6 +307,6 @@ public class golemController : CharacterParent
             currentCharHealth = maxCharHealth;
         }
         primAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
-        secAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
+        secAbilInd.color = new Color(1.0f - GetSpecial(), 1.0f - GetSpecial(), 1.0f - GetSpecial(), 1.0f);
     }
 }

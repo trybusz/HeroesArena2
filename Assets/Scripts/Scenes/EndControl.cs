@@ -41,7 +41,7 @@ public class EndControl : MonoBehaviour
     {
         if (Input.anyKeyDown && Time.timeSinceLevelLoad > 2.0f)//Any Button Press
         {
-            SceneManager.LoadScene(1);// load Start Screen
+            SceneManager.LoadScene(0);// load Start Screen
             //SoundManagerScript.PlayLoop("mainMenuMusic");
         }
     }

@@ -224,6 +224,8 @@ public class AssassinScript : CharacterParent
             //Set Invs
             spriteR.enabled = false;
             WeaponSprite.enabled = false;
+            primAbilInd.enabled = false;
+            secAbilInd.enabled = false;
             //InvisIndSprite.enabled = false;
             rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod;
         }
@@ -235,6 +237,8 @@ public class AssassinScript : CharacterParent
         {
             spriteR.enabled = true;
             WeaponSprite.enabled = true;
+            primAbilInd.enabled = true;
+            secAbilInd.enabled = true;
             //InvisIndSprite.enabled = true;
             rb.velocity = new Vector2(movementInput.x, movementInput.y) * charSpeed * charSpeedMod;
         }
@@ -306,7 +310,7 @@ public class AssassinScript : CharacterParent
         }
 
         primAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
-        secAbilInd.color = new Color(1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f - GetPrimary(), 1.0f);
+        secAbilInd.color = new Color(1.0f - GetSpecial(), 1.0f - GetSpecial(), 1.0f - GetSpecial(), 1.0f);
 
     }
 }

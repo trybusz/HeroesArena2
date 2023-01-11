@@ -351,11 +351,11 @@ public class PlayerMaster : MonoBehaviour
             //set colors as functions of player health
             if(team == 0)
             {
-                activePrefab.GetComponent<SpriteRenderer>().color = new Color(1.0f - activePrefab.GetComponent<CharacterParent>().GetHealth(), 1.0f - activePrefab.GetComponent<CharacterParent>().GetHealth(), 1.0f, 1.0f);
+                activePrefab.GetComponent<SpriteRenderer>().color = new Color(0.8f - 0.8f * activePrefab.GetComponent<CharacterParent>().GetHealth(), 0.8f - 0.8f * activePrefab.GetComponent<CharacterParent>().GetHealth(), 1.0f, 1.0f);
             }
             else if(team == 1)
             {
-                activePrefab.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f - activePrefab.GetComponent<CharacterParent>().GetHealth(), 1.0f - activePrefab.GetComponent<CharacterParent>().GetHealth(), 1.0f);
+                activePrefab.GetComponent<SpriteRenderer>().color = new Color(1.0f, 0.8f - 0.8f * activePrefab.GetComponent<CharacterParent>().GetHealth(), 0.8f - 0.8f * activePrefab.GetComponent<CharacterParent>().GetHealth(), 1.0f);
             }
 
             //quit game load end scene
