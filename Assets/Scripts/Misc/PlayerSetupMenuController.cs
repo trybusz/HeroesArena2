@@ -14,6 +14,9 @@ public class PlayerSetupMenuController : MonoBehaviour
 	public TextMeshProUGUI[] descriptions;
 	public Sprite[] images;
 	public Image image;
+	public Image image1;
+	public Image image2;
+	public Image image3;
 	public Image teamColor;
 	public int team;
 
@@ -43,7 +46,15 @@ public class PlayerSetupMenuController : MonoBehaviour
 	//public GameObject charPrefab;
 	bool flag = true;
 	public bool teamPicked = false;
-	
+
+	public bool showChars;
+	public int char1num = -1;
+	public int char2num = -1;
+	public int char3num = -1;
+
+	public float leftRightTime;
+	public Vector2 movementInput;
+
 	public Transform charLocation;
 	public void Awake()
 	{
@@ -58,6 +69,11 @@ public class PlayerSetupMenuController : MonoBehaviour
 
     public void Start()
     {
+		showChars = false;
+		image1.enabled = false;
+		image2.enabled = false;
+		image3.enabled = false;
+
 		menuPanel.SetActive(true);
 		teamSelectPanel.SetActive(false);
 		readyPanel.SetActive(false);
@@ -97,18 +113,55 @@ public class PlayerSetupMenuController : MonoBehaviour
 	{
 		if (!inputEnabled) { return; }
 
+		//Added this don't know why it wasnt here
+		PlayerConfigurationManager.Instance.SetPlayerPrefab1(PlayerIndex, prefab);
+
+		char1num = (selectedCharacter) % characters.Length;
+		//image1.sprite = images[selectedCharacter];
 	}
 	public void SetCharPrefab2(GameObject prefab)
 	{
 		if (!inputEnabled) { return; }
 
 		PlayerConfigurationManager.Instance.SetPlayerPrefab2(PlayerIndex, prefab);
+
+		char2num = (selectedCharacter) % characters.Length;
+		//image2.sprite = images[selectedCharacter];
 	}
 	public void SetCharPrefab3(GameObject prefab)
 	{
 		if (!inputEnabled) { return; }
 
 		PlayerConfigurationManager.Instance.SetPlayerPrefab3(PlayerIndex, prefab);
+
+		char3num = (selectedCharacter) % characters.Length;
+
+		//image3.sprite = images[selectedCharacter];
+	}
+
+	public void OnNormalAttack2(InputAction.CallbackContext context)
+	{
+		movementInput = context.ReadValue<Vector2>();
+	}
+	public void ShowChars(InputAction.CallbackContext context)
+	{
+		if (context.started)
+        {
+			showChars = !showChars;
+        }
+        if (showChars)
+        {
+			image1.enabled = true;
+			image2.enabled = true;
+			image3.enabled = true;
+		}
+        else
+        {
+			image1.enabled = false;
+			image2.enabled = false;
+			image3.enabled = false;
+		}
+
 	}
 
 	public void OnNormalAttack(InputAction.CallbackContext context)
@@ -177,6 +230,7 @@ public class PlayerSetupMenuController : MonoBehaviour
 					PlayerConfigurationManager.Instance.SetPlayerPrefab2(PlayerIndex, characters[selectedCharacter]);
 					charPrefab2picked = true;
 					charPrefab2 = characters[selectedCharacter];
+					char2num = (selectedCharacter) % characters.Length;
 				}
 			}
             else
@@ -205,6 +259,7 @@ public class PlayerSetupMenuController : MonoBehaviour
 				PlayerConfigurationManager.Instance.SetPlayerPrefab3(PlayerIndex, characters[selectedCharacter]);
                 charPrefab3picked = true;
 				charPrefab3 = characters[selectedCharacter];
+				char3num = (selectedCharacter) % characters.Length;
 			}
 		}
 	}
@@ -217,13 +272,70 @@ public class PlayerSetupMenuController : MonoBehaviour
 				PlayerConfigurationManager.Instance.SetPlayerPrefab1(PlayerIndex, characters[selectedCharacter]);
 				charPrefab1picked = true;
 				charPrefab1 = characters[selectedCharacter];
+				char1num = (selectedCharacter) % characters.Length;
 			}
 		}
 	}
 
 	private void Update()
-	{	
-		if(charPrefab1picked && charPrefab2picked && charPrefab3picked && flag)
+	{
+		if (movementInput.x > 0.2 && leftRightTime < Time.timeSinceLevelLoad && PlayerConfigurationManager.Instance.GetPlayerConfigs().Count == PlayerConfigurationManager.Instance.MaxPlayers)
+		{
+			if (!teamSelectPanel.activeInHierarchy)
+			{
+				NextCharacter();
+			}
+			else
+			{
+				//color is blue
+				if (teamColor.color.r == 0)
+				{
+					//set color to red
+					teamColor.color = new Color32(255, 0, 0, 255);
+
+				}
+				else
+				{
+					//set color to blue
+					teamColor.color = new Color32(0, 51, 225, 255);
+
+				}
+
+			}
+
+		}
+
+		if (movementInput.x < -0.2 && leftRightTime < Time.timeSinceLevelLoad && PlayerConfigurationManager.Instance.GetPlayerConfigs().Count == PlayerConfigurationManager.Instance.MaxPlayers)
+		{
+			if (!teamSelectPanel.activeInHierarchy)
+			{
+				PreviousCharacter();
+			}
+			else
+			{
+				//color is blue
+				if (teamColor.color.r == 0)
+				{
+					//set color to red
+					teamColor.color = new Color32(255, 0, 0, 255);
+
+				}
+				else
+				{
+					//set color to blue
+					teamColor.color = new Color32(0, 51, 225, 255);
+
+				}
+
+			}
+
+		}
+		if (leftRightTime < Time.timeSinceLevelLoad)
+		{
+			leftRightTime = Time.timeSinceLevelLoad + 0.2f;
+		}
+
+		if (charPrefab1picked && charPrefab2picked && charPrefab3picked && flag)
         {
 			
 			menuPanel.SetActive(false);
@@ -246,6 +358,20 @@ public class PlayerSetupMenuController : MonoBehaviour
 			}
 			
 		}
-
+		if (showChars)
+        {
+			if (char1num != -1)
+            {
+				image1.sprite = images[char1num];
+			}
+			if (char2num != -1)
+			{
+				image2.sprite = images[char2num];
+			}
+			if (char3num != -1)
+			{
+				image3.sprite = images[char3num];
+			}
+		}
 	}
 }

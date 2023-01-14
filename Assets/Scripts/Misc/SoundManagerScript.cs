@@ -12,13 +12,9 @@ public class SoundManagerScript : MonoBehaviour
 
     private void Start()
     {
-        gameObjects = GameObject.FindGameObjectsWithTag("soundTag");
 
-        if (gameObjects.Length == 0)
-        {
             Source.loop = true;
             Source.Play();
-        }
     }
 
 }

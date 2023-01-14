@@ -441,13 +441,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'The objective of this game is to either eliminate every enemy player,
-    or spend a combined 100 seconds as a team on the capture point in the center
-    of the map. On the next screen, you will select three different characters that
-    you can swap between at any point in the game. Your three characters are selected
-    and swapped between with the X, A and B buttons, respectively. These character
-    each have a primary and special attack that is activated with the right and left
-    bumpers.
+  m_text: 'The objective of this game is to either eliminate all three characters
+    of all enemy players or score 100 point as a team on the capture point in the
+    center of the map. On the next screen, you will select three different characters
+    that you can swap between at any point in the game. Your three characters are
+    selected and swapped between with the X, A and B buttons, respectively. These
+    character each have a primary and special attack that is activated with the right
+    and left bumpers.
 
 
 

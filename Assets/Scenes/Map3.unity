@@ -5200,6 +5200,7 @@ MonoBehaviour:
   redTeamScore: 0
   blueTeamScore: 0
   Score: {fileID: 2050715595}
+  endTime: 0
 --- !u!4 &267927331
 Transform:
   m_ObjectHideFlags: 0
